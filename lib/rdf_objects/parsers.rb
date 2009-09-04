@@ -4,8 +4,9 @@ require 'strscan'
 require 'iconv'
 require 'jcode'
 require 'uri'
-require 'nokogiri'
 require 'json'
+require 'nokogiri'
+require 'cgi'
 
 class UTF8Parser < StringScanner
   STRING = /(([\x0-\x1f]|[\\\/bfnrt]|\\u[0-9a-fA-F]{4}|[\x20-\xff])*)/nx
@@ -100,7 +101,8 @@ class NTriplesParser
   def self.parse(resources)
     collection = []
     if resources.is_a?(String)
-      assertions = resources.split(/\n/)
+      assertions = resources.split("\n")
+      puts assertions.inspect
     elsif resources.is_a?(Array)
       assertions = resources
     elsif resources.respond_to?(:read)
@@ -118,30 +120,21 @@ end
 
 class XMLParser
   def self.parse(doc)
-    unless doc.is_a?(Nokogiri::XML::Document)
-      doc = Nokogiri::XML.parse(doc)
+    xslt = Nokogiri::XSLT(open('xsl/rdf2nt.xsl'))
+    xformed_doc = xslt.apply_to(doc)
+    ntriples = xformed_doc.split("\n")
+    if ntriples[0] =~ /^\<\?xml/
+      ntriples.delete_at(0)
     end
-    xmlns = {'rdf'=>'http://www.w3.org/1999/02/22-rdf-syntax-ns#'}
-    collection = []
-    puts doc.to_s
-    doc.xpath('/rdf:RDF/rdf:Description', xmlns).each do | resource |
-      r = Resource.new(resource['about'])
-      resource.children.each do | child |
-        next unless child.is_a?(Nokogiri::XML::Element)
-        predicate = "#{child.namespace.href}#{child.name}"
-        if child.inner_text && !child.inner_text.empty?
-          options = {}
-          options[:data_type] = child.attribute_with_ns('dataType',xmlns['rdf'])
-          options[:language] = child.attribute_with_ns('lang','xml')
-          obj = Literal.new(child.inner_text, options)
-          r.assert(predicate, obj)
-        elsif child['resource']
-          r.assert(predicate, Resource.new(child['resource']))
-        end
-      end
-      collection << r
-    end
-    collection
+    return NTriplesParser.parse(ntriples)
+  end
+end
+
+class RDFAParser
+  def self.parse(doc)
+    xslt = Nokogiri::XSLT(open('xsl/RDFa2RDFXML.xsl'))
+    rdf_doc = xslt.apply_to(doc)  
+    XMLParser.parse(Nokogiri.parse(rdf_doc))  
   end
 end
 
@@ -154,17 +147,24 @@ class Parser
     begin
       # Check if the format is XML or RDFa
       doc = Nokogiri::XML.parse(rdf, nil, nil, Nokogiri::XML::ParseOptions::PEDANTIC)
-      raise "Unable to parse XML/HTML document -- no namespace declared" unless doc.root.namespace
-      if doc.root.namespace == "http://www.w3.org/1999/xhtml"
+      raise "Unable to parse XML/HTML document -- no namespace declared" unless doc.root.namespaces
+      if doc.root.namespaces.values.index("http://www.w3.org/1999/xhtml")
         collection = RDFAParser.parse(doc)
       else
         collection = XMLParser.parse(doc)
       end
     rescue Nokogiri::XML::SyntaxError
       begin
-        json = JSON.parse(rdf)
+        if rdf.respond_to?(:read)
+          json = JSON.parse(rdf.read)
+        else
+          json = JSON.parse(rdf)
+        end
         collection = JSONParser.parse(json)
       rescue JSON::ParserError
+        if rdf.respond_to?(:read)
+          rdf.rewind
+        end
         collection = NTriplesParser.parse(rdf)
       end
     end

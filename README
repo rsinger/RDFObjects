@@ -1,5 +1,8 @@
 RDFObjects are intended to simplify working with RDF data by providing a (more) Ruby-like interface to resources (thanks to OpenStruct).
 
+Installation:
+  sudo gem install rsinger-rdfobjects
+
 Requirements:
   * Nokogiri (the idea is for more options in the future)
   * rsinger-curies

@@ -2,7 +2,7 @@ RDFObjects are intended to simplify working with RDF data by providing a (more) 
 
 Requirements:
   * Nokogiri (the idea is for more options in the future)
-  * Curies (see: http://github.com/pius/curies/tree/master - currently a manual install required)
+  * rsinger-curies
   * Builder (although, ideally, this will be deprecated)
   * json (or json_pure)
   

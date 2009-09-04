@@ -1,0 +1,10 @@
+module RDFObject
+  require 'rubygems'
+  require 'curies'
+  require File.dirname(__FILE__) + '/rdf_objects/parsers'
+  require File.dirname(__FILE__) + '/rdf_objects/rdf_resource'
+  require File.dirname(__FILE__) + '/rdf_objects/curies'
+  require File.dirname(__FILE__) + '/rdf_objects/data_types'
+  require File.dirname(__FILE__) + '/rdf_objects/http_client'    
+  Curie.remove_prefixes!(:http)
+end

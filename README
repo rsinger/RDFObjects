@@ -1,0 +1,100 @@
+RDFObjects are intended to simplify working with RDF data by providing a (more) Ruby-like interface to resources (thanks to OpenStruct).
+
+Requirements:
+  * Nokogiri (the idea is for more options in the future)
+  * Curies (see: http://github.com/pius/curies/tree/master - currently a manual install required)
+  * Builder (although, ideally, this will be deprecated)
+  * json (or json_pure)
+  
+Usage:
+  >> require 'rdf_objects'
+  
+  >> include RDFObject
+  
+  >> Curie.add_prefixes! :skos=>"http://www.w3.org/2004/02/skos/core#"
+  
+  >> resource = Resource.new('http://id.loc.gov/authorities/sh2002000569#concept')
+  >> resource.describe
+  >> resource.skos
+  
+  => {"inScheme"=>[#<RDFObject::Resource uri="http://id.loc.gov/authorities#topicalTerms">, #<RDFObject::Resource uri="http://id.loc.gov/authorities#conceptScheme">], "broader"=>[#<RDFObject::Resource skos={"prefLabel"=>"Semantic networks (Information theory)"}, uri="http://id.loc.gov/authorities/sh92004914#concept">, #<RDFObject::Resource skos={"prefLabel"=>"World Wide Web"}, uri="http://id.loc.gov/authorities/sh95000541#concept">, #<RDFObject::Resource skos={"prefLabel"=>"Semantic integration (Computer systems)"}, uri="http://id.loc.gov/authorities/sh2004000479#concept">], "closeMatch"=>#<RDFObject::Resource uri="http://stitch.cs.vu.nl/vocabularies/rameau/ark:/12148/cb14521343b">, "prefLabel"=>"Semantic Web"}
+  
+  >> resource["[skos:prefLabel]"]
+  
+  => "Semantic Web"
+  
+  >> resource.skos["prefLabel"]
+  
+  => "Semantic Web"
+  
+  >> resource["http://www.w3.org/2004/02/skos/core#prefLabel"]
+  
+  => "Semantic Web"
+  (etc.)
+  
+  >> resource.skos["broader"].first.skos["prefLabel"]
+  
+  => "Semantic networks (Information theory)"
+  
+  Unnecessary, but helpful, way to define typed literals
+  >> source = Literal.new("Library of Congress Authorities", {:language=>"en"})
+  
+  And assert them
+  
+  >> resource.assert("http://purl.org/dc/terms/source", source)
+  
+  => ["Work cat.: 2002070545: The Semantic Web--ISWC 20002, 2002.", "ASTI on FirstSearch, May 6, 2002: in titles (semantic Web)", "Engr. index online, May 6, 2002 (identifier: Semantic Web)", "Library of Congress Authorities"]
+  
+  >> resource["http://purl.org/dc/terms/source"].last.language
+  
+  => "en"
+  
+  To relate a resource to another URI you can use #.resource - it will accept full uri strings, safe curies or other RDFObject::Resource objects
+  
+  >> resource.relate("[skos:closeMatch]", "http://dbpedia.org/resource/Category:Semantic_Web")
+  
+  => [#<RDFObject::Resource uri="http://stitch.cs.vu.nl/vocabularies/rameau/ark:/12148/cb14521343b">, #<RDFObject::Resource uri="http://dbpedia.org/resource/Category:Semantic_Web">]
+  
+  RDFObject::Resources sort of act as singletons
+  
+  >> r1 = Resource.new('http://ex.org/ex/1234')
+  
+  => #<RDFObject::Resource uri="http://ex.org/ex/1234">
+  
+  >> r1.object_id
+  
+  => 8996290
+  
+  >> r2 = Resource.new('http://ex.org/ex/1234')
+  
+  => #<RDFObject::Resource uri="http://ex.org/ex/1234">  
+  
+  >> r2.object_id
+  
+  => 8996290  
+  
+  So relationships and assertions are always applied to the same object.  These are managed in the RDFObject::Resource class:
+  
+  >> Resource.instances
+  
+  => {"http://ex.org/ex/1234"=>#<RDFObject::Resource uri="http://ex.org/ex/1234">}
+  
+  You can delete a single resource:
+  
+  >> Resource.remove(r1)
+  
+  >> Resource.instances
+  => {}
+
+  Or clear the entire hash:
+  
+  >> Resource.reset!
+  
+  There are also very crude parsers for ntriples and rdf/xml
+  
+  >> resources = Parser.parse(open('lcsh.nt').read)
+  
+  >> resources.first
+  
+  => #<RDFObject::Resource n0={"altLabel"=>"Lichen ruber planus", "inScheme"=>[#<RDFObject::Resource uri="http://id.loc.gov/authorities#conceptScheme">, #<RDFObject::Resource uri="http://id.loc.gov/authorities#topicalTerms">], "prefLabel"=>"Lichen planus"}, n1={"sameAs"=>#<RDFObject::Resource uri="info:lc/authorities/sh85076767">}, uri="http://id.loc.gov/authorities/sh85076767#concept", n2={"modified"=>#<DateTime: 211644344801/86400,-1/6,2299161>}, rdf={"type"=>#<RDFObject::Resource uri="http://www.w3.org/2004/02/skos/core#Concept">}>
+  

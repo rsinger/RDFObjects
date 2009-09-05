@@ -1,6 +1,10 @@
-require '../lib/rdf_objects'
+require File.dirname(__FILE__) + '/../lib/rdf_objects'
 include RDFObject
 describe "An RDFObject Resource" do
+  before(:all) do
+    Resource.reset!
+  end  
+  
   it "should initialize a resource with a URI" do
     Resource.new('http://example.org/1234').should be_a_kind_of(RDFObject::Resource)
   end
@@ -91,5 +95,8 @@ describe "An RDFObject Resource" do
   it "should let us know if a graph is not empty" do
     r1 = Resource.new('http://example.org/1234')
     r1.empty_graph?.should be_false
+  end  
+  after(:all) do
+    Resource.reset!
   end  
 end

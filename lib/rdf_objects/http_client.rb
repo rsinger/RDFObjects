@@ -10,7 +10,6 @@ class HTTPClient
         uri = proxy.proxy_uri(uri, ['ntriples','rdf'])
       end
     end
-    puts uri
     u = URI.parse(uri)
     request = Net::HTTP::Get.new(u.request_uri)
     request['accept'] = nil

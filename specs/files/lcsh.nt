@@ -1,0 +1,131 @@
+<http://id.loc.gov/authorities/sh85076767#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#conceptScheme>.
+<http://id.loc.gov/authorities/sh85076767#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#topicalTerms>.
+<http://id.loc.gov/authorities/sh85076767#concept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept>.
+<http://id.loc.gov/authorities/sh85076767#concept> <http://www.w3.org/2004/02/skos/core#prefLabel> "Lichen planus"@en.
+<http://id.loc.gov/authorities/sh85076767#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Lichen ruber planus"@en.
+<http://id.loc.gov/authorities/sh85076767#concept> <http://www.w3.org/2002/07/owl#sameAs> <info:lc/authorities/sh85076767>.
+<http://id.loc.gov/authorities/sh85076767#concept> <http://purl.org/dc/terms/modified> "1994-08-22T15:46:41-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh2002000312#concept> <http://purl.org/dc/terms/created> "2002-12-05T00:00:00-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh2002000312#concept> <http://purl.org/dc/terms/source> "Work cat.: Cummings, D. Periodic dam safety inspection report : College Hill, Beacon Hill reservoirs, 2000: p. 1 (located within the City of Hoquiam)"@en.
+<http://id.loc.gov/authorities/sh2002000312#concept> <http://www.w3.org/2004/02/skos/core#broader> <http://id.loc.gov/authorities/sh85113124#concept>.
+<http://id.loc.gov/authorities/sh2002000312#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#conceptScheme>.
+<http://id.loc.gov/authorities/sh2002000312#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#geographicNames>.
+<http://id.loc.gov/authorities/sh2002000312#concept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept>.
+<http://id.loc.gov/authorities/sh2002000312#concept> <http://www.w3.org/2004/02/skos/core#prefLabel> "College Hill Reservoir (Hoquiam, Wash.)"@en.
+<http://id.loc.gov/authorities/sh2002000312#concept> <http://www.w3.org/2004/02/skos/core#editorialNote> "GNIS, Nov. 13, 2002"@en.
+<http://id.loc.gov/authorities/sh2002000312#concept> <http://www.w3.org/2002/07/owl#sameAs> <info:lc/authorities/sh2002000312>.
+<http://id.loc.gov/authorities/sh2002000312#concept> <http://purl.org/dc/terms/modified> "2002-12-05T06:51:13-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh85076768#concept> <http://purl.org/dc/terms/created> "1986-02-11T00:00:00-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh85076768#concept> <http://www.w3.org/2004/02/skos/core#broader> <http://id.loc.gov/authorities/sh85102800#concept>.
+<http://id.loc.gov/authorities/sh85076768#concept> <http://www.w3.org/2004/02/skos/core#closeMatch> <http://stitch.cs.vu.nl/vocabularies/rameau/ark:/12148/cb12382906n>.
+<http://id.loc.gov/authorities/sh85076768#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#conceptScheme>.
+<http://id.loc.gov/authorities/sh85076768#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#topicalTerms>.
+<http://id.loc.gov/authorities/sh85076768#concept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept>.
+<http://id.loc.gov/authorities/sh85076768#concept> <http://www.w3.org/2004/02/skos/core#prefLabel> "Lichen products"@en.
+<http://id.loc.gov/authorities/sh85076768#concept> <http://www.w3.org/2002/07/owl#sameAs> <info:lc/authorities/sh85076768>.
+<http://id.loc.gov/authorities/sh85076768#concept> <http://purl.org/dc/terms/modified> "2007-06-07T07:53:18-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh85076769#concept> <http://purl.org/dc/terms/created> "1986-02-11T00:00:00-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh85076769#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#conceptScheme>.
+<http://id.loc.gov/authorities/sh85076769#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#topicalTerms>.
+<http://id.loc.gov/authorities/sh85076769#concept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept>.
+<http://id.loc.gov/authorities/sh85076769#concept> <http://www.w3.org/2004/02/skos/core#prefLabel> "Lichen ruber"@en.
+<http://id.loc.gov/authorities/sh85076769#concept> <http://www.w3.org/2002/07/owl#sameAs> <info:lc/authorities/sh85076769>.
+<http://id.loc.gov/authorities/sh85076769#concept> <http://purl.org/dc/terms/modified> "1994-08-22T15:47:09-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh98001101#concept> <http://purl.org/dc/terms/created> "1998-02-26T00:00:00-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh98001101#concept> <http://purl.org/dc/terms/source> "The Ellen Trueblood Symposium : highlighting Idaho's rare fungi and lichens, 1998."@en.
+<http://id.loc.gov/authorities/sh98001101#concept> <http://www.w3.org/2004/02/skos/core#broader> <http://id.loc.gov/authorities/sh85111466#concept>.
+<http://id.loc.gov/authorities/sh98001101#concept> <http://www.w3.org/2004/02/skos/core#broader> <http://id.loc.gov/authorities/sh85076770#concept>.
+<http://id.loc.gov/authorities/sh98001101#concept> <http://www.w3.org/2004/02/skos/core#broader> <http://id.loc.gov/authorities/sh98001100#concept>.
+<http://id.loc.gov/authorities/sh98001101#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#conceptScheme>.
+<http://id.loc.gov/authorities/sh98001101#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#topicalTerms>.
+<http://id.loc.gov/authorities/sh98001101#concept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept>.
+<http://id.loc.gov/authorities/sh98001101#concept> <http://www.w3.org/2004/02/skos/core#prefLabel> "Rare lichens"@en.
+<http://id.loc.gov/authorities/sh98001101#concept> <http://www.w3.org/2002/07/owl#sameAs> <info:lc/authorities/sh98001101>.
+<http://id.loc.gov/authorities/sh85076778#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#personalNames>.
+<http://id.loc.gov/authorities/sh85076778#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#conceptScheme>.
+<http://id.loc.gov/authorities/sh85076778#concept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept>.
+<http://id.loc.gov/authorities/sh85076778#concept> <http://www.w3.org/2004/02/skos/core#related> <http://id.loc.gov/authorities/sh85079101#concept>.
+<http://id.loc.gov/authorities/sh85076778#concept> <http://www.w3.org/2004/02/skos/core#prefLabel> "Lide family"@en.
+<http://id.loc.gov/authorities/sh85076778#concept> <http://www.w3.org/2002/07/owl#sameAs> <info:lc/authorities/sh85076778>.
+<http://id.loc.gov/authorities/sh85076778#concept> <http://purl.org/dc/terms/modified> "1987-05-27T10:02:51-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://purl.org/dc/terms/created> "1986-02-11T00:00:00-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://purl.org/dc/terms/source> "Watson, L. The Leyda legacy, 1988 (Leidi, Leidich, Leidig, Leyda, Leydig)"@en.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://purl.org/dc/terms/source> "LC NAMES file, 7/12/88 (Leidi, Leidich, Leidig, Leydig, Leidy, Leyda)"@en.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://purl.org/dc/terms/source> "Va. phone book (Leidich, Leidig, Leidy)"@en.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#personalNames>.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#conceptScheme>.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept>.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2004/02/skos/core#related> <http://id.loc.gov/authorities/sh85076778#concept>.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2004/02/skos/core#prefLabel> "Lyda family"@en.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Leidi family"@en.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Leidich family"@en.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Leidig family"@en.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Leidy family"@en.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Leyda family"@en.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Leydig family"@en.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Lida family"@en.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Liday family"@en.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Lyday family"@en.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2004/02/skos/core#editorialNote> "Am. fam. names; Cent. pop. growth"@en.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://www.w3.org/2002/07/owl#sameAs> <info:lc/authorities/sh85079101>.
+<http://id.loc.gov/authorities/sh85079101#concept> <http://purl.org/dc/terms/modified> "1988-09-12T13:12:45-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh85076780#concept> <http://purl.org/dc/terms/created> "1986-02-11T00:00:00-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh85076780#concept> <http://www.w3.org/2004/02/skos/core#broader> <http://id.loc.gov/authorities/sh85142401#concept>.
+<http://id.loc.gov/authorities/sh85076780#concept> <http://www.w3.org/2004/02/skos/core#broader> <http://id.loc.gov/authorities/sh85102399#concept>.
+<http://id.loc.gov/authorities/sh85076780#concept> <http://www.w3.org/2004/02/skos/core#closeMatch> <http://stitch.cs.vu.nl/vocabularies/rameau/ark:/12148/cb145537755>.
+<http://id.loc.gov/authorities/sh85076780#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#conceptScheme>.
+<http://id.loc.gov/authorities/sh85076780#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#topicalTerms>.
+<http://id.loc.gov/authorities/sh85076780#concept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept>.
+<http://id.loc.gov/authorities/sh85076780#concept> <http://www.w3.org/2004/02/skos/core#prefLabel> "Lidoflazine"@en.
+<http://id.loc.gov/authorities/sh85076780#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Bisfluorophenylbutylpiperazineacetoxylidide"@en.
+<http://id.loc.gov/authorities/sh85076780#concept> <http://www.w3.org/2002/07/owl#sameAs> <info:lc/authorities/sh85076780>.
+<http://id.loc.gov/authorities/sh85076780#concept> <http://purl.org/dc/terms/modified> "1986-02-11T00:00:00-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh85076781#concept> <http://purl.org/dc/terms/created> "1986-02-11T00:00:00-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh85076781#concept> <http://www.w3.org/2004/02/skos/core#broader> <http://id.loc.gov/authorities/sh85076782#concept>.
+<http://id.loc.gov/authorities/sh85076781#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#conceptScheme>.
+<http://id.loc.gov/authorities/sh85076781#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#topicalTerms>.
+<http://id.loc.gov/authorities/sh85076781#concept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept>.
+<http://id.loc.gov/authorities/sh85076781#concept> <http://www.w3.org/2004/02/skos/core#prefLabel> "Lie-admissible algebras"@en.
+<http://id.loc.gov/authorities/sh85076781#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Algebras, Lie-admissible"@en.
+<http://id.loc.gov/authorities/sh85076781#concept> <http://www.w3.org/2002/07/owl#sameAs> <info:lc/authorities/sh85076781>.
+<http://id.loc.gov/authorities/sh2002000313#concept> <http://purl.org/dc/terms/created> "2002-12-05T00:00:00-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh2002000313#concept> <http://purl.org/dc/terms/source> "Work cat.: Cummings, D. Periodic dam safety inspection report : College Hill, Beacon Hill reservoirs, 2000: p. 1 (located within the City of Hoquiam)"@en.
+<http://id.loc.gov/authorities/sh2002000313#concept> <http://www.w3.org/2004/02/skos/core#broader> <http://id.loc.gov/authorities/sh85113124#concept>.
+<http://id.loc.gov/authorities/sh2002000313#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#conceptScheme>.
+<http://id.loc.gov/authorities/sh2002000313#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#geographicNames>.
+<http://id.loc.gov/authorities/sh2002000313#concept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept>.
+<http://id.loc.gov/authorities/sh2002000313#concept> <http://www.w3.org/2004/02/skos/core#prefLabel> "Beacon Hill Reservoir (Hoquiam, Wash.)"@en.
+<http://id.loc.gov/authorities/sh2002000313#concept> <http://www.w3.org/2004/02/skos/core#editorialNote> "GNIS, Nov. 13, 2002"@en.
+<http://id.loc.gov/authorities/sh2002000313#concept> <http://www.w3.org/2002/07/owl#sameAs> <info:lc/authorities/sh2002000313>.
+<http://id.loc.gov/authorities/sh2002000313#concept> <http://purl.org/dc/terms/modified> "2002-12-05T06:51:52-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh85076783#concept> <http://purl.org/dc/terms/created> "1986-02-11T00:00:00-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh85076783#concept> <http://purl.org/dc/terms/source> "Math. subj. classif. (Nonassociative rings and algebras 17-XX; Lie algebras, 17BXX; Exceptional algebras, 17B25)"@en.
+<http://id.loc.gov/authorities/sh85076783#concept> <http://www.w3.org/2004/02/skos/core#broader> <http://id.loc.gov/authorities/sh85076782#concept>.
+<http://id.loc.gov/authorities/sh85076783#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#conceptScheme>.
+<http://id.loc.gov/authorities/sh85076783#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#topicalTerms>.
+<http://id.loc.gov/authorities/sh85076783#concept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept>.
+<http://id.loc.gov/authorities/sh85076783#concept> <http://www.w3.org/2004/02/skos/core#prefLabel> "Exceptional Lie algebras"@en.
+<http://id.loc.gov/authorities/sh85076783#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Lie algebras, Exceptional"@en.
+<http://id.loc.gov/authorities/sh85076783#concept> <http://www.w3.org/2002/07/owl#sameAs> <info:lc/authorities/sh85076783>.
+<http://id.loc.gov/authorities/sh85076783#concept> <http://purl.org/dc/terms/modified> "1991-08-16T09:50:38-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh89002479#concept> <http://purl.org/dc/terms/created> "1989-04-18T00:00:00-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh89002479#concept> <http://purl.org/dc/terms/source> "Work cat.: Affine Kac-Moody algebras, weight multiplicities ... c1989."@en.
+<http://id.loc.gov/authorities/sh89002479#concept> <http://purl.org/dc/terms/source> "Math. subj. classif. (Nonassociative rings and algebras, 17-XX; Lie algebras, 17Bxx; Kac-Moody algebras, 17B67)"@en.
+<http://id.loc.gov/authorities/sh89002479#concept> <http://purl.org/dc/terms/source> "CompuMath cit. index."@en.
+<http://id.loc.gov/authorities/sh89002479#concept> <http://www.w3.org/2004/02/skos/core#broader> <http://id.loc.gov/authorities/sh85076782#concept>.
+<http://id.loc.gov/authorities/sh89002479#concept> <http://www.w3.org/2004/02/skos/core#closeMatch> <http://stitch.cs.vu.nl/vocabularies/rameau/ark:/12148/cb12126021f>.
+<http://id.loc.gov/authorities/sh89002479#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#conceptScheme>.
+<http://id.loc.gov/authorities/sh89002479#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#topicalTerms>.
+<http://id.loc.gov/authorities/sh89002479#concept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept>.
+<http://id.loc.gov/authorities/sh89002479#concept> <http://www.w3.org/2004/02/skos/core#prefLabel> "Kac-Moody algebras"@en.
+<http://id.loc.gov/authorities/sh89002479#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Algebras, Kac-Moody"@en.
+<http://id.loc.gov/authorities/sh89002479#concept> <http://www.w3.org/2004/02/skos/core#editorialNote> "LC data base, 4/12/89; Eisenreich. Mathematik; Encyc. dict. math.; McGraw-Hill dict. sci. tech."@en.
+<http://id.loc.gov/authorities/sh89002479#concept> <http://www.w3.org/2002/07/owl#sameAs> <info:lc/authorities/sh89002479>.
+<http://id.loc.gov/authorities/sh89002479#concept> <http://purl.org/dc/terms/modified> "1989-05-30T15:06:11-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh91003307#concept> <http://purl.org/dc/terms/created> "1991-07-10T00:00:00-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.
+<http://id.loc.gov/authorities/sh91003307#concept> <http://purl.org/dc/terms/source> "Work cat.: Feingold, A.J. Spinor construction of vertex operator algebras, triality, and E\u2088(\u00B9), 1991."@en.
+<http://id.loc.gov/authorities/sh91003307#concept> <http://purl.org/dc/terms/source> "Math. subj. classif. (Nonassociative rings and algebras, 17-XX; Lie algebras, 17Bxx; Infinite-dimensional Lie algebras, 17B65)"@en.
+<http://id.loc.gov/authorities/sh91003307#concept> <http://purl.org/dc/terms/source> "LC data base, 7/1/91 (infinite [-] dimensional Lie algebras)"@en.
+<http://id.loc.gov/authorities/sh91003307#concept> <http://purl.org/dc/terms/source> "Encyc. dict. math."@en.
+<http://id.loc.gov/authorities/sh91003307#concept> <http://purl.org/dc/terms/source> "CompuMath cit. index."@en.
+<http://id.loc.gov/authorities/sh91003307#concept> <http://www.w3.org/2004/02/skos/core#broader> <http://id.loc.gov/authorities/sh85076782#concept> .

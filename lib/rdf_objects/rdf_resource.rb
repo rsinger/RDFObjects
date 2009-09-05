@@ -53,6 +53,7 @@ module RDFObject
       end
       self.register_vocabulary(curied_predicate.prefix)
       pred_attr = self.send(curied_predicate.prefix.to_sym)
+      return if assertion_exists?(predicate, object)
       if pred_attr[curied_predicate.reference]
         unless pred_attr[curied_predicate.reference].is_a?(Array)
           pred_attr[curied_predicate.reference] = [pred_attr[curied_predicate.reference]]
@@ -61,6 +62,16 @@ module RDFObject
       else
         pred_attr[curied_predicate.reference] = object
       end
+    end
+    
+    def assertion_exists?(predicate, object)
+      return false unless self[predicate]
+      if self[predicate].is_a?(Array)
+        return true if self[predicate].index(object)
+      else
+        return true if self[predicate] == object
+      end
+      return false
     end
   
     def [](uri)
@@ -94,10 +105,6 @@ module RDFObject
     end
   
     def describe
-      unless self.empty_graph?
-        raise "Cannot describe a Resource with attributes already set!"
-      end
-  
       rdf = HTTPClient.fetch(self.uri)
       Parser.parse(rdf)
     end

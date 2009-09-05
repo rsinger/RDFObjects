@@ -102,7 +102,6 @@ class NTriplesParser
     collection = []
     if resources.is_a?(String)
       assertions = resources.split("\n")
-      puts assertions.inspect
     elsif resources.is_a?(Array)
       assertions = resources
     elsif resources.respond_to?(:read)
@@ -114,13 +113,13 @@ class NTriplesParser
       resource.assert(triple.predicate, triple.object)
       collection << resource
     end
-    collection
+    collection.uniq!
   end
 end
 
 class XMLParser
   def self.parse(doc)
-    xslt = Nokogiri::XSLT(open('xsl/rdf2nt.xsl'))
+    xslt = Nokogiri::XSLT(open(File.dirname(__FILE__) + '/../xsl/rdf2nt.xsl'))
     xformed_doc = xslt.apply_to(doc)
     ntriples = xformed_doc.split("\n")
     if ntriples[0] =~ /^\<\?xml/
@@ -132,7 +131,7 @@ end
 
 class RDFAParser
   def self.parse(doc)
-    xslt = Nokogiri::XSLT(open('xsl/RDFa2RDFXML.xsl'))
+    xslt = Nokogiri::XSLT(open(File.dirname(__FILE__) + '/../xsl/RDFa2RDFXML.xsl'))
     rdf_doc = xslt.apply_to(doc)  
     XMLParser.parse(Nokogiri.parse(rdf_doc))  
   end

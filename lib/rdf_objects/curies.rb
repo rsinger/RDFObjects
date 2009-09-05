@@ -2,6 +2,8 @@ require 'rubygems'
 require 'curies'
 class Curie
   @@namespace_counter = 0
+  
+  # Returns a Curie object from a fully qualified uri (assuming it is registered)
   def self.curie_from_uri(uri_string)
     @@mappings.each do | prefix, uri |
       if m = uri_string.match(/^#{uri}(.*)/)
@@ -10,6 +12,8 @@ class Curie
     end
     false
   end
+  
+  # Returns the Curie prefix for a URI
   def self.prefix_for(uri_string)
     @@mappings.each do | prefix, uri |
       if m = uri_string.match(/^#{uri}(.*)/)
@@ -18,6 +22,9 @@ class Curie
     end
     false
   end
+  
+  # Automatically tries to build a safe curie from a uri string.
+  # Assumes an RDF Schema and a flat hierarchy.
   def self.create_from_uri(uri_string, prefix=nil)
     if curie = self.curie_from_uri(uri_string)
       return curie
@@ -44,6 +51,7 @@ class Curie
     return @@mappings
   end
   
+  # Return a Curie object from a safe curie string.
   def self.new_from_curie(curie_string)
     unless curie_string.could_be_a_safe_curie?
       raise "not a real curie"

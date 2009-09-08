@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rdfobjects}
-  s.version = "0.1.6"
+  s.version = "0.1.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ross Singer"]
@@ -27,10 +27,7 @@ Gem::Specification.new do |s|
      "lib/rdf_objects/rdf_resource.rb",
      "lib/rdf_objects/serializers.rb",
      "lib/xsl/RDFa2RDFXML.xsl",
-     "lib/xsl/rdf2nt-mf.xsl",
-     "lib/xsl/rdf2nt.xsl",
-     "lib/xsl/rdfc14n.xsl",
-     "lib/xsl/rdfc2nt.xsl"
+     "lib/xsl/rdf2nt.xsl"
   ]
   s.homepage = %q{http://github.com/rsinger/RDFObjects/tree}
   s.rdoc_options = ["--charset=UTF-8"]

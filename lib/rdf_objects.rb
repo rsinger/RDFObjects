@@ -1,5 +1,6 @@
 module RDFObject
   require 'rubygems'
+  require 'ostruct'
   require 'curies'
   require File.dirname(__FILE__) + '/rdf_objects/parsers'
   require File.dirname(__FILE__) + '/rdf_objects/rdf_resource'

@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rdfobjects}
-  s.version = "0.1.8"
+  s.version = "0.1.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ross Singer"]
-  s.date = %q{2009-09-08}
+  s.date = %q{2009-09-24}
   s.description = %q{RDFObjects are intended to simplify working with RDF data by providing a (more) Ruby-like interface to resources (thanks to OpenStruct).}
   s.email = %q{rossfsinger@gmail.com}
   s.extra_rdoc_files = [
@@ -41,16 +41,16 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<nokogiri>, [">= 0"])
-      s.add_runtime_dependency(%q<curies>, [">= 0"])
+      s.add_runtime_dependency(%q<rsinger-curies>, [">= 0"])
       s.add_runtime_dependency(%q<json>, [">= 0"])
     else
       s.add_dependency(%q<nokogiri>, [">= 0"])
-      s.add_dependency(%q<curies>, [">= 0"])
+      s.add_dependency(%q<rsinger-curies>, [">= 0"])
       s.add_dependency(%q<json>, [">= 0"])
     end
   else
     s.add_dependency(%q<nokogiri>, [">= 0"])
-    s.add_dependency(%q<curies>, [">= 0"])
+    s.add_dependency(%q<rsinger-curies>, [">= 0"])
     s.add_dependency(%q<json>, [">= 0"])
   end
 end

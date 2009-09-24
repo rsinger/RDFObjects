@@ -1,12 +1,15 @@
-$KCODE = 'u'
+# encoding: utf-8
 require 'rubygems'
 require 'strscan'
 require 'iconv'
-require 'jcode'
 require 'uri'
 require 'json'
 require 'nokogiri'
 require 'cgi'
+if RUBY_VERSION < '1.9.0'
+  $KCODE = 'u'
+  require 'jcode'
+end
 
 class UTF8Parser < StringScanner
   STRING = /(([\x0-\x1f]|[\\\/bfnrt]|\\u[0-9a-fA-F]{4}|[\x20-\xff])*)/nx
@@ -52,7 +55,7 @@ class UTF8Parser < StringScanner
       UNPARSED
     end
   rescue Iconv::Failure => e
-    raise GeneratorError, "Caught #{e.class}: #{e}"
+    raise StandardError, "Caught #{e.class}: #{e}"
   end  
 end
 module RDFObject
@@ -61,6 +64,9 @@ class NTriplesParser
   attr_accessor :object
   def initialize(line)
     @ntriple = line
+    if @ntriple.respond_to?(:force_encoding)
+      @ntriple.force_encoding("ASCII-8BIT")
+    end
     parse_ntriple
   end
   
@@ -83,8 +89,12 @@ class NTriplesParser
       object = scanner.scan_until(/("\s?\.\n?$)|("@[A-z])|("\^\^)/)
       scanner.pos=(scanner.pos-2)
       object.sub!(/"..$/,'')
-      uscan = UTF8Parser.new(object)
-      object = uscan.parse_string
+      if object.respond_to?(:force_encoding)
+        object.force_encoding('utf-8')
+      else
+        uscan = UTF8Parser.new(object)
+        object = uscan.parse_string
+      end
       if scanner.match?(/@/)
         scanner.getch
         @language = scanner.scan_until(/\s?\.\n?$/)

@@ -86,14 +86,14 @@ class NTriplesParser
     else
       @literal = true
       scanner.getch
-      object = scanner.scan_until(/("\s?\.\n?$)|("@[A-z])|("\^\^)/)
+      object = scanner.scan_until(/("\s?\.\s*\n?$)|("@[A-z])|("\^\^)/)
       scanner.pos=(scanner.pos-2)
       object.sub!(/"..$/,'')
       if object.respond_to?(:force_encoding)
-        object.force_encoding('utf-8')
+        object.force_encoding('utf-8').chomp!
       else
         uscan = UTF8Parser.new(object)
-        object = uscan.parse_string
+        object = uscan.parse_string.chomp!
       end
       if scanner.match?(/@/)
         scanner.getch

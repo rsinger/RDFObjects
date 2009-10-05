@@ -39,6 +39,21 @@ describe "An RDFObject Parser" do
     pending("get language attributes working in rdf/xml")
     r1["http://www.w3.org/2000/01/rdf-schema#label"].first.language.should match('zh')
   end
+  
+  it "should identify and parse a JSON response from I/O" do
+    json = open(File.dirname(__FILE__) + '/files/lcsubjects.json')
+    resources = Parser.parse(json)
+    resources.should be_kind_of(Array)
+    resources.length.should equal(11)
+    r1 = Resource.instances["http://lcsubjects.org/subjects/sh85068937#concept"]
+    r1.should be_kind_of(RDFObject::Resource)
+    r1.uri.should match("http://lcsubjects.org/subjects/sh85068937#concept")
+    r1["http://www.w3.org/2004/02/skos/core#narrower"].length.should equal(3)
+    r1["http://www.w3.org/2004/02/skos/core#narrower"].first.should be_kind_of(RDFObject::Resource)
+    r1["http:\/\/www.w3.org\/2004\/02\/skos\/core#prefLabel"].should be_kind_of(String)
+    r1["http:\/\/www.w3.org\/2004\/02\/skos\/core#prefLabel"].should respond_to(:set_data_type)
+    r1["http:\/\/www.w3.org\/2004\/02\/skos\/core#prefLabel"].language.should match("en")
+  end
   after(:all) do
     Resource.reset!
   end

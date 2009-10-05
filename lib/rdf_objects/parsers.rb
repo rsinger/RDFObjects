@@ -93,7 +93,7 @@ class NTriplesParser
         object.force_encoding('utf-8').chomp!
       else
         uscan = UTF8Parser.new(object)
-        object = uscan.parse_string.chomp!
+        object = uscan.parse_string.chomp
       end
       if scanner.match?(/@/)
         scanner.getch
@@ -148,6 +148,37 @@ class RDFAParser
 end
 
 class JSONParser
+  def self.parse(json)
+    collection = []
+    json.each_pair do |subject, assertions|
+      resource = Resource.new(subject)
+      collection << resource
+      assertions.each_pair do |predicate, objects|
+        objects.each do | object |
+          if object['type'] == 'literal'
+            opts = {}
+            if object['lang']
+              opts[:language] = object['lang']
+            end
+            if object['datatype']
+              opts[:data_type] = object['datatype']
+            end
+            literal = Literal.new(object['value'],opts)
+            resource.assert(predicate, literal)
+          elsif object['type'] == 'uri'
+            o = Resource.new(object['value'])
+            resource.assert(predicate, o)
+            collection << o
+          elsif object['type'] == 'bnode' # For now, we're going to treat a blank node like a URI resource.
+            o = Resource.new(object['value'])
+            resource.assert(predicate, o)
+            collection << o            
+          end
+        end
+      end
+    end
+    collection.uniq
+  end
 end
 
 class Parser
@@ -165,6 +196,7 @@ class Parser
     rescue Nokogiri::XML::SyntaxError
       begin
         if rdf.respond_to?(:read)
+          rdf.rewind
           json = JSON.parse(rdf.read)
         else
           json = JSON.parse(rdf)

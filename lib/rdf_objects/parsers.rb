@@ -118,6 +118,7 @@ class NTriplesParser
       assertions = resources.readlines
     end
     assertions.each do | assertion |
+      next if assertion[0, 1] == "#" # Ignore comments
       triple = self.new(assertion)
       resource = Resource.new(triple.subject)
       resource.assert(triple.predicate, triple.object)
@@ -128,14 +129,72 @@ class NTriplesParser
 end
 
 class XMLParser
+  #
+  # A very unsophisticated RDF/XML Parser -- currently only parses RDF/XML that conforms to 
+  # the SimpleRdfXml convention:  http://esw.w3.org/topic/SimpleRdfXml.  This is a pragmatic
+  # rather than dogmatic decision.  If it is not working with your RDF/XML let me know and we
+  # can probably fix it.
+  #
   def self.parse(doc)
-    xslt = Nokogiri::XSLT(open(File.dirname(__FILE__) + '/../xsl/rdf2nt.xsl'))
-    xformed_doc = xslt.apply_to(doc)
-    ntriples = xformed_doc.split("\n")
-    if ntriples[0] =~ /^\<\?xml/
-      ntriples.delete_at(0)
+    namespaces = doc.namespaces
+    if namespaces.index("http://purl.org/rss/1.0/")
+      collection = parse_rss10(doc)
+    elsif namespaces.index("http://www.w3.org/2005/sparql-results#")
+      raise "Sorry, SPARQL not yet supported"
+    else
+      collection = parse_rdfxml(doc)
     end
-    return NTriplesParser.parse(ntriples)
+    collection.uniq
+  end
+  
+  def self.parse_resource_node(resource_node, collection)
+    resource = Resource.new(resource_node.attribute_with_ns('about', "http://www.w3.org/1999/02/22-rdf-syntax-ns#").value)
+    unless (resource_node.name == "Description" and resource_node.namespace.href == "http://www.w3.org/1999/02/22-rdf-syntax-ns#") or
+      (resource_node.name == "item" and resource_node.namespace.href == "http://purl.org/rss/1.0/")
+      resource.assert("[rdf:type]","#{resource_node.namespace.href}#{resource_node.name}")
+    end
+    resource_node.children.each do | child |
+      next if child.text?
+      predicate = "#{child.namespace.href}#{child.name}"
+      if object_uri = child.attribute_with_ns("resource", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+        obj_resource = Resource.new(object_uri.value)
+        resource.assert(predicate, obj_resource)
+        collection << obj_resource
+      elsif child.content
+
+        opts = {}
+        if lang = child.attribute_with_ns("lang", "http://www.w3.org/XML/1998/namespace")
+          opts[:language] = lang.value
+        end
+        if datatype = child.attribute_with_ns("datatype", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+          opts[:data_type] = datatype.value
+        end
+        resource.assert(predicate, Literal.new(child.content,opts))
+      end
+      child.xpath("./*[@rdf:about]").each do | grandchild |
+        gc_resource = Resource.new(grandchild.attribute_with_ns('about', "http://www.w3.org/1999/02/22-rdf-syntax-ns#").value)
+        resource.assert(predicate, gc_resource)
+        collection << gc_resource
+        parse_resource_node(grandchild, collection)
+      end
+    end
+    collection << resource        
+  end
+  
+  def self.parse_rdfxml(doc)
+    collection = []
+    doc.root.xpath("./*[@rdf:about]").each do | resource_node |
+      parse_resource_node(resource_node, collection)
+    end
+    collection
+  end    
+  
+  def self.parse_rss10(doc)
+    collection = []
+    doc.root.xpath("./rss:item","rss"=>"http://purl.org/rss/1.0/").each do | resource_node |
+      parse_resource_node(resource_node, collection)
+    end
+    collection
   end
 end
 

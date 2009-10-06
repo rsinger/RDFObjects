@@ -1,0 +1,28 @@
+{
+  "http:\/\/lcsubjects.org\/subjects\/sh85068937#concept" : {
+    "http:\/\/www.w3.org\/2004\/02\/skos\/core#narrower" : [ 
+      { "value" : "http:\/\/lcsubjects.org\/subjects\/sh85142643#concept", "type" : "uri" },
+      { "value" : "http:\/\/lcsubjects.org\/subjects\/sh85056001#concept", "type" : "uri" },
+      { "value" : "http:\/\/lcsubjects.org\/subjects\/sh85034104#concept", "type" : "uri" }
+    ],
+    "http:\/\/purl.org\/dc\/terms\/identifier" : [ 
+      { "value" : "http:\/\/id.loc.gov\/authorities\/authorities\/sh85068937#concept", "type" : "literal" },
+      { "value" : "http:\/\/id.loc.gov\/authorities\/sh85068937#concept", "type" : "literal" },
+      { "value" : "http:\/\/lcsubjects.org\/subjects\/sh85068937#concept", "type" : "literal" }
+    ],
+    "http:\/\/www.w3.org\/2004\/02\/skos\/core#inScheme" : [ 
+      { "value" : "http:\/\/id.loc.gov\/authorities#conceptScheme", "type" : "uri" },
+      { "value" : "http:\/\/id.loc.gov\/authorities#geographicNames", "type" : "uri" }
+    ],
+    "http:\/\/www.w3.org\/1999\/02\/22-rdf-syntax-ns#type" : [ { "value" : "http:\/\/www.w3.org\/2004\/02\/skos\/core#Concept", "type" : "uri" } ],
+    "http:\/\/purl.org\/dc\/terms\/modified" : [ { "value" : "1995-01-20T17:32:07-04:00", "type" : "literal" } ],
+    "http:\/\/purl.org\/dc\/terms\/created" : [ { "value" : "1986-02-11T00:00:00-04:00", "type" : "literal" } ],
+    "http:\/\/www.w3.org\/2004\/02\/skos\/core#prefLabel" : [ { "value" : "Italy--History--To 476", "type" : "literal", "lang" : "en" } ],
+    "http:\/\/www.w3.org\/2002\/07\/owl#sameAs" : [ 
+      { "value" : "http:\/\/id.loc.gov\/authorities\/sh85068937#concept", "type" : "uri" },
+      { "value" : "http:\/\/lcsh.info\/sh85068937#concept", "type" : "uri" },
+      { "value" : "info:lc\/authorities\/sh85068937", "type" : "uri" },
+      { "value" : "http:\/\/tspilot.oclc.org\/lcsh\/sh85068937#concept", "type" : "uri" }
+    ]
+  }
+}

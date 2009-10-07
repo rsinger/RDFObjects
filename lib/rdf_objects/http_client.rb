@@ -7,7 +7,7 @@ module RDFObject
     def self.fetch(uri)
       @@proxies.each do | key, proxy |
         if uri.match(key)
-          uri = proxy.proxy_uri(uri, ['ntriples','rdf'])
+          uri = proxy.proxy_uri(uri, ['json', 'ntriples','rdf'])
         end
       end
       u = URI.parse(uri)

@@ -151,7 +151,7 @@ class XMLParser
     resource = Resource.new(resource_node.attribute_with_ns('about', "http://www.w3.org/1999/02/22-rdf-syntax-ns#").value)
     unless (resource_node.name == "Description" and resource_node.namespace.href == "http://www.w3.org/1999/02/22-rdf-syntax-ns#") or
       (resource_node.name == "item" and resource_node.namespace.href == "http://purl.org/rss/1.0/")
-      resource.assert("[rdf:type]","#{resource_node.namespace.href}#{resource_node.name}")
+      resource.assert("[rdf:type]",Resource.new("#{resource_node.namespace.href}#{resource_node.name}"))
     end
     resource_node.children.each do | child |
       next if child.text?
@@ -160,8 +160,7 @@ class XMLParser
         obj_resource = Resource.new(object_uri.value)
         resource.assert(predicate, obj_resource)
         collection << obj_resource
-      elsif child.content
-
+      elsif all_text?(child)
         opts = {}
         if lang = child.attribute_with_ns("lang", "http://www.w3.org/XML/1998/namespace")
           opts[:language] = lang.value
@@ -169,7 +168,7 @@ class XMLParser
         if datatype = child.attribute_with_ns("datatype", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
           opts[:data_type] = datatype.value
         end
-        resource.assert(predicate, Literal.new(child.content,opts))
+        resource.assert(predicate, Literal.new(child.content.strip,opts))
       end
       child.xpath("./*[@rdf:about]").each do | grandchild |
         gc_resource = Resource.new(grandchild.attribute_with_ns('about', "http://www.w3.org/1999/02/22-rdf-syntax-ns#").value)
@@ -179,6 +178,13 @@ class XMLParser
       end
     end
     collection << resource        
+  end
+  
+  def self.all_text?(node)
+    node.children.each do | child |
+      return false unless child.text?
+    end
+    true
   end
   
   def self.parse_rdfxml(doc)

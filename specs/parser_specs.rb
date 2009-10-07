@@ -68,6 +68,22 @@ describe "An RDFObject Parser" do
     resources.length.should equal(75)    
   end
   
+  it "should correctly find and build nested resources in an RSS 1.0 document" do
+    rss = open(File.dirname(__FILE__) + '/files/rss10-2.xml')
+    resources = Parser.parse(rss)
+    resources.should be_kind_of(Array)
+    r1 = Resource.instances["http://lcsubjects.org/subjects/sh85068937#concept"]
+    r1["http://www.w3.org/2004/02/skos/core#prefLabel"].should == ("Italy--History--To 476")
+    r1["http://www.w3.org/2004/02/skos/core#narrower"].should be_kind_of(Array)
+    r1["http://www.w3.org/2004/02/skos/core#narrower"].first.should be_kind_of(RDFObject::Resource)
+    r1["http://www.w3.org/2004/02/skos/core#narrower"].first.uri.should == ("http://lcsubjects.org/subjects/sh85142643#concept")
+    r2 = r1["http://www.w3.org/2004/02/skos/core#narrower"].first
+    r2.rdf["type"].uri.should == ("http://www.w3.org/2004/02/skos/core#Concept")
+    r2["http://www.w3.org/2004/02/skos/core#prefLabel"].should == ("Veneti (Italic people)")
+    r2["http://www.w3.org/2004/02/skos/core#prefLabel"].language.should == ("en")
+    r2["http://www.w3.org/2004/02/skos/core#broader"].first.should equal(r1)
+  end
+    
   it "should make two identical Resource objects from the 'amp-in-url' test" do
     nt = open(File.dirname(__FILE__) + '/rdfxml_test_cases/amp-in-url/test001.nt')
     resources = Parser.parse(nt)

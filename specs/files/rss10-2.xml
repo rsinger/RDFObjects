@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns="http://purl.org/rss/1.0/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:dcterms="http://purl.org/dc/terms/">
+  <channel rdf:about="http://lcsubjects.org/subjects/sh85068937#concept">
+    <title>Italy--History--To 476</title>
+    <link>http://lcsubjects.org/subjects/sh85068937#concept</link>
+    <description>Italy--History--To 476 as found at:  http://lcsubjects.org/subjects/sh85068937#concept</description>
+    <items>
+      <rdf:Seq>
+        <rdf:li resource="http://lcsubjects.org/subjects/sh85068937#concept"/>
+      </rdf:Seq>
+    </items>
+    <owl:sameAs>
+      <rdf:Description rdf:about="http://id.loc.gov/authorities/sh85068937#concept"/>
+    </owl:sameAs>
+    <dcterms:identifier>http://id.loc.gov/authorities/authorities/sh85068937#concept</dcterms:identifier>
+    <dcterms:modified>1995-01-20T17:32:07-04:00</dcterms:modified>
+    <dcterms:identifier>http://id.loc.gov/authorities/sh85068937#concept</dcterms:identifier>
+    <skos:narrower>
+      <skos:Concept rdf:about="http://lcsubjects.org/subjects/sh85142643#concept">
+        <owl:sameAs>
+          <rdf:Description rdf:about="info:lc/authorities/sh85142643"/>
+        </owl:sameAs>
+        <rdf:type>
+          <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#Concept"/>
+        </rdf:type>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities/sh85142643#concept"/>
+        </owl:sameAs>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://lcsh.info/sh85142643#concept"/>
+        </owl:sameAs>
+        <skos:related>
+          <rdf:Description rdf:about="http://lcsubjects.org/subjects/sh85142644#concept"/>
+        </skos:related>
+        <skos:broader rdf:resource="http://lcsubjects.org/subjects/sh85068937#concept"/>
+        <skos:inScheme>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities#conceptScheme"/>
+        </skos:inScheme>
+        <dcterms:modified>1993-07-29T11:30:50-04:00</dcterms:modified>
+        <dcterms:identifier>http://lcsubjects.org/subjects/sh85142643#concept</dcterms:identifier>
+        <dcterms:identifier>http://id.loc.gov/authorities/sh85142643#concept</dcterms:identifier>
+        <skos:broader>
+          <rdf:Description rdf:about="http://lcsubjects.org/subjects/sh85064423#concept"/>
+        </skos:broader>
+        <skos:inScheme>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities#topicalTerms"/>
+        </skos:inScheme>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://tspilot.oclc.org/lcsh/sh85142643#concept"/>
+        </owl:sameAs>
+        <skos:prefLabel xml:lang="en">Veneti (Italic people)</skos:prefLabel>
+        <dcterms:created>1986-02-11T00:00:00-04:00</dcterms:created>
+        <skos:closeMatch>
+          <rdf:Description rdf:about="http://stitch.cs.vu.nl/vocabularies/rameau/ark:/12148/cb120095825"/>
+        </skos:closeMatch>
+        <skos:broader>
+          <rdf:Description rdf:about="http://lcsubjects.org/subjects/sh85068865#concept"/>
+        </skos:broader>
+        <dcterms:identifier>http://id.loc.gov/authorities/authorities/sh85142643#concept</dcterms:identifier>
+      </skos:Concept>
+    </skos:narrower>
+    <skos:prefLabel xml:lang="en">Italy--History--To 476</skos:prefLabel>
+    <skos:prefLabel>Italy--History--To 476</skos:prefLabel>
+    <dcterms:created>1986-02-11T00:00:00-04:00</dcterms:created>
+    <skos:inScheme>
+      <rdf:Description rdf:about="http://id.loc.gov/authorities#conceptScheme"/>
+    </skos:inScheme>
+    <owl:sameAs>
+      <rdf:Description rdf:about="http://lcsh.info/sh85068937#concept"/>
+    </owl:sameAs>
+    <owl:sameAs>
+      <rdf:Description rdf:about="info:lc/authorities/sh85068937"/>
+    </owl:sameAs>
+    <skos:inScheme>
+      <rdf:Description rdf:about="http://id.loc.gov/authorities#geographicNames"/>
+    </skos:inScheme>
+    <skos:narrower>
+      <skos:Concept rdf:about="http://lcsubjects.org/subjects/sh85056001#concept">
+        <skos:broader rdf:resource="http://lcsubjects.org/subjects/sh85068937#concept"/>
+        <skos:inScheme>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities#topicalTerms"/>
+        </skos:inScheme>
+        <skos:narrower>
+          <rdf:Description rdf:about="http://lcsubjects.org/subjects/sh85068942#concept"/>
+        </skos:narrower>
+        <dcterms:identifier>http://id.loc.gov/authorities/authorities/sh85056001#concept</dcterms:identifier>
+        <dcterms:identifier>http://id.loc.gov/authorities/sh85056001#concept</dcterms:identifier>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://lcsh.info/sh85056001#concept"/>
+        </owl:sameAs>
+        <dcterms:modified>1991-04-19T15:24:41-04:00</dcterms:modified>
+        <skos:inScheme>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities#conceptScheme"/>
+        </skos:inScheme>
+        <skos:prefLabel xml:lang="en">Goths--Italy</skos:prefLabel>
+        <rdf:type>
+          <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#Concept"/>
+        </rdf:type>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://tspilot.oclc.org/lcsh/sh85056001#concept"/>
+        </owl:sameAs>
+        <dcterms:identifier>http://lcsubjects.org/subjects/sh85056001#concept</dcterms:identifier>
+        <skos:narrower>
+          <rdf:Description rdf:about="http://lcsubjects.org/subjects/sh85068938#concept"/>
+        </skos:narrower>
+        <skos:altLabel xml:lang="en">Goths in Italy</skos:altLabel>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities/sh85056001#concept"/>
+        </owl:sameAs>
+        <dcterms:created>1986-02-11T00:00:00-04:00</dcterms:created>
+        <owl:sameAs>
+          <rdf:Description rdf:about="info:lc/authorities/sh85056001"/>
+        </owl:sameAs>
+      </skos:Concept>
+    </skos:narrower>
+    <skos:narrower>
+      <skos:Concept rdf:about="http://lcsubjects.org/subjects/sh85034104#concept">
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://lcsh.info/sh85034104#concept"/>
+        </owl:sameAs>
+        <skos:altLabel xml:lang="en">Crimissus, Battle of, 339 B.C.</skos:altLabel>
+        <skos:altLabel xml:lang="en">Crimisus River, Battle of the, Italy, ca. 341 B.C.</skos:altLabel>
+        <dcterms:identifier>http://id.loc.gov/authorities/authorities/sh85034104#concept</dcterms:identifier>
+        <rdf:type>
+          <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#Concept"/>
+        </rdf:type>
+        <dcterms:created>2002-12-13T00:00:00-04:00</dcterms:created>
+        <dcterms:source xml:lang="en">Harbottle, T. Dict. of battles, 1971 (Crimisus, 341 B.C.)</dcterms:source>
+        <skos:inScheme>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities#conceptScheme"/>
+        </skos:inScheme>
+        <skos:broader rdf:resource="http://lcsubjects.org/subjects/sh85068937#concept"/>
+        <dcterms:modified>2003-01-24T08:18:13-04:00</dcterms:modified>
+        <dcterms:identifier>http://id.loc.gov/authorities/sh85034104#concept</dcterms:identifier>
+        <dcterms:source xml:lang="en">Eggenberger, D. Dict. of battles, 1967 (Crimisus River, 341 B.C.)</dcterms:source>
+        <owl:sameAs>
+          <rdf:Description rdf:about="info:lc/authorities/sh85034104"/>
+        </owl:sameAs>
+        <skos:prefLabel xml:lang="en">Crimisus, Battle of, Italy, ca. 341 B.C.</skos:prefLabel>
+        <dcterms:source xml:lang="en">Dupuy, R. Encyc. of military hist., 1970: p. 56 (Battle of the Crimissus, 340)</dcterms:source>
+        <dcterms:identifier>http://lcsubjects.org/subjects/sh85034104#concept</dcterms:identifier>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://tspilot.oclc.org/lcsh/sh85034104#concept"/>
+        </owl:sameAs>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities/sh85034104#concept"/>
+        </owl:sameAs>
+        <skos:inScheme>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities#topicalTerms"/>
+        </skos:inScheme>
+      </skos:Concept>
+    </skos:narrower>
+    <dcterms:identifier>http://lcsubjects.org/subjects/sh85068937#concept</dcterms:identifier>
+    <rdf:type>
+      <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#Concept"/>
+    </rdf:type>
+    <owl:sameAs>
+      <rdf:Description rdf:about="http://tspilot.oclc.org/lcsh/sh85068937#concept"/>
+    </owl:sameAs>
+  </channel>
+  <item rdf:about="http://lcsubjects.org/subjects/sh85068937#concept">
+    <title>Italy--History--To 476</title>
+    <link>http://lcsubjects.org/subjects/sh85068937#concept</link>
+    <description>Italy--History--To 476 as found at:  http://lcsubjects.org/subjects/sh85068937#concept</description>
+    <owl:sameAs>
+      <rdf:Description rdf:about="http://id.loc.gov/authorities/sh85068937#concept"/>
+    </owl:sameAs>
+    <dcterms:identifier>http://id.loc.gov/authorities/authorities/sh85068937#concept</dcterms:identifier>
+    <dcterms:modified>1995-01-20T17:32:07-04:00</dcterms:modified>
+    <dcterms:identifier>http://id.loc.gov/authorities/sh85068937#concept</dcterms:identifier>
+    <skos:narrower>
+      <skos:Concept rdf:about="http://lcsubjects.org/subjects/sh85142643#concept">
+        <owl:sameAs>
+          <rdf:Description rdf:about="info:lc/authorities/sh85142643"/>
+        </owl:sameAs>
+        <rdf:type>
+          <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#Concept"/>
+        </rdf:type>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities/sh85142643#concept"/>
+        </owl:sameAs>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://lcsh.info/sh85142643#concept"/>
+        </owl:sameAs>
+        <skos:related>
+          <rdf:Description rdf:about="http://lcsubjects.org/subjects/sh85142644#concept"/>
+        </skos:related>
+        <skos:broader rdf:resource="http://lcsubjects.org/subjects/sh85068937#concept"/>
+        <skos:inScheme>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities#conceptScheme"/>
+        </skos:inScheme>
+        <dcterms:modified>1993-07-29T11:30:50-04:00</dcterms:modified>
+        <dcterms:identifier>http://lcsubjects.org/subjects/sh85142643#concept</dcterms:identifier>
+        <dcterms:identifier>http://id.loc.gov/authorities/sh85142643#concept</dcterms:identifier>
+        <skos:broader>
+          <rdf:Description rdf:about="http://lcsubjects.org/subjects/sh85064423#concept"/>
+        </skos:broader>
+        <skos:inScheme>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities#topicalTerms"/>
+        </skos:inScheme>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://tspilot.oclc.org/lcsh/sh85142643#concept"/>
+        </owl:sameAs>
+        <skos:prefLabel xml:lang="en">Veneti (Italic people)</skos:prefLabel>
+        <dcterms:created>1986-02-11T00:00:00-04:00</dcterms:created>
+        <skos:closeMatch>
+          <rdf:Description rdf:about="http://stitch.cs.vu.nl/vocabularies/rameau/ark:/12148/cb120095825"/>
+        </skos:closeMatch>
+        <skos:broader>
+          <rdf:Description rdf:about="http://lcsubjects.org/subjects/sh85068865#concept"/>
+        </skos:broader>
+        <dcterms:identifier>http://id.loc.gov/authorities/authorities/sh85142643#concept</dcterms:identifier>
+      </skos:Concept>
+    </skos:narrower>
+    <skos:prefLabel xml:lang="en">Italy--History--To 476</skos:prefLabel>
+    <skos:prefLabel>Italy--History--To 476</skos:prefLabel>
+    <dcterms:created>1986-02-11T00:00:00-04:00</dcterms:created>
+    <skos:inScheme>
+      <rdf:Description rdf:about="http://id.loc.gov/authorities#conceptScheme"/>
+    </skos:inScheme>
+    <owl:sameAs>
+      <rdf:Description rdf:about="http://lcsh.info/sh85068937#concept"/>
+    </owl:sameAs>
+    <owl:sameAs>
+      <rdf:Description rdf:about="info:lc/authorities/sh85068937"/>
+    </owl:sameAs>
+    <skos:inScheme>
+      <rdf:Description rdf:about="http://id.loc.gov/authorities#geographicNames"/>
+    </skos:inScheme>
+    <skos:narrower>
+      <skos:Concept rdf:about="http://lcsubjects.org/subjects/sh85056001#concept">
+        <skos:broader rdf:resource="http://lcsubjects.org/subjects/sh85068937#concept"/>
+        <skos:inScheme>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities#topicalTerms"/>
+        </skos:inScheme>
+        <skos:narrower>
+          <rdf:Description rdf:about="http://lcsubjects.org/subjects/sh85068942#concept"/>
+        </skos:narrower>
+        <dcterms:identifier>http://id.loc.gov/authorities/authorities/sh85056001#concept</dcterms:identifier>
+        <dcterms:identifier>http://id.loc.gov/authorities/sh85056001#concept</dcterms:identifier>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://lcsh.info/sh85056001#concept"/>
+        </owl:sameAs>
+        <dcterms:modified>1991-04-19T15:24:41-04:00</dcterms:modified>
+        <skos:inScheme>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities#conceptScheme"/>
+        </skos:inScheme>
+        <skos:prefLabel xml:lang="en">Goths--Italy</skos:prefLabel>
+        <rdf:type>
+          <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#Concept"/>
+        </rdf:type>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://tspilot.oclc.org/lcsh/sh85056001#concept"/>
+        </owl:sameAs>
+        <dcterms:identifier>http://lcsubjects.org/subjects/sh85056001#concept</dcterms:identifier>
+        <skos:narrower>
+          <rdf:Description rdf:about="http://lcsubjects.org/subjects/sh85068938#concept"/>
+        </skos:narrower>
+        <skos:altLabel xml:lang="en">Goths in Italy</skos:altLabel>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities/sh85056001#concept"/>
+        </owl:sameAs>
+        <dcterms:created>1986-02-11T00:00:00-04:00</dcterms:created>
+        <owl:sameAs>
+          <rdf:Description rdf:about="info:lc/authorities/sh85056001"/>
+        </owl:sameAs>
+      </skos:Concept>
+    </skos:narrower>
+    <skos:narrower>
+      <skos:Concept rdf:about="http://lcsubjects.org/subjects/sh85034104#concept">
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://lcsh.info/sh85034104#concept"/>
+        </owl:sameAs>
+        <skos:altLabel xml:lang="en">Crimissus, Battle of, 339 B.C.</skos:altLabel>
+        <skos:altLabel xml:lang="en">Crimisus River, Battle of the, Italy, ca. 341 B.C.</skos:altLabel>
+        <dcterms:identifier>http://id.loc.gov/authorities/authorities/sh85034104#concept</dcterms:identifier>
+        <rdf:type>
+          <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#Concept"/>
+        </rdf:type>
+        <dcterms:created>2002-12-13T00:00:00-04:00</dcterms:created>
+        <dcterms:source xml:lang="en">Harbottle, T. Dict. of battles, 1971 (Crimisus, 341 B.C.)</dcterms:source>
+        <skos:inScheme>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities#conceptScheme"/>
+        </skos:inScheme>
+        <skos:broader rdf:resource="http://lcsubjects.org/subjects/sh85068937#concept"/>
+        <dcterms:modified>2003-01-24T08:18:13-04:00</dcterms:modified>
+        <dcterms:identifier>http://id.loc.gov/authorities/sh85034104#concept</dcterms:identifier>
+        <dcterms:source xml:lang="en">Eggenberger, D. Dict. of battles, 1967 (Crimisus River, 341 B.C.)</dcterms:source>
+        <owl:sameAs>
+          <rdf:Description rdf:about="info:lc/authorities/sh85034104"/>
+        </owl:sameAs>
+        <skos:prefLabel xml:lang="en">Crimisus, Battle of, Italy, ca. 341 B.C.</skos:prefLabel>
+        <dcterms:source xml:lang="en">Dupuy, R. Encyc. of military hist., 1970: p. 56 (Battle of the Crimissus, 340)</dcterms:source>
+        <dcterms:identifier>http://lcsubjects.org/subjects/sh85034104#concept</dcterms:identifier>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://tspilot.oclc.org/lcsh/sh85034104#concept"/>
+        </owl:sameAs>
+        <owl:sameAs>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities/sh85034104#concept"/>
+        </owl:sameAs>
+        <skos:inScheme>
+          <rdf:Description rdf:about="http://id.loc.gov/authorities#topicalTerms"/>
+        </skos:inScheme>
+      </skos:Concept>
+    </skos:narrower>
+    <dcterms:identifier>http://lcsubjects.org/subjects/sh85068937#concept</dcterms:identifier>
+    <rdf:type>
+      <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#Concept"/>
+    </rdf:type>
+    <owl:sameAs>
+      <rdf:Description rdf:about="http://tspilot.oclc.org/lcsh/sh85068937#concept"/>
+    </owl:sameAs>
+  </item>
+</rdf:RDF>

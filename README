@@ -1,12 +1,13 @@
 RDFObjects are intended to simplify working with RDF data by providing a (more) Ruby-like interface to resources (thanks to OpenStruct).
 
 Installation:
-  sudo gem install rsinger-rdfobjects
+  The gem is currently hosted at http://gemcutter.org/gems/rdfobjects so you'll either need the gemcutter gem (and run "gem tumble") or add gemcutter.org to your sources manually (gem sources -a http://gemcutter.org)
+  
+  $ sudo gem install rdfobjects
 
 Requirements:
   * Nokogiri (the idea is for more options in the future)
   * rsinger-curies
-  * Builder (although, ideally, this will be deprecated)
   * json (or json_pure)
   
 Usage:
@@ -82,6 +83,16 @@ Usage:
   
   => {"http://ex.org/ex/1234"=>#<RDFObject::Resource uri="http://ex.org/ex/1234">}
   
+  To override this behavior (i.e. to create another object with the same URI), pass the :force argument:
+  
+  >> r2 = Resource.new('http://ex.org/ex/1234', :force)
+  
+  => #<RDFObject::Resource uri="http://ex.org/ex/1234">  
+  
+  >> r2.object_id
+  
+  => 8996310  
+  
   You can delete a single resource:
   
   >> Resource.remove(r1)
@@ -93,7 +104,7 @@ Usage:
   
   >> Resource.reset!
   
-  There are also very crude parsers for ntriples and rdf/xml
+  There are also parsers for ntriples, rdf/xml, RSS 1.0, RDFa, and JSON.
   
   >> resources = Parser.parse(open('lcsh.nt').read)
   

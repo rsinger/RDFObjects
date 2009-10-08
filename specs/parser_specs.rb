@@ -65,7 +65,7 @@ describe "An RDFObject Parser" do
     rss = open(File.dirname(__FILE__) + '/files/rss10.xml')
     resources = Parser.parse(rss)
     resources.should be_kind_of(Array)
-    resources.length.should equal(75)    
+    resources.length.should equal(77)    
   end
   
   it "should correctly find and build nested resources in an RSS 1.0 document" do

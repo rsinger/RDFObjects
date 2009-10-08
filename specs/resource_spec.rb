@@ -27,13 +27,21 @@ describe "An RDFObject Resource" do
     Resource.instances.size.should equal(2)
     r1.object_id.should equal(r3.object_id)
   end
-  it "should remove one resource from the master hash" do
+  
+  it "should create a new resource object when passed the :force argument" do
+    r1 = Resource.new('http://example.org/1234')
+    r2 = Resource.new('http://example.org/1234')
+    r1.object_id.should equal(r2.object_id)
+    r2 = Resource.new('http://example.org/1234', :force)
+    r1.object_id.should_not equal(r2.object_id)
+  end
+  it "should remove one resource from the resource cache" do
     r2 = Resource.new('http://example.org/5678')
     Resource.remove(r2)
     Resource.instances.size.should equal(1)
     Resource.instances.keys[0].should match('http://example.org/1234')
   end
-  it "should clear the master hash" do
+  it "should clear the resource cache" do
     Resource.instances.size.should equal(1)
     Resource.reset!
     Resource.instances.size.should equal(0)

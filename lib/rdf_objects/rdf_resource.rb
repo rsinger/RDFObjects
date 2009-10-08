@@ -122,12 +122,14 @@ module RDFObject
       return true
     end
    
-    def self.new(uri)
+    def self.new(uri, *opts)
       #if self.exists?(uri)
       #  return self.instances[uri]
       #end
       if exists = self.instances[uri]
-        return exists
+        unless opts.index(:force)
+          return exists
+        end
       end
       super(uri)
     end   

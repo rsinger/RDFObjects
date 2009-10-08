@@ -137,9 +137,9 @@ class XMLParser
   #
   def self.parse(doc)
     namespaces = doc.namespaces
-    if namespaces.index("http://purl.org/rss/1.0/")
-      collection = parse_rss10(doc)
-    elsif namespaces.index("http://www.w3.org/2005/sparql-results#")
+    #if namespaces.index("http://purl.org/rss/1.0/")
+    #  collection = parse_rss10(doc)
+    if namespaces.index("http://www.w3.org/2005/sparql-results#")
       raise "Sorry, SPARQL not yet supported"
     else
       collection = parse_rdfxml(doc)
@@ -195,13 +195,13 @@ class XMLParser
     collection
   end    
   
-  def self.parse_rss10(doc)
-    collection = []
-    doc.root.xpath("./rss:item","rss"=>"http://purl.org/rss/1.0/").each do | resource_node |
-      parse_resource_node(resource_node, collection)
-    end
-    collection
-  end
+  #def self.parse_rss10(doc)
+  #  collection = []
+  #  doc.root.xpath("./rss:item","rss"=>"http://purl.org/rss/1.0/").each do | resource_node |
+  #    parse_resource_node(resource_node, collection)
+  #  end
+  #  collection
+  #end
 end
 
 class RDFAParser

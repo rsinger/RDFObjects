@@ -124,7 +124,7 @@ class NTriplesParser
       resource.assert(triple.predicate, triple.object)
       collection << resource
     end
-    collection.uniq!
+    collection.uniq
   end
 end
 

@@ -37,7 +37,7 @@ describe "An RDFObject Parser" do
     r1.uri.should match("http://dbpedia.org/resource/Semantic_Web")
     r1["http://www.w3.org/2000/01/rdf-schema#label"].should be_kind_of(Array)
     r1["http://www.w3.org/2000/01/rdf-schema#label"].first.language.should match('zh')
-    r1["http://www.w3.org/2002/07/owl#sameAs"].should be_kind_of(RDFObject::Resource)
+    r1["http://www.w3.org/2002/07/owl#sameAs"].should be_kind_of(RDFObject::ResourceReference)
     r1["http://www.w3.org/2002/07/owl#sameAs"].uri.should match("http://rdf.freebase.com/ns/guid.9202a8c04000641f8000000000039a20")
   end
   
@@ -55,7 +55,7 @@ describe "An RDFObject Parser" do
     r1.should be_kind_of(RDFObject::Resource)
     r1.uri.should match("http://lcsubjects.org/subjects/sh85068937#concept")
     r1["http://www.w3.org/2004/02/skos/core#narrower"].length.should equal(3)
-    r1["http://www.w3.org/2004/02/skos/core#narrower"].first.should be_kind_of(RDFObject::Resource)
+    r1["http://www.w3.org/2004/02/skos/core#narrower"].first.should be_kind_of(RDFObject::ResourceReference)
     r1["http:\/\/www.w3.org\/2004\/02\/skos\/core#prefLabel"].should be_kind_of(String)
     r1["http:\/\/www.w3.org\/2004\/02\/skos\/core#prefLabel"].should respond_to(:set_data_type)
     r1["http:\/\/www.w3.org\/2004\/02\/skos\/core#prefLabel"].language.should match("en")    
@@ -75,13 +75,13 @@ describe "An RDFObject Parser" do
     r1 = Resource.instances["http://lcsubjects.org/subjects/sh85068937#concept"]
     r1["http://www.w3.org/2004/02/skos/core#prefLabel"].should == ("Italy--History--To 476")
     r1["http://www.w3.org/2004/02/skos/core#narrower"].should be_kind_of(Array)
-    r1["http://www.w3.org/2004/02/skos/core#narrower"].first.should be_kind_of(RDFObject::Resource)
+    r1["http://www.w3.org/2004/02/skos/core#narrower"].first.should be_kind_of(RDFObject::ResourceReference)
     r1["http://www.w3.org/2004/02/skos/core#narrower"].first.uri.should == ("http://lcsubjects.org/subjects/sh85142643#concept")
     r2 = r1["http://www.w3.org/2004/02/skos/core#narrower"].first
     r2.rdf["type"].uri.should == ("http://www.w3.org/2004/02/skos/core#Concept")
     r2["http://www.w3.org/2004/02/skos/core#prefLabel"].should == ("Veneti (Italic people)")
     r2["http://www.w3.org/2004/02/skos/core#prefLabel"].language.should == ("en")
-    r2["http://www.w3.org/2004/02/skos/core#broader"].first.should equal(r1)
+    r2["http://www.w3.org/2004/02/skos/core#broader"].first.resource.should equal(r1)
   end
     
   it "should make two identical Resource objects from the 'amp-in-url' test" do

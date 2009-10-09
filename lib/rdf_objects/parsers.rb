@@ -58,223 +58,282 @@ class UTF8Parser < StringScanner
     raise StandardError, "Caught #{e.class}: #{e}"
   end  
 end
-module RDFObject
-class NTriplesParser
-  attr_reader :ntriple, :subject, :predicate, :data_type, :language, :literal
-  attr_accessor :object
-  def initialize(line)
-    @ntriple = line
-    if @ntriple.respond_to?(:force_encoding)
-      @ntriple.force_encoding("ASCII-8BIT")
+module RDFObject 
+  class Collection < Hash
+    attr_accessor :objects
+    def initialize(subjects=true)
+      @objects = Collection.new(false) if subjects
     end
-    parse_ntriple
+    def uris
+      return self.keys
+    end
+    def find_by_type(type)
+      self.find_all {|r| r}
+    end
+    def resources
+      self.merge(@objects)
+    end
   end
   
-  def parse_ntriple
-    scanner = StringScanner.new(@ntriple)
-    @subject = scanner.scan_until(/> /)
-    @subject.sub!(/^</,'')
-    @subject.sub!(/> $/,'')
-    @predicate = scanner.scan_until(/> /)
-    @predicate.sub!(/^</,'')
-    @predicate.sub!(/> $/,'')
-    if scanner.match?(/</)
-      object = scanner.scan_until(/>\s?\.\s*\n?$/)
-      object.sub!(/^</,'')
-      object.sub!(/>\s?\.\s*\n?$/,'')
-      @object = Resource.new(object)
-    else
-      @literal = true
-      scanner.getch
-      object = scanner.scan_until(/("\s?\.\s*\n?$)|("@[A-z])|("\^\^)/)
-      scanner.pos=(scanner.pos-2)
-      object.sub!(/"..$/,'')
-      if object.respond_to?(:force_encoding)
-        object.force_encoding('utf-8').chomp!
+  class Parser
+    # Choose the best format parser from an admittedly small group of choices.
+    def self.parse(rdf, format=nil)
+      if format
+        parser = case format
+        when 'rdfxml' then XMLParser.new(rdf)
+        when 'rdfa' then RDFAParser.new(rdf)
+        when 'ntriples' then NTriplesParser.new(rdf)
+        when 'json' then JSONParser.new(rdf)
+        end        
       else
-        uscan = UTF8Parser.new(object)
-        object = uscan.parse_string.chomp
-      end
-      if scanner.match?(/@/)
-        scanner.getch
-        @language = scanner.scan_until(/\s?\.\n?$/)
-        @language.sub!(/\s?\.\n?$/,'')
-      elsif scanner.match?(/\^\^/)
-        scanner.skip_until(/</)
-        @data_type = scanner.scan_until(/>/)
-        @data_type.sub!(/>$/,'')
-      end
-      @object = Literal.new(object,{:data_type=>@data_type,:language=>@language})      
-    end
-  end
-  
-  def self.parse(resources)
-    collection = []
-    if resources.is_a?(String)
-      assertions = resources.split("\n")
-    elsif resources.is_a?(Array)
-      assertions = resources
-    elsif resources.respond_to?(:read)
-      assertions = resources.readlines
-    end
-    assertions.each do | assertion |
-      next if assertion[0, 1] == "#" # Ignore comments
-      triple = self.new(assertion)
-      resource = Resource.new(triple.subject)
-      resource.assert(triple.predicate, triple.object)
-      collection << resource
-    end
-    collection.uniq
-  end
-end
-
-class XMLParser
-  #
-  # A very unsophisticated RDF/XML Parser -- currently only parses RDF/XML that conforms to 
-  # the SimpleRdfXml convention:  http://esw.w3.org/topic/SimpleRdfXml.  This is a pragmatic
-  # rather than dogmatic decision.  If it is not working with your RDF/XML let me know and we
-  # can probably fix it.
-  #
-  def self.parse(doc)
-    namespaces = doc.namespaces
-    #if namespaces.index("http://purl.org/rss/1.0/")
-    #  collection = parse_rss10(doc)
-    if namespaces.index("http://www.w3.org/2005/sparql-results#")
-      raise "Sorry, SPARQL not yet supported"
-    else
-      collection = parse_rdfxml(doc)
-    end
-    collection.uniq
-  end
-  
-  def self.parse_resource_node(resource_node, collection)
-    resource = Resource.new(resource_node.attribute_with_ns('about', "http://www.w3.org/1999/02/22-rdf-syntax-ns#").value)
-    unless (resource_node.name == "Description" and resource_node.namespace.href == "http://www.w3.org/1999/02/22-rdf-syntax-ns#") or
-      (resource_node.name == "item" and resource_node.namespace.href == "http://purl.org/rss/1.0/")
-      resource.assert("[rdf:type]",Resource.new("#{resource_node.namespace.href}#{resource_node.name}"))
-    end
-    resource_node.children.each do | child |
-      next if child.text?
-      predicate = "#{child.namespace.href}#{child.name}"
-      if object_uri = child.attribute_with_ns("resource", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
-        obj_resource = Resource.new(object_uri.value)
-        resource.assert(predicate, obj_resource)
-        collection << obj_resource
-      elsif all_text?(child)
-        opts = {}
-        if lang = child.attribute_with_ns("lang", "http://www.w3.org/XML/1998/namespace")
-          opts[:language] = lang.value
-        end
-        if datatype = child.attribute_with_ns("datatype", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
-          opts[:data_type] = datatype.value
-        end
-        resource.assert(predicate, Literal.new(child.content.strip,opts))
-      end
-      child.xpath("./*[@rdf:about]").each do | grandchild |
-        gc_resource = Resource.new(grandchild.attribute_with_ns('about', "http://www.w3.org/1999/02/22-rdf-syntax-ns#").value)
-        resource.assert(predicate, gc_resource)
-        collection << gc_resource
-        parse_resource_node(grandchild, collection)
-      end
-    end
-    collection << resource        
-  end
-  
-  def self.all_text?(node)
-    node.children.each do | child |
-      return false unless child.text?
-    end
-    true
-  end
-  
-  def self.parse_rdfxml(doc)
-    collection = []
-    doc.root.xpath("./*[@rdf:about]").each do | resource_node |
-      parse_resource_node(resource_node, collection)
-    end
-    collection
-  end    
-  
-  #def self.parse_rss10(doc)
-  #  collection = []
-  #  doc.root.xpath("./rss:item","rss"=>"http://purl.org/rss/1.0/").each do | resource_node |
-  #    parse_resource_node(resource_node, collection)
-  #  end
-  #  collection
-  #end
-end
-
-class RDFAParser
-  def self.parse(doc)
-    xslt = Nokogiri::XSLT(open(File.dirname(__FILE__) + '/../xsl/RDFa2RDFXML.xsl'))
-    rdf_doc = xslt.apply_to(doc)  
-    XMLParser.parse(Nokogiri.parse(rdf_doc))  
-  end
-end
-
-class JSONParser
-  def self.parse(json)
-    collection = []
-    json.each_pair do |subject, assertions|
-      resource = Resource.new(subject)
-      collection << resource
-      assertions.each_pair do |predicate, objects|
-        objects.each do | object |
-          if object['type'] == 'literal'
-            opts = {}
-            if object['lang']
-              opts[:language] = object['lang']
+        begin
+          # Check if the format is XML or RDFa
+          doc = Nokogiri::XML.parse(rdf, nil, nil, Nokogiri::XML::ParseOptions::PEDANTIC)
+          raise "Unable to parse XML/HTML document -- no namespace declared" unless doc.root.namespaces
+          if doc.root.namespaces.values.index("http://www.w3.org/1999/xhtml")
+            parser = RDFAParser.new(doc)
+          else
+            parser = XMLParser.new(doc)
+          end
+        rescue Nokogiri::XML::SyntaxError
+          begin
+            if rdf.respond_to?(:read)
+              rdf.rewind
+              json = JSON.parse(rdf.read)
+            else
+              json = JSON.parse(rdf)
             end
-            if object['datatype']
-              opts[:data_type] = object['datatype']
+            parser = JSONParser.new(json)
+          rescue JSON::ParserError
+            if rdf.respond_to?(:read)
+              rdf.rewind
             end
-            literal = Literal.new(object['value'],opts)
-            resource.assert(predicate, literal)
-          elsif object['type'] == 'uri'
-            o = Resource.new(object['value'])
-            resource.assert(predicate, o)
-            collection << o
-          elsif object['type'] == 'bnode' # For now, we're going to treat a blank node like a URI resource.
-            o = Resource.new(object['value'])
-            resource.assert(predicate, o)
-            collection << o            
+            parser = NTriplesParser.new(rdf)
           end
         end
       end
+      parser.parse 
     end
-    collection.uniq
-  end
-end
-
-class Parser
-  # Choose the best format parser from an admittedly small group of choices.
-  def self.parse(rdf)
-    begin
-      # Check if the format is XML or RDFa
-      doc = Nokogiri::XML.parse(rdf, nil, nil, Nokogiri::XML::ParseOptions::PEDANTIC)
-      raise "Unable to parse XML/HTML document -- no namespace declared" unless doc.root.namespaces
-      if doc.root.namespaces.values.index("http://www.w3.org/1999/xhtml")
-        collection = RDFAParser.parse(doc)
+    attr_reader :collection
+    def initialize(data=nil)
+      @collection = Collection.new
+      self.data=(data) if data
+    end
+         
+    def find_or_create(uri)
+      return @collection.resources[uri] if @collection.resources[uri]
+      Resource.new(uri)
+    end
+  end  
+  class NTriplesParser < RDFObject::Parser
+  
+    def parse_ntriple(ntriple)
+      if ntriple.respond_to?(:force_encoding)
+        ntriple.force_encoding("ASCII-8BIT")
+      end      
+      scanner = StringScanner.new(ntriple)
+      subject = scanner.scan_until(/> /)
+      subject.sub!(/^</,'')
+      subject.sub!(/> $/,'')
+      predicate = scanner.scan_until(/> /)
+      predicate.sub!(/^</,'')
+      predicate.sub!(/> $/,'')
+      if scanner.match?(/</)
+        tmp_object = scanner.scan_until(/>\s?\.\s*\n?$/)
+        tmp_object.sub!(/^</,'')
+        tmp_object.sub!(/>\s?\.\s*\n?$/,'')
+        object = find_or_create(tmp_object)
+        @collection[object.uri] = object
       else
-        collection = XMLParser.parse(doc)
-      end
-    rescue Nokogiri::XML::SyntaxError
-      begin
-        if rdf.respond_to?(:read)
-          rdf.rewind
-          json = JSON.parse(rdf.read)
+        language = nil
+        data_type = nil
+        scanner.getch
+        tmp_object = scanner.scan_until(/("\s?\.\s*\n?$)|("@[A-z])|("\^\^)/)
+        scanner.pos=(scanner.pos-2)
+        tmp_object.sub!(/"..$/,'')
+        if tmp_object.respond_to?(:force_encoding)
+          tmp_object.force_encoding('utf-8').chomp!
         else
-          json = JSON.parse(rdf)
+          uscan = UTF8Parser.new(tmp_object)
+          tmp_object = uscan.parse_string.chomp
         end
-        collection = JSONParser.parse(json)
-      rescue JSON::ParserError
-        if rdf.respond_to?(:read)
-          rdf.rewind
+        if scanner.match?(/@/)
+          scanner.getch
+          language = scanner.scan_until(/\s?\.\n?$/)
+          language.sub!(/\s?\.\n?$/,'')
+        elsif scanner.match?(/\^\^/)
+          scanner.skip_until(/</)
+          data_type = scanner.scan_until(/>/)
+          data_type.sub!(/>$/,'')
         end
-        collection = NTriplesParser.parse(rdf)
+        object = Literal.new(tmp_object,{:data_type=>data_type,:language=>language})      
+      end
+      [subject, predicate, object]
+    end
+    
+    def data=(ntriples)
+      if ntriples.is_a?(String)
+        @ntriples = ntriples.split("\n")
+      elsif ntriples.is_a?(Array)
+        @ntriples = ntriples
+      elsif ntriples.respond_to?(:read)
+        @ntriples = ntriples.readlines
+      end      
+    end
+  
+    def parse
+      @ntriples.each do | assertion |
+        next if assertion[0, 1] == "#" # Ignore comments
+        triple = parse_ntriple(assertion)
+        resource = find_or_create(triple[0])
+        resource.assert(triple[1], triple[2])
+        @collection[resource.uri] = resource
+      end
+      @collection
+    end
+  end
+
+  class XMLParser < RDFObject::Parser
+    #
+    # A very unsophisticated RDF/XML Parser -- currently only parses RDF/XML that conforms to 
+    # the SimpleRdfXml convention:  http://esw.w3.org/topic/SimpleRdfXml.  This is a pragmatic
+    # rather than dogmatic decision.  If it is not working with your RDF/XML let me know and we
+    # can probably fix it.
+    #
+    
+    def parse
+      namespaces = @rdfxml.namespaces
+      if namespaces.index("http://purl.org/rss/1.0/")
+        fix_rss10
+      end
+      if namespaces.index("http://www.w3.org/2005/sparql-results#")
+        raise "Sorry, SPARQL not yet supported"
+      else
+        parse_rdfxml
+      end
+      @collection
+    end
+    
+    def data=(xml)
+      if xml.is_a?(Nokogiri::XML::Document)
+        @rdfxml = xml
+      else
+        @rdfxml = Nokogiri::XML.parse(xml, nil, nil, Nokogiri::XML::ParseOptions::PEDANTIC)
       end
     end
-    collection  
+  
+    def parse_resource_node(resource_node, collection)
+      resource = find_or_create(resource_node.attribute_with_ns('about', "http://www.w3.org/1999/02/22-rdf-syntax-ns#").value)
+      unless (resource_node.name == "Description" and resource_node.namespace.href == "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+        resource.assert("[rdf:type]", find_or_create("#{resource_node.namespace.href}#{resource_node.name}"))
+      end
+      resource_node.children.each do | child |
+        next if child.text?
+        predicate = "#{child.namespace.href}#{child.name}"
+        if object_uri = child.attribute_with_ns("resource", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+          obj_resource = find_or_create(object_uri.value)
+          resource.assert(predicate, obj_resource)
+          @collection[obj_resource.uri] = obj_resource
+        elsif all_text?(child)
+          opts = {}
+          if lang = child.attribute_with_ns("lang", "http://www.w3.org/XML/1998/namespace")
+            opts[:language] = lang.value
+          end
+          if datatype = child.attribute_with_ns("datatype", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+            opts[:data_type] = datatype.value
+          end
+          resource.assert(predicate, Literal.new(child.content.strip,opts))
+        end
+        child.xpath("./*[@rdf:about]").each do | grandchild |
+          gc_resource = find_or_create(grandchild.attribute_with_ns('about', "http://www.w3.org/1999/02/22-rdf-syntax-ns#").value)
+          resource.assert(predicate, gc_resource)
+          @collection[gc_resource.uri] = gc_resource
+          parse_resource_node(grandchild, collection)
+        end
+      end
+      @collection[resource.uri] = resource
+    end
+  
+    def all_text?(node)
+      node.children.each do | child |
+        return false unless child.text?
+      end
+      true
+    end
+  
+    def parse_rdfxml
+      collection = []
+      @rdfxml.root.xpath("./*[@rdf:about]").each do | resource_node |
+        parse_resource_node(resource_node, collection)
+      end
+    end    
+  
+    def fix_rss10
+      @rdfxml.root.xpath('./rss:channel/rss:items/rdf:Seq/rdf:li', {"rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rss"=>"http://purl.org/rss/1.0/"}).each do | li |
+        if li['resource'] && !li["rdf:resource"]
+          li["rdf:resource"] = li["resource"]
+        end
+      end
+    end
   end
-end
+
+  class RDFAParser < XMLParser
+    def data=(xhtml)
+      if xhtml.is_a?(Nokogiri::XML::Document)
+        doc = xhtml
+      else
+        doc = Nokogiri::HTML.parse(xhtml)
+      end
+      xslt = Nokogiri::XSLT(open(File.dirname(__FILE__) + '/../xsl/RDFa2RDFXML.xsl'))
+      rdfxml = xslt.apply_to(doc)      
+      @rdfxml = Nokogiri::XML.parse(rdfxml, nil, nil, Nokogiri::XML::ParseOptions::PEDANTIC)
+    end    
+  end
+
+  class JSONParser < RDFObject::Parser
+    
+    def data=(json)
+      if json.is_a?(String)
+        @json = JSON.parse(json)
+      elsif json.is_a?(Hash)
+        @json = json
+      elsif json.respond_to?(:read)
+        @json = JSON.parse(json.read)
+      end
+    end
+    
+    def parse
+      @json.each_pair do |subject, assertions|
+        resource = find_or_create(subject)
+        @collection[resource.uri] = resource
+        assertions.each_pair do |predicate, objects|
+          objects.each do | object |
+            if object['type'] == 'literal'
+              opts = {}
+              if object['lang']
+                opts[:language] = object['lang']
+              end
+              if object['datatype']
+                opts[:data_type] = object['datatype']
+              end
+              literal = Literal.new(object['value'],opts)
+              resource.assert(predicate, literal)
+            elsif object['type'] == 'uri'
+              o = find_or_create(object['value'])
+              resource.assert(predicate, o)
+              @collection[o.uri] = o
+            elsif object['type'] == 'bnode' # For now, we're going to treat a blank node like a URI resource.
+              o = find_or_create(object['value'])
+              resource.assert(predicate, o)
+              @collection[o.uri] = o            
+            end
+          end
+        end
+      end
+      @collection
+    end
+  end
+
+
 end

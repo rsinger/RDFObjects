@@ -7,27 +7,28 @@ describe "An RDFObject Parser" do
   it "should identify and parse an rdf/xml document from I/O" do
     rdf = open(File.dirname(__FILE__) + '/files/Semantic_Web.rdf')
     resources = Parser.parse(rdf)
-    resources.should be_kind_of(Array)
-    resources.length.should equal(51)
+    resources.should be_kind_of(Collection)
+    resources.should be_kind_of(Hash)    
+    resources.uris.length.should equal(51)
   end
   it "should identify and parse an rdf/xml document from a string" do
     rdf = open(File.dirname(__FILE__) + '/files/Semantic_Web.rdf').read
     resources = Parser.parse(rdf)
-    resources.should be_kind_of(Array)
-    resources.length.should equal(51)
+    resources.should be_kind_of(Collection)
+    resources.uris.length.should equal(51)
   end  
   
   it "should identify and parse an ntriples list from I/O" do
     nt = open(File.dirname(__FILE__) + '/files/lcsh.nt')
     resources = Parser.parse(nt)
-    resources.should be_kind_of(Array)
-    resources.length.should equal(13)    
+    resources.should be_kind_of(Collection)
+    resources.uris.length.should equal(41)    
   end
   it "should identify and parse an ntriples list from string" do
     nt = open(File.dirname(__FILE__) + '/files/lcsh.nt').read
     resources = Parser.parse(nt)
-    resources.should be_kind_of(Array)
-    resources.length.should equal(13)    
+    resources.should be_kind_of(Collection)
+    resources.uris.length.should equal(41)    
   end  
   it "should have created resources from an rdf/xml I/O and set their values properly" do
     rdf = open(File.dirname(__FILE__) + '/files/Semantic_Web.rdf')
@@ -44,8 +45,8 @@ describe "An RDFObject Parser" do
   it "should identify and parse a JSON response from I/O" do
     json = open(File.dirname(__FILE__) + '/files/lcsubjects.json')
     resources = Parser.parse(json)
-    resources.should be_kind_of(Array)
-    resources.length.should equal(11)
+    resources.should be_kind_of(Collection)
+    resources.uris.length.should equal(11)
   end
   
   it "should have created resources from a JSON I/O and set their values properly" do 
@@ -64,14 +65,14 @@ describe "An RDFObject Parser" do
   it "should identify and parse an RSS 1.0 document from I/O" do
     rss = open(File.dirname(__FILE__) + '/files/rss10.xml')
     resources = Parser.parse(rss)
-    resources.should be_kind_of(Array)
-    resources.length.should equal(77)    
+    resources.should be_kind_of(Collection)
+    resources.uris.length.should equal(77)    
   end
   
   it "should correctly find and build nested resources in an RSS 1.0 document" do
     rss = open(File.dirname(__FILE__) + '/files/rss10-2.xml')
     resources = Parser.parse(rss)
-    resources.should be_kind_of(Array)
+    resources.should be_kind_of(Collection)
     r1 = Resource.instances["http://lcsubjects.org/subjects/sh85068937#concept"]
     r1["http://www.w3.org/2004/02/skos/core#prefLabel"].should == ("Italy--History--To 476")
     r1["http://www.w3.org/2004/02/skos/core#narrower"].should be_kind_of(Array)

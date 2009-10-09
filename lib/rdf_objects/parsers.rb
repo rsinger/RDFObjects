@@ -58,26 +58,15 @@ class UTF8Parser < StringScanner
     raise StandardError, "Caught #{e.class}: #{e}"
   end  
 end
-module RDFObject 
-  class Collection < Hash
-    attr_accessor :objects
-    def initialize(subjects=true)
-      @objects = Collection.new(false) if subjects
-    end
-    def uris
-      return self.keys
-    end
-    def find_by_type(type)
-      self.find_all {|r| r}
-    end
-    def resources
-      self.merge(@objects)
-    end
-  end
-  
+module RDFObject   
   class Parser
     # Choose the best format parser from an admittedly small group of choices.
     def self.parse(rdf, format=nil)
+      parser = init_parser(rdf, format)
+      parser.parse 
+    end
+    
+    def self.init_parser(rdf, format=nil)
       if format
         parser = case format
         when 'rdfxml' then XMLParser.new(rdf)
@@ -112,17 +101,17 @@ module RDFObject
           end
         end
       end
-      parser.parse 
-    end
+      parser
+    end 
+         
     attr_reader :collection
     def initialize(data=nil)
       @collection = Collection.new
       self.data=(data) if data
     end
-         
-    def find_or_create(uri)
-      return @collection.resources[uri] if @collection.resources[uri]
-      Resource.new(uri)
+    def collection=(collection)
+      raise ArgumentError unless collection.is_a?(RDFObject::Collection)
+      @collection = collection
     end
   end  
   class NTriplesParser < RDFObject::Parser
@@ -142,8 +131,7 @@ module RDFObject
         tmp_object = scanner.scan_until(/>\s?\.\s*\n?$/)
         tmp_object.sub!(/^</,'')
         tmp_object.sub!(/>\s?\.\s*\n?$/,'')
-        object = find_or_create(tmp_object)
-        @collection[object.uri] = object
+        object = @collection.find_or_create(tmp_object)
       else
         language = nil
         data_type = nil
@@ -185,9 +173,8 @@ module RDFObject
       @ntriples.each do | assertion |
         next if assertion[0, 1] == "#" # Ignore comments
         triple = parse_ntriple(assertion)
-        resource = find_or_create(triple[0])
+        resource = @collection.find_or_create(triple[0])
         resource.assert(triple[1], triple[2])
-        @collection[resource.uri] = resource
       end
       @collection
     end
@@ -202,11 +189,10 @@ module RDFObject
     #
     
     def parse
-      namespaces = @rdfxml.namespaces
-      if namespaces.index("http://purl.org/rss/1.0/")
+      if @rdfxml.namespaces.values.index("http://purl.org/rss/1.0/")
         fix_rss10
       end
-      if namespaces.index("http://www.w3.org/2005/sparql-results#")
+      if @rdfxml.namespaces.values.index("http://www.w3.org/2005/sparql-results#")
         raise "Sorry, SPARQL not yet supported"
       else
         parse_rdfxml
@@ -223,17 +209,16 @@ module RDFObject
     end
   
     def parse_resource_node(resource_node, collection)
-      resource = find_or_create(resource_node.attribute_with_ns('about', "http://www.w3.org/1999/02/22-rdf-syntax-ns#").value)
+      resource = @collection.find_or_create(resource_node.attribute_with_ns('about', "http://www.w3.org/1999/02/22-rdf-syntax-ns#").value)
       unless (resource_node.name == "Description" and resource_node.namespace.href == "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
-        resource.assert("[rdf:type]", find_or_create("#{resource_node.namespace.href}#{resource_node.name}"))
+        resource.assert("[rdf:type]", @collection.find_or_create("#{resource_node.namespace.href}#{resource_node.name}"))
       end
       resource_node.children.each do | child |
         next if child.text?
         predicate = "#{child.namespace.href}#{child.name}"
         if object_uri = child.attribute_with_ns("resource", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
-          obj_resource = find_or_create(object_uri.value)
+          obj_resource = @collection.find_or_create(object_uri.value)
           resource.assert(predicate, obj_resource)
-          @collection[obj_resource.uri] = obj_resource
         elsif all_text?(child)
           opts = {}
           if lang = child.attribute_with_ns("lang", "http://www.w3.org/XML/1998/namespace")
@@ -245,13 +230,11 @@ module RDFObject
           resource.assert(predicate, Literal.new(child.content.strip,opts))
         end
         child.xpath("./*[@rdf:about]").each do | grandchild |
-          gc_resource = find_or_create(grandchild.attribute_with_ns('about', "http://www.w3.org/1999/02/22-rdf-syntax-ns#").value)
+          gc_resource = @collection.find_or_create(grandchild.attribute_with_ns('about', "http://www.w3.org/1999/02/22-rdf-syntax-ns#").value)
           resource.assert(predicate, gc_resource)
-          @collection[gc_resource.uri] = gc_resource
           parse_resource_node(grandchild, collection)
         end
       end
-      @collection[resource.uri] = resource
     end
   
     def all_text?(node)
@@ -305,8 +288,7 @@ module RDFObject
     
     def parse
       @json.each_pair do |subject, assertions|
-        resource = find_or_create(subject)
-        @collection[resource.uri] = resource
+        resource = @collection.find_or_create(subject)
         assertions.each_pair do |predicate, objects|
           objects.each do | object |
             if object['type'] == 'literal'
@@ -320,13 +302,11 @@ module RDFObject
               literal = Literal.new(object['value'],opts)
               resource.assert(predicate, literal)
             elsif object['type'] == 'uri'
-              o = find_or_create(object['value'])
+              o = @collection.find_or_create(object['value'])
               resource.assert(predicate, o)
-              @collection[o.uri] = o
             elsif object['type'] == 'bnode' # For now, we're going to treat a blank node like a URI resource.
-              o = find_or_create(object['value'])
+              o = @collection.find_or_create(object['value'])
               resource.assert(predicate, o)
-              @collection[o.uri] = o            
             end
           end
         end

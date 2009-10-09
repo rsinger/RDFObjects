@@ -1,9 +1,7 @@
 require File.dirname(__FILE__) + '/../lib/rdf_objects'
 include RDFObject
 describe "An RDFObject Parser" do
-  before(:each) do
-    Resource.reset!
-  end  
+
   it "should identify and parse an rdf/xml document from I/O" do
     rdf = open(File.dirname(__FILE__) + '/files/Semantic_Web.rdf')
     resources = Parser.parse(rdf)
@@ -33,7 +31,7 @@ describe "An RDFObject Parser" do
   it "should have created resources from an rdf/xml I/O and set their values properly" do
     rdf = open(File.dirname(__FILE__) + '/files/Semantic_Web.rdf')
     resources = Parser.parse(rdf)
-    r1 = Resource.instances['http://dbpedia.org/resource/Semantic_Web']
+    r1 = resources['http://dbpedia.org/resource/Semantic_Web']
     r1.should be_kind_of(RDFObject::Resource)  
     r1.uri.should match("http://dbpedia.org/resource/Semantic_Web")
     r1["http://www.w3.org/2000/01/rdf-schema#label"].should be_kind_of(Array)
@@ -52,7 +50,7 @@ describe "An RDFObject Parser" do
   it "should have created resources from a JSON I/O and set their values properly" do 
     json = open(File.dirname(__FILE__) + '/files/lcsubjects.json')
     resources = Parser.parse(json)    
-    r1 = Resource.instances["http://lcsubjects.org/subjects/sh85068937#concept"]
+    r1 = resources["http://lcsubjects.org/subjects/sh85068937#concept"]
     r1.should be_kind_of(RDFObject::Resource)
     r1.uri.should match("http://lcsubjects.org/subjects/sh85068937#concept")
     r1["http://www.w3.org/2004/02/skos/core#narrower"].length.should equal(3)
@@ -66,14 +64,15 @@ describe "An RDFObject Parser" do
     rss = open(File.dirname(__FILE__) + '/files/rss10.xml')
     resources = Parser.parse(rss)
     resources.should be_kind_of(Collection)
-    resources.uris.length.should equal(77)    
+    puts resources.uris.inspect
+    resources.uris.length.should equal(80)    
   end
   
   it "should correctly find and build nested resources in an RSS 1.0 document" do
     rss = open(File.dirname(__FILE__) + '/files/rss10-2.xml')
     resources = Parser.parse(rss)
     resources.should be_kind_of(Collection)
-    r1 = Resource.instances["http://lcsubjects.org/subjects/sh85068937#concept"]
+    r1 = resources["http://lcsubjects.org/subjects/sh85068937#concept"]
     r1["http://www.w3.org/2004/02/skos/core#prefLabel"].should == ("Italy--History--To 476")
     r1["http://www.w3.org/2004/02/skos/core#narrower"].should be_kind_of(Array)
     r1["http://www.w3.org/2004/02/skos/core#narrower"].first.should be_kind_of(RDFObject::ResourceReference)
@@ -88,28 +87,23 @@ describe "An RDFObject Parser" do
   it "should make two identical Resource objects from the 'amp-in-url' test" do
     nt = open(File.dirname(__FILE__) + '/rdfxml_test_cases/amp-in-url/test001.nt')
     resources = Parser.parse(nt)
-    r1 = Resource.instances['http://example/q?abc=1&def=2']
-    r1_raw = Marshal.dump(r1)
-    Resource.reset!
+    r1 = resources['http://example/q?abc=1&def=2']
     rdf = open(File.dirname(__FILE__) + '/rdfxml_test_cases/amp-in-url/test001.rdf')
-    resources = Parser.parse(rdf)
-    r1 = Resource.instances['http://example/q?abc=1&def=2']
-    r1.should be_kind_of(RDFObject::Resource)
-    r2 = Marshal.load r1_raw
+    resources2 = Parser.parse(rdf)
+    r2 = resources['http://example/q?abc=1&def=2']
+    r2.should be_kind_of(RDFObject::Resource)
     r1.should == r2
   end
   
   it "should make two identical Resource objects from 'datatypes' test #1" do
     nt = open(File.dirname(__FILE__) + '/rdfxml_test_cases/datatypes/test001.nt')
     resources = Parser.parse(nt)
-    r1 = Resource.instances["http://example.org/foo"]
-    r1_raw = Marshal.dump(r1)
-    Resource.reset!
+    r1 = resources["http://example.org/foo"]
+
     rdf = open(File.dirname(__FILE__) + '/rdfxml_test_cases/datatypes/test001.rdf')
-    resources = Parser.parse(rdf)
-    r1 = Resource.instances["http://example.org/foo"]
-    r1.should be_kind_of(RDFObject::Resource)
-    r2 = Marshal.load r1_raw
+    resources2 = Parser.parse(rdf)
+    r2 = resources2["http://example.org/foo"]
+    r2.should be_kind_of(RDFObject::Resource)
     r1.should == r2
   end  
 
@@ -117,11 +111,7 @@ describe "An RDFObject Parser" do
     nt = open(File.dirname(__FILE__) + '/rdfxml_test_cases/datatypes/test002.nt')
     lambda {Parser.parse(nt)}.should raise_error(ArgumentError)
 
-    Resource.reset!
     rdf = open(File.dirname(__FILE__) + '/rdfxml_test_cases/datatypes/test002.rdf')
     lambda {Parser.parse(rdf)}.should raise_error(ArgumentError)
   end  
-  after(:all) do
-    Resource.reset!
-  end
 end

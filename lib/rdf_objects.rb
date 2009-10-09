@@ -6,6 +6,7 @@ module RDFObject
   require File.dirname(__FILE__) + '/rdf_objects/rdf_resource'
   require File.dirname(__FILE__) + '/rdf_objects/curies'
   require File.dirname(__FILE__) + '/rdf_objects/data_types'
-  require File.dirname(__FILE__) + '/rdf_objects/http_client'    
+  require File.dirname(__FILE__) + '/rdf_objects/http_client' 
+  require File.dirname(__FILE__) + '/rdf_objects/collection'      
   Curie.remove_prefixes!(:http)
 end

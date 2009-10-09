@@ -5,42 +5,6 @@ require 'weakref'
 
 module RDFObject
   class Resource < OpenStruct
-    class << self
-      def instances
-        instances = {}
-        ObjectSpace.each_object(self) { | rdf_object |
-          next unless rdf_object.uri
-          instances[rdf_object.uri] = rdf_object
-        }        
-        instances
-      end
-
-      def reset!
-      #  @instances = {}
-        ObjectSpace.each_object(self) { | rdf_object |
-          rdf_object.uri = nil
-          Curie.get_mappings.each do | prefix, uri |
-            if rdf_object.respond_to?(prefix.to_sym)
-              rdf_object.send("#{prefix}=".to_sym, nil)
-            end
-          end
-        }
-        ObjectSpace.garbage_collect        
-      end
-
-      def remove(resource)
-        to_del = instances[resource.uri]      
-        to_del.uri = nil
-      end
-    
-      def exists?(uri)
-        ObjectSpace.each_object(self) { | rdf_object |
-          return true if rdf_object.uri == uri
-        }
-        false
-      end
-    end
-
     def initialize(uri)        
       if uri.could_be_a_safe_curie?
         uri = Curie.parse uri
@@ -121,18 +85,6 @@ module RDFObject
       end
       return true
     end
-   
-    def self.new(uri, *opts)
-      #if self.exists?(uri)
-      #  return self.instances[uri]
-      #end
-      if exists = self.instances[uri]
-        unless opts.index(:force)
-          return exists
-        end
-      end
-      super(uri)
-    end   
   end
   
   class ResourceReference

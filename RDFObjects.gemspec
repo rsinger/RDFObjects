@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rdfobjects}
-  s.version = "0.5.0"
+  s.version = "0.6.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ross Singer"]
@@ -20,12 +20,12 @@ Gem::Specification.new do |s|
     "LICENSE",
      "README",
      "lib/rdf_objects.rb",
+     "lib/rdf_objects/collection.rb",
      "lib/rdf_objects/curies.rb",
      "lib/rdf_objects/data_types.rb",
      "lib/rdf_objects/http_client.rb",
      "lib/rdf_objects/parsers.rb",
      "lib/rdf_objects/rdf_resource.rb",
-     "lib/rdf_objects/rdfxml_parser.rb",
      "lib/rdf_objects/serializers.rb",
      "lib/xsl/RDFa2RDFXML.xsl",
      "lib/xsl/rdf2nt.xsl",

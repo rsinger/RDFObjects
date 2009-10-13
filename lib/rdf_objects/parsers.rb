@@ -131,7 +131,8 @@ module RDFObject
         tmp_object = scanner.scan_until(/>\s?\.\s*\n?$/)
         tmp_object.sub!(/^</,'')
         tmp_object.sub!(/>\s?\.\s*\n?$/,'')
-        object = @collection.find_or_create(tmp_object)
+        object = tmp_object
+        type = "uri"
       else
         language = nil
         data_type = nil
@@ -154,9 +155,10 @@ module RDFObject
           data_type = scanner.scan_until(/>/)
           data_type.sub!(/>$/,'')
         end
-        object = Literal.new(tmp_object,{:data_type=>data_type,:language=>language})      
+        object = Literal.new(tmp_object,{:data_type=>data_type,:language=>language})
+        type = "literal"      
       end
-      [subject, predicate, object]
+      {:subject=>subject, :predicate=>predicate, :object=>object, :type=>type}
     end
     
     def data=(ntriples)
@@ -173,8 +175,12 @@ module RDFObject
       @ntriples.each do | assertion |
         next if assertion[0, 1] == "#" # Ignore comments
         triple = parse_ntriple(assertion)
-        resource = @collection.find_or_create(triple[0])
-        resource.assert(triple[1], triple[2])
+        resource = @collection.find_or_create(triple[:subject])
+        object = case triple[:type]
+        when "literal" then triple[:object]
+        when "uri" then @collection.find_or_create(triple[:object])
+        end
+        resource.assert(triple[:predicate],object)
       end
       @collection
     end

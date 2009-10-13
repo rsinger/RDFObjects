@@ -3,8 +3,15 @@ module RDFObject
     def uris
       return self.keys
     end
-    def find_by_type(type)
-      self.find_all {|r| r}
+    def find_by_predicate(predicate)
+      if predicate.could_be_a_safe_curie?
+        predicate = Curie.parse predicate
+      end      
+      self.find_all {|r| 
+        if r[1][predicate]
+          r[1]
+        end
+      }
     end
 
     def find_or_create(uri)

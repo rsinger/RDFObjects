@@ -64,7 +64,6 @@ describe "An RDFObject Parser" do
     rss = open(File.dirname(__FILE__) + '/files/rss10.xml')
     resources = Parser.parse(rss)
     resources.should be_kind_of(Collection)
-    puts resources.uris.inspect
     resources.uris.length.should equal(80)    
   end
   

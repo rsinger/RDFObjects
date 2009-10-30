@@ -1,7 +1,6 @@
 require 'uri'
 require 'date'
 require 'curies'
-require 'weakref'
 
 module RDFObject
   class Resource < OpenStruct
@@ -76,7 +75,24 @@ module RDFObject
   
     def describe
       rdf = HTTPClient.fetch(self.uri)
-      Parser.parse(rdf)
+      local_collection = Parser.parse(rdf)
+      local_collection[self.uri].assertions.each do | predicate, object |
+        [*object].each do | obj |
+          self.assert(predicate, object) unless self.assertion_exists?(predicate, object)
+        end
+      end
+    end
+    
+    def assertions
+      assertions = {}
+      Curie.get_mappings.each do | prefix, uri |
+        if self[uri]
+          self[uri].keys.each do | pred |
+            assertions["#{uri}#{pred}"] = self[uri][pred]
+          end
+        end
+      end
+      assertions
     end
   
     def empty_graph?

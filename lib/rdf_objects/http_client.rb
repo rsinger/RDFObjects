@@ -19,7 +19,7 @@ module RDFObject
       end
       if response.code == "200"
         return response.body
-      elsif response.code == "303"
+      elsif response.code =~ /^30[0-9]$/
         return fetch(response.header['location'])
       else
         raise response.message

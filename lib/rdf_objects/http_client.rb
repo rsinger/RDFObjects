@@ -17,10 +17,13 @@ module RDFObject
       response = Net::HTTP.start(u.host, u.port) do | http |
         http.request(request)
       end
-      if response.code != "200"
+      if response.code == "200"
+        return response.body
+      elsif response.code == "303"
+        return fetch(response.location)
+      else
         raise response.message
       end
-      response.body
     end
   
     def self.register_proxy(uri,proxy)

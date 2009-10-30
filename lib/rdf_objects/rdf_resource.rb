@@ -78,7 +78,7 @@ module RDFObject
       local_collection = Parser.parse(rdf)
       local_collection[self.uri].assertions.each do | predicate, object |
         [*object].each do | obj |
-          self.assert(predicate, object) unless self.assertion_exists?(predicate, object)
+          self.assert(predicate, obj) unless self.assertion_exists?(predicate, obj)
         end
       end
     end

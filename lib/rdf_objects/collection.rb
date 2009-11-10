@@ -7,12 +7,34 @@ module RDFObject
       if predicate.could_be_a_safe_curie?
         predicate = Curie.parse predicate
       end      
-      self.find_all {|r| 
+      matches = self.find_all {|r| 
         if r[1][predicate]
           r[1]
         end
       }
+      resources = Collection.new
+      matches.each do | match |
+        resources[match[0]] = match[1]
+      end
+      return resources
     end
+    
+    def find_by_predicate_and_object(predicate, object)
+      if predicate.could_be_a_safe_curie?
+        predicate = Curie.parse predicate
+      end      
+      if object.could_be_a_safe_curie?
+        object = Curie.parse object
+      end
+      object = self[object] if self[object]      
+      matches = self.find_all {|r| [*r[1][predicate]].index(object) }
+
+      resources = Collection.new
+      matches.each do | match |
+        resources[match[0]] = match[1]
+      end
+      return resources
+    end    
 
     def find_or_create(uri)
       if uri.could_be_a_safe_curie?

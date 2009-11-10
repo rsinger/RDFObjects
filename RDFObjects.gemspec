@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rdfobjects}
-  s.version = "0.6.6"
+  s.version = "0.7.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ross Singer"]
-  s.date = %q{2009-10-30}
+  s.date = %q{2009-11-10}
   s.description = %q{RDFObjects are intended to simplify working with RDF data by providing a (more) Ruby-like interface to resources (thanks to OpenStruct).}
   s.email = %q{rossfsinger@gmail.com}
   s.extra_rdoc_files = [

@@ -53,15 +53,25 @@ Usage:
   
   => "en"
   
-  To relate a resource to another URI you can use #.resource - it will accept full uri strings, safe curies or other RDFObject::Resource objects
+  To relate a resource to another URI you can use #.relate - it will accept full uri strings, safe curies or other RDFObject::Resource objects
   
   >> resource.relate("[skos:closeMatch]", "http://dbpedia.org/resource/Category:Semantic_Web")
   
   => [#<RDFObject::Resource uri="http://stitch.cs.vu.nl/vocabularies/rameau/ark:/12148/cb14521343b">, #<RDFObject::Resource uri="http://dbpedia.org/resource/Category:Semantic_Web">]
   
-  RDFObject::Resources sort of act as singletons
+  These relationships are actually replaced with RDFObject::ResourceReference objects (to prevent massive recursion errors).  To access the actual Resource object, use:
   
-  >> r1 = Resource.new('http://ex.org/ex/1234')
+  >> resource["[skos:closeMatch]"].first.resource
+  
+  => #<RDFObject::Resource uri="http://stitch.cs.vu.nl/vocabularies/rameau/ark:/12148/cb14521343b">
+  
+  In order to be sure you are always asserting against the same object, use RDFObject::Collection objects to manage your Resources.
+  
+  >> collection = Collection.new
+  
+  => {}
+  
+  >> r1 = collection.find_or_create('http://ex.org/ex/1234')
   
   => #<RDFObject::Resource uri="http://ex.org/ex/1234">
   
@@ -69,7 +79,7 @@ Usage:
   
   => 8996290
   
-  >> r2 = Resource.new('http://ex.org/ex/1234')
+  >> r2 = collection.find_or_create('http://ex.org/ex/1234')
   
   => #<RDFObject::Resource uri="http://ex.org/ex/1234">  
   
@@ -77,38 +87,46 @@ Usage:
   
   => 8996290  
   
-  So relationships and assertions are always applied to the same object.  These are managed in the RDFObject::Resource class:
-  
-  >> Resource.instances
-  
-  => {"http://ex.org/ex/1234"=>#<RDFObject::Resource uri="http://ex.org/ex/1234">}
-  
-  To override this behavior (i.e. to create another object with the same URI), pass the :force argument:
-  
-  >> r2 = Resource.new('http://ex.org/ex/1234', :force)
-  
-  => #<RDFObject::Resource uri="http://ex.org/ex/1234">  
-  
-  >> r2.object_id
-  
-  => 8996310  
+  So relationships and assertions are always applied to the same objects.
   
   You can delete a single resource:
   
-  >> Resource.remove(r1)
+  >> collection.remove(r1)
   
-  >> Resource.instances
+  >> collection
   => {}
-
-  Or clear the entire hash:
   
-  >> Resource.reset!
+  There is also a convenience method on RDFObject::Collection to help find particular resources by predicate:
   
-  There are also parsers for ntriples, rdf/xml, RSS 1.0, RDFa, and JSON.
+  >> resources_with_types = collection.find_by_predicate("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+  
+  And to find resources by predicate and object:
+  
+  >> resources_i_want = collection.find_by_predicate_and_object("http://www.w3.org/2004/02/skos/core#closeMatch", "http://stitch.cs.vu.nl/vocabularies/rameau/ark:/12148/cb145537755")
+  
+  Both these return RDFObject::Collection objects with your matches.  Changes to resources in these collections also affect the resource in original collection.
+  
+  There are also parsers for ntriples, rdf/xml, RSS 1.0, RDFa, and JSON.  Parsers return a RDFObject::Collection with all of the resources discovered in the RDF source.
   
   >> resources = Parser.parse(open('lcsh.nt').read)
   
-  >> resources.first
+  >> resources.values.first
   
   => #<RDFObject::Resource n0={"altLabel"=>"Lichen ruber planus", "inScheme"=>[#<RDFObject::Resource uri="http://id.loc.gov/authorities#conceptScheme">, #<RDFObject::Resource uri="http://id.loc.gov/authorities#topicalTerms">], "prefLabel"=>"Lichen planus"}, n1={"sameAs"=>#<RDFObject::Resource uri="info:lc/authorities/sh85076767">}, uri="http://id.loc.gov/authorities/sh85076767#concept", n2={"modified"=>#<DateTime: 211644344801/86400,-1/6,2299161>}, rdf={"type"=>#<RDFObject::Resource uri="http://www.w3.org/2004/02/skos/core#Concept">}>
+  
+  There are serializers for RDF/XML and ntriples.  Both resources and collections can be serialized.
+  
+  >> resource.to_xml
+  
+  => "<rdf:RDF xmlns:n0="http://www.w3.org/2004/02/skos/core#" xmlns:n1="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:n2="http://purl.org/dc/terms/"><rdf:Description rdf:about="http://id.loc.gov/authorities/sh85076767#concept"><n0:altLabel>Lichen ruber planus</n0:altLabel><n0:inScheme><rdf:Description rdf:about="http://id.loc.gov/authorities#conceptScheme"></rdf:Description></n0:inScheme><n0:inScheme><rdf:Description rdf:about="http://id.loc.gov/authorities#topicalTerms"></rdf:Description></n0:inScheme><n0:prefLabel>Lichen planus</n0:prefLabel><n1:sameAs><rdf:Description rdf:about="info:lc/authorities/sh85076767"></rdf:Description></n1:sameAs><n2:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1994-08-22T15:46:41-04:00</n2:modified><rdf:type><rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#Concept"></rdf:Description></rdf:type></rdf:Description></rdf:RDF>"
+  
+  >> collection.to_xml
+  
+  >> resource.to_ntriples
+  
+  => "<http://id.loc.gov/authorities/sh85076767#concept> <http://www.w3.org/2004/02/skos/core#altLabel> "Lichen ruber planus"@en.\n<http://id.loc.gov/authorities/sh85076767#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#conceptScheme>.\n<http://id.loc.gov/authorities/sh85076767#concept> <http://www.w3.org/2004/02/skos/core#inScheme> <http://id.loc.gov/authorities#topicalTerms>.\n<http://id.loc.gov/authorities/sh85076767#concept> <http://www.w3.org/2004/02/skos/core#prefLabel> "Lichen planus"@en.\n<http://id.loc.gov/authorities/sh85076767#concept> <http://www.w3.org/2002/07/owl#sameAs> <info:lc/authorities/sh85076767>.\n<http://id.loc.gov/authorities/sh85076767#concept> <http://purl.org/dc/terms/modified> "1994-08-22T15:46:41-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>.\n<http://id.loc.gov/authorities/sh85076767#concept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept>.\n"
+  
+  >> collection.to_ntriples
+  
+  etc.
   

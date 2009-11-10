@@ -137,6 +137,59 @@ module RDFObject
       ntriples     
     end
     
+    def to_xml(depth=0)
+      namespaces, rdf_data = rdf_description_block(depth)
+      unless namespaces["xmlns:rdf"]
+        if  x = namespaces.index("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+          namespaces.delete(x)
+        end
+        namespaces["xmlns:rdf"] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      end
+
+      rdf = "<rdf:RDF"
+      namespaces.each_pair {|key, value| rdf << " #{key}=\"#{value}\""}
+      rdf <<">"
+      rdf << rdf_data
+      rdf << "</rdf:RDF>"
+      rdf      
+    end
+    
+    def rdf_description_block(depth)
+      rdf = "<rdf:Description rdf:about=\"#{CGI.escapeHTML(self.uri)}\">"
+      namespaces = {}
+      Curie.get_mappings.each_pair do |key, value|
+        if self.respond_to?(key.to_sym)
+          self.send(key.to_sym).each_pair do | predicate, objects |
+            [*objects].each do | object |
+              rdf << "<#{key}:#{predicate}"
+              namespaces["xmlns:#{key}"] = "#{Curie.parse("[#{key}:]")}"
+              if object.is_a?(RDFObject::ResourceReference)
+                if depth > 0
+                  rdf << " rdf:resource=\"#{CGI.escapeHTML(object.uri)}\" />"
+                else
+                  rdf << ">"
+                  ns, rdf_data = object.resource.rdf_description_block(depth+1)
+                  namespaces.merge!(ns)
+                  rdf << rdf_data
+                  rdf << "</#{key}:#{predicate}>"
+                end
+              else
+                if object.language
+                  rdf << " xml:lang=\"#{object.language}\""
+                end
+                if object.data_type
+                  rdf << " rdf:datatype=\"#{object.data_type}\""
+                end
+                rdf << ">#{CGI.escapeHTML(object.to_s)}</#{key}:#{predicate}>"
+              end
+            end
+          end
+        end
+      end
+      rdf << "</rdf:Description>"
+      [namespaces, rdf]
+    end    
+    
     def ==(other)
       return false unless self.uri == other.uri
       Curie.get_mappings.each do | prefix, uri |

@@ -40,5 +40,28 @@ module RDFObject
       end
       ntriples
     end
+    
+    def to_xml(depth=0)
+      namespaces = {}
+      rdf_data = ""
+      self.values.each do | resource |
+        ns, desc = resource.rdf_description_block(depth)
+        namespaces.merge!(ns)
+        rdf_data << desc
+      end
+      unless namespaces["xmlns:rdf"]
+        if  x = namespaces.index("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+          namespaces.delete(x)
+        end
+        namespaces["xmlns:rdf"] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      end
+
+      rdf = "<rdf:RDF"
+      namespaces.each_pair {|key, value| rdf << " #{key}=\"#{value}\""}
+      rdf <<">"
+      rdf << rdf_data
+      rdf << "</rdf:RDF>"
+      rdf      
+    end    
   end
 end

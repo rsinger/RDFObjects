@@ -4,6 +4,7 @@ require 'curies'
 
 module RDFObject
   class Resource < OpenStruct
+    attr_reader :table
     def initialize(uri)        
       if uri.could_be_a_safe_curie?
         uri = Curie.parse uri
@@ -100,6 +101,70 @@ module RDFObject
         return false if self.respond_to?(prefix.to_sym)
       end
       return true
+    end
+    
+    def to_ntriples
+      ntriples = ""
+      Curie.get_mappings.each do | prefix, uri |
+        if self[uri]
+          self[uri].keys.each do | pred |    
+            if self[uri][pred].is_a?(Array)
+              objects = self[uri][pred]
+            else
+              objects = [self[uri][pred]]
+            end
+            objects.each do | object |           
+              line = "<#{self.uri}> <#{uri}#{pred}> "
+              if (object.is_a?(Resource) or object.is_a?(ResourceReference))
+                line << "<#{object.uri}>"
+              else
+                line << "#{object.to_json}"
+                if (object.respond_to?(:data_type) || object.respond_to?(:language))
+                  if object.data_type
+                    line << "^^<#{object.data_type}>"
+                  end
+                  if object.language
+                    line << "@#{object.language}"
+                  end
+                end
+              end
+              line << ".\n"
+              ntriples << line              
+            end
+          end
+        end
+      end 
+      ntriples     
+    end
+    
+    def ==(other)
+      return false unless self.uri == other.uri
+      Curie.get_mappings.each do | prefix, uri |
+        next unless self[uri] or other[uri]
+        return false if self[uri] && !other[uri]
+        return false if !self[uri] && other[uri]     
+        return false if self[uri].class != other[uri].class  
+        if self[uri] != other[uri]
+          if self[uri].is_a?(Hash)            
+            return false unless self[uri].keys.eql?(other[uri].keys)
+            self[uri].keys.each do | pred |
+              if self[uri][pred].is_a?(Array)
+                return false unless self[uri][pred].length == other[uri][pred].length
+              else
+                if self[uri][pred].is_a?(Resource) or self[uri][pred].is_a?(ResourceReference)
+                  return false unless other[uri][pred].is_a?(Resource) or other[uri][pred].is_a?(ResourceReference)
+                  return false unless self.uri == other.uri
+                else
+                  return false unless self[uri][pred] == other[uri][pred]
+                end
+              end
+            end
+          else
+            return false 
+          end
+        end
+      end
+      true
     end
   end
   

@@ -32,5 +32,13 @@ module RDFObject
       parser.parse
       nil
     end
+    
+    def to_ntriples
+      ntriples = ""
+      self.each_pair do | uri, resource |
+        ntriples << resource.to_ntriples
+      end
+      ntriples
+    end
   end
 end

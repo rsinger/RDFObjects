@@ -7,7 +7,7 @@ Installation:
 
 Requirements:
   * Nokogiri (the idea is for more options in the future)
-  * rsinger-curies
+  * curies
   * json (or json_pure)
   
 Usage:

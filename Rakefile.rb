@@ -22,7 +22,7 @@ begin
     gemspec.homepage = "http://github.com/rsinger/RDFObjects/tree"
     gemspec.authors = ["Ross Singer"]
     gemspec.add_dependency('nokogiri')
-    gemspec.add_dependency('rsinger-curies')  
+    gemspec.add_dependency('curies')  
     gemspec.add_dependency('json')    
     gemspec.files = Dir.glob("{lib,spec}/**/*") + ["README", "LICENSE"]
     gemspec.require_path = 'lib'    

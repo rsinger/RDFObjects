@@ -191,6 +191,7 @@ module RDFObject
     end    
     
     def ==(other)
+      return false unless other.is_a?(Resource) or other.is_a?(ResourceReference)
       return false unless self.uri == other.uri
       Curie.get_mappings.each do | prefix, uri |
         next unless self[uri] or other[uri]
@@ -203,10 +204,16 @@ module RDFObject
             self[uri].keys.each do | pred |
               if self[uri][pred].is_a?(Array)
                 return false unless self[uri][pred].length == other[uri][pred].length
+                self[uri][pred].each do | idx |
+                  return false unless other[uri][pred].index(idx)
+                end
+                other[uri][pred].each do | idx |
+                  return false unless self[uri][pred].index(idx)
+                end
               else
                 if self[uri][pred].is_a?(Resource) or self[uri][pred].is_a?(ResourceReference)
                   return false unless other[uri][pred].is_a?(Resource) or other[uri][pred].is_a?(ResourceReference)
-                  return false unless self.uri == other.uri
+                  return false unless self[uri][pred].uri == other[uri][pred].uri
                 else
                   return false unless self[uri][pred] == other[uri][pred]
                 end

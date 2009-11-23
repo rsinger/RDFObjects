@@ -63,5 +63,31 @@ describe "An RDFObject Resource" do
     r1.assert("[foaf:name]", "Test Tester")
     r1.empty_graph?.should be_false
   end  
+  
+  it "should match two graphs with identical assertions set" do
+    r1 = Resource.new("http://dbpedia.org/resource/William_Shakespeare")
+    r1.assert("[foaf:name]", "William Shakespeare")
+    r1.relate("[rdf:type]", "[foaf:Person]")
+    r1.relate("http://www.w3.org/2002/07/owl#sameAs","http://rdf.freebase.com/ns/guid.9202a8c04000641f8000000000040628")
+    r2 = Resource.new("http://dbpedia.org/resource/William_Shakespeare")
+    r2.assert("[foaf:name]", "William Shakespeare")
+    r2.relate("[rdf:type]", "[foaf:Person]")
+    r2.relate("http://www.w3.org/2002/07/owl#sameAs","http://rdf.freebase.com/ns/guid.9202a8c04000641f8000000000040628")    
+    r1.object_id.should_not equal(r2.object_id)
+    r1.should == r2
+  end
+  
+  it "should not match two graphs with different assertions set" do
+    r1 = Resource.new("http://dbpedia.org/resource/William_Shakespeare")
+    r1.assert("[foaf:name]", "William Shakespeare")
+    r1.relate("[rdf:type]", "[foaf:Person]")
+    r1.relate("http://www.w3.org/2002/07/owl#sameAs","http://rdf.freebase.com/ns/guid.9202a8c04000641f8000000000040628")
+    r2 = Resource.new("http://dbpedia.org/resource/William_Shakespeare")
+    r2.assert("[foaf:name]", "William Shakespeare")
+    r2.relate("[rdf:type]", "[foaf:Person]")
+    r2.relate("http://www.w3.org/2002/07/owl#sameAs","http://viaf.org/viaf/96994048.rwo")
+    r1.object_id.should_not equal(r2.object_id)
+    r1.should_not == r2
+  end  
 
 end

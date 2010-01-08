@@ -82,6 +82,7 @@ module RDFObject
           if doc.root.namespaces.values.index("http://www.w3.org/1999/xhtml")
             parser = RDFAParser.new(doc)
           else
+            doc = nil
             parser = XMLParser.new(rdf)
           end
         rescue Nokogiri::XML::SyntaxError

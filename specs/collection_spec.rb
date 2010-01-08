@@ -18,7 +18,7 @@ describe "An RDFObject Collection" do
     r1.object_id.should_not equal(r2.object_id)
     r3 = collection.find_or_create('http://example.org/1234')
     collection.uris.length.should equal(2)
-    r1.object_id.should equal(r3.object_id)
+    r1.object_id.should ==(r3.object_id)
   end
   
   it "should initialize from a safe curie" do

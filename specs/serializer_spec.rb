@@ -9,7 +9,7 @@ describe "RDFObjects should" do
     foaf_name.language = "en"
     resource.assert("[foaf:name]", foaf_name)
     resource.relate("[foaf:pastProject]","http://dbtune.org/musicbrainz/resource/artist/ddd553d4-977e-416c-8f57-e4b72c0fc746")
-    resource.relate("[foaf:hompage]","http://www.theejohndoe.com/")
+    resource.relate("[foaf:homepage]","http://www.theejohndoe.com/")
     ntriples = resource.to_ntriples
     ntriples.should be_kind_of(String)
     ntriples.split("\n").length.should equal(4)
@@ -22,7 +22,7 @@ describe "RDFObjects should" do
     foaf_name.language = "en"
     resource.assert("[foaf:name]", foaf_name)
     resource.relate("[foaf:pastProject]","http://dbtune.org/musicbrainz/resource/artist/ddd553d4-977e-416c-8f57-e4b72c0fc746")
-    resource.relate("[foaf:hompage]","http://www.theejohndoe.com/")
+    resource.relate("[foaf:homepage]","http://www.theejohndoe.com/")
     ntriples = resource.to_ntriples
     collection = Parser.parse(ntriples)
     collection['http://example.org/ex/1234'].should ==(resource)
@@ -32,7 +32,7 @@ describe "RDFObjects should" do
     resources = Parser.parse(nt)
     ntriples = resources.to_ntriples
     ntriples.should be_kind_of(String)
-    ntriples.split("\n").length.should equal(nt.split("\n").length)
+    ntriples.split("\n").length.should ==(nt.split("\n").length)
   end  
   
   it "parse the outputted ntriples into an identical collection" do    
@@ -50,7 +50,7 @@ describe "RDFObjects should" do
     foaf_name.language = "en"
     resource.assert("[foaf:name]", foaf_name)
     resource.relate("[foaf:pastProject]","http://dbtune.org/musicbrainz/resource/artist/ddd553d4-977e-416c-8f57-e4b72c0fc746")
-    resource.relate("[foaf:hompage]","http://www.theejohndoe.com/")    
+    resource.relate("[foaf:homepage]","http://www.theejohndoe.com/")    
     resource.to_xml.should be_kind_of(String)
     lambda { REXML::Document.new(resource.to_xml)}.should_not raise_error
     collection = Parser.parse(resource.to_xml)

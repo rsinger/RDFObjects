@@ -4,6 +4,12 @@ class Integer
     @data_type = uri
   end
 end
+class Float
+  attr_accessor :language, :data_type
+  def set_data_type(uri)
+    @data_type = uri
+  end
+end
 class Date
   attr_accessor :language, :data_type
   def set_data_type(uri)
@@ -37,6 +43,7 @@ class RDFObject::Literal
     when 'http://www.w3.org/2001/XMLSchema#dateTime' then DateTime.parse(value)
     when 'http://www.w3.org/2001/XMLSchema#date' then Date.parse(value)
     when 'http://www.w3.org/2001/XMLSchema#integer' then value.to_i
+    when 'http://www.w3.org/2001/XMLSchema#float' then value.to_f      
     when 'http://www.w3.org/2001/XMLSchema#string' then value.to_s
     when 'http://www.w3.org/2001/XMLSchema#boolean'
       if value.downcase == 'true' || value == '1'
@@ -47,9 +54,12 @@ class RDFObject::Literal
     else
       value
     end
-    if obj.to_s != value
-      raise ArgumentError 
+    unless obj.is_a?(Float)
+      raise ArgumentError if obj.to_s != value
+    else
+      raise ArgumentError if obj.to_s.sub(/\.0/,'') != value
     end
+      
     obj.set_data_type(options[:data_type])
     obj.language = options[:language]
     obj

@@ -28,6 +28,7 @@ describe "An RDFObject Parser" do
     resources.should be_kind_of(Collection)
     resources.uris.length.should equal(41)    
   end  
+  
   it "should have created resources from an rdf/xml I/O and set their values properly" do
     rdf = open(File.dirname(__FILE__) + '/files/Semantic_Web.rdf')
     resources = Parser.parse(rdf)

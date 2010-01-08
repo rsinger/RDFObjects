@@ -82,7 +82,7 @@ module RDFObject
           if doc.root.namespaces.values.index("http://www.w3.org/1999/xhtml")
             parser = RDFAParser.new(doc)
           else
-            parser = XMLParser.new(doc)
+            parser = XMLParser.new(rdf)
           end
         rescue Nokogiri::XML::SyntaxError
           begin
@@ -186,87 +186,112 @@ module RDFObject
     end
   end
 
+  
   class XMLParser < RDFObject::Parser
-    #
-    # A very unsophisticated RDF/XML Parser -- currently only parses RDF/XML that conforms to 
-    # the SimpleRdfXml convention:  http://esw.w3.org/topic/SimpleRdfXml.  This is a pragmatic
-    # rather than dogmatic decision.  If it is not working with your RDF/XML let me know and we
-    # can probably fix it.
-    #
-    
-    def parse
-      if @rdfxml.namespaces.values.index("http://purl.org/rss/1.0/")
-        fix_rss10
-      end
-      if @rdfxml.namespaces.values.index("http://www.w3.org/2005/sparql-results#")
-        raise "Sorry, SPARQL not yet supported"
-      else
-        parse_rdfxml
-      end
-      @collection
+    def initialize(data=nil)
+      super(data)
+      @uris = []
+      @tags = {}
+      @parser = Nokogiri::XML::SAX::Parser.new(self)
     end
     
     def data=(xml)
-      if xml.is_a?(Nokogiri::XML::Document)
+      if xml.is_a?(String)
         @rdfxml = xml
-      else
-        @rdfxml = Nokogiri::XML.parse(xml, nil, nil, Nokogiri::XML::ParseOptions::PEDANTIC)
+      elsif xml.respond_to?(:read)
+        xml.rewind
+        @rdfxml = xml.read
       end
     end
-  
-    def parse_resource_node(resource_node, collection)
-      resource = @collection.find_or_create(resource_node.attribute_with_ns('about', "http://www.w3.org/1999/02/22-rdf-syntax-ns#").value)
-      unless (resource_node.name == "Description" and resource_node.namespace.href == "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
-        resource.assert("[rdf:type]", @collection.find_or_create("#{resource_node.namespace.href}#{resource_node.name}"))
-      end
-      resource_node.children.each do | child |
-        next if child.text?
-        predicate = "#{child.namespace.href}#{child.name}"
-        if object_uri = child.attribute_with_ns("resource", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
-          obj_resource = @collection.find_or_create(object_uri.value)
-          resource.assert(predicate, obj_resource)
-        elsif all_text?(child)
-          opts = {}
-          if lang = child.attribute_with_ns("lang", "http://www.w3.org/XML/1998/namespace")
-            opts[:language] = lang.value
-          end
-          if datatype = child.attribute_with_ns("datatype", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
-            opts[:data_type] = datatype.value
-          end
-          resource.assert(predicate, Literal.new(child.content.strip,opts))
-        end
-        child.xpath("./*[@rdf:about]").each do | grandchild |
-          gc_resource = @collection.find_or_create(grandchild.attribute_with_ns('about', "http://www.w3.org/1999/02/22-rdf-syntax-ns#").value)
-          resource.assert(predicate, gc_resource)
-          parse_resource_node(grandchild, collection)
-        end
+    
+    def parse
+      @parser.parse(@rdfxml)
+      @collection
+    end
+    
+    def method_missing(methName, *args)
+      sax_methods = [:xmldecl, :start_document, :end_document, :start_element,
+        :end_element, :comment, :warning, :error, :cdata_block]
+      unless sax_methods.index(methName)
+        raise NoMethodError.new("undefined method '#{methName} for #{self}", 'no_meth')
       end
     end
-  
-    def all_text?(node)
-      node.children.each do | child |
-        return false unless child.text?
+    
+    def attributes_to_hash(attributes)
+      hash = {}
+      attributes.each do | att |
+        hash[att.localname] = att.value
       end
-      true
+      hash
     end
-  
-    def parse_rdfxml
-      collection = []
-      @rdfxml.root.xpath("./*[@rdf:about]").each do | resource_node |
-        parse_resource_node(resource_node, collection)
+    
+    def add_layer(element_uri, resource_uri)
+      if @uris.length > 0 && @current_predicate
+        @collection[@uris.last].relate(@current_predicate, @collection.find_or_create(resource_uri))
+        @current_predicate = nil
       end
-    end    
-  
-    def fix_rss10
-      @rdfxml.root.xpath('./rss:channel/rss:items/rdf:Seq/rdf:li', {"rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-        "rss"=>"http://purl.org/rss/1.0/"}).each do | li |
-        if li['resource'] && !li["rdf:resource"]
-          li["rdf:resource"] = li["resource"]
+      @uris << resource_uri
+      @tags[resource_uri] = element_uri              
+    end
+    
+    def remove_layer(element_uri)
+      uris = []
+      @tags.each do |uri, el|
+        uris << uri if el == element_uri
+      end
+      uris.each do | uri |  
+        if @uris.last == uri
+          @uris.pop
+          @tags.delete(uri)
+          break
         end
       end
+      @current_resource = @collection[@uris.last]
     end
-  end
+    
+    def start_element_namespace name, attributes = [], prefix = nil, uri = nil, ns = {}
+       attributes = attributes_to_hash(attributes)
+       if attributes["about"]
+         @current_resource = @collection.find_or_create(attributes['about'])
+         add_layer("#{uri}#{name}", @current_resource.uri)
+         unless "#{uri}#{name}" == "http://www.w3.org/1999/02/22-rdf-syntax-ns#Description"
+           @current_resource.relate("http://www.w3.org/1999/02/22-rdf-syntax-ns#type", @collection.find_or_create("#{uri}#{name}"))
+         end
+       elsif attributes["resource"]
+         resource = @collection.find_or_create(attributes['resource'])
+         @current_resource.assert("#{uri}#{name}", resource)
+       else
+         @current_predicate = "#{uri}#{name}"
+       end
+       if attributes["datatype"] || attributes["lang"]
+         @literal = {}
+         @literal[:datatype] = attributes["datatype"] if attributes["datatype"]
+         @literal[:language] = attributes["lang"] if attributes["lang"]
+         @literal[:value] = ""
+       end
+     end
 
+
+    def characters text
+      if @current_predicate && !text.strip.empty?
+        @literal ||={:value=>""}
+        @literal[:value] << text.strip
+      end
+    end
+
+    def end_element_namespace name, prefix = nil, uri = nil
+      if @literal
+        lit = RDFObject::Literal.new(@literal[:value], {:data_type=>@literal[:datatype], :language=>@literal[:language]})  
+        #puts "#{@current_resource.inspect} :: #{@current_predicate} == #{lit}"      
+        @current_resource.assert(@current_predicate, lit) if @current_predicate
+        @literal = nil
+        @current_predicate = nil
+      else
+        remove_layer("#{uri}#{name}")      
+      end
+    end  
+  end  
+  
   class RDFAParser < XMLParser
     def data=(xhtml)
       if xhtml.is_a?(Nokogiri::XML::Document)
@@ -275,8 +300,7 @@ module RDFObject
         doc = Nokogiri::HTML.parse(xhtml)
       end
       xslt = Nokogiri::XSLT(open(File.dirname(__FILE__) + '/../xsl/RDFa2RDFXML.xsl'))
-      rdfxml = xslt.apply_to(doc)      
-      @rdfxml = Nokogiri::XML.parse(rdfxml, nil, nil, Nokogiri::XML::ParseOptions::PEDANTIC)
+      @rdfxml = xslt.apply_to(doc)      
     end    
   end
 

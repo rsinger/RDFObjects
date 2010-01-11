@@ -75,17 +75,25 @@ module RDFObject
         when 'json' then JSONParser.new(rdf)
         end        
       else
-        begin
-          # Check if the format is XML or RDFa
-          doc = Nokogiri::XML.parse(rdf, nil, nil, Nokogiri::XML::ParseOptions::PEDANTIC)
-          raise "Unable to parse XML/HTML document -- no namespace declared" unless doc.root.namespaces
-          if doc.root.namespaces.values.index("http://www.w3.org/1999/xhtml")
-            parser = RDFAParser.new(doc)
-          else
-            doc = nil
+
+        # Check if the format is XML or RDFa
+        doc = XMLTestDocument.new
+        p = Nokogiri::XML::SAX::Parser.new(doc)
+        if rdf.respond_to?(:read)
+          p.parse(rdf.read)
+        else
+          p.parse(rdf)
+        end
+        if doc.is_doc?
+          if rdf.respond_to?(:read)
+            rdf.rewind
+          end
+          if doc.is_html?
+            parser = RDFAParser.new(rdf)
+          else              
             parser = XMLParser.new(rdf)
           end
-        rescue Nokogiri::XML::SyntaxError
+        else
           begin
             if rdf.respond_to?(:read)
               rdf.rewind
@@ -187,6 +195,39 @@ module RDFObject
     end
   end
 
+  class XMLTestDocument < Nokogiri::XML::SAX::Document
+    def initialize
+      @xml_start = false
+      @xml_end = false
+      @namespaces = []
+    end
+    
+    def start_element(name, attrs=[])
+      @xml_start = name
+      attrs.each do | attrib |
+        next unless attrib.is_a?(Array)
+        if attrib.first =~ /^xmlns(:|\b)/
+          @namespaces << attrib.last
+        end
+      end
+    end
+    
+    def end_element(name)
+      if @xml_start
+        @xml_end = true if name = @xml_start
+      end
+    end
+    
+    def is_doc?
+      return true if @xml_start && @xml_end
+      return false
+    end
+    
+    def is_html?
+      return true if @namespaces.index("http://www.w3.org/1999/xhtml")
+      return false
+    end
+  end
   
   class XMLParser < RDFObject::Parser
     def initialize(data=nil)

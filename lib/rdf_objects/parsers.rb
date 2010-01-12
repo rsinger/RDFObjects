@@ -339,7 +339,7 @@ module RDFObject
       if xhtml.is_a?(Nokogiri::XML::Document)
         doc = xhtml
       else
-        doc = Nokogiri::HTML.parse(xhtml)
+        doc = Nokogiri::XML.parse(xhtml)
       end
       xslt = Nokogiri::XSLT(open(File.dirname(__FILE__) + '/../xsl/RDFa2RDFXML.xsl'))
       @rdfxml = xslt.apply_to(doc)      

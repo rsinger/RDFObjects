@@ -75,8 +75,8 @@ module RDFObject
     end
   
     def describe
-      rdf = HTTPClient.fetch(self.uri)
-      local_collection = Parser.parse(rdf)
+      response = HTTPClient.fetch(self.uri)
+      local_collection = Parser.parse(response[:content], {:base_uri=>response[:uri]})
       local_collection[self.uri].assertions.each do | predicate, object |
         [*object].each do | obj |
           self.assert(predicate, obj) unless self.assertion_exists?(predicate, obj)

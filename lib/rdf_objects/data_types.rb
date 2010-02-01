@@ -54,10 +54,12 @@ class RDFObject::Literal
     else
       value
     end
-    unless obj.is_a?(Float)
-      raise ArgumentError if obj.to_s != value
-    else
+    if obj.is_a?(Float)
       raise ArgumentError if obj.to_s.sub(/\.0/,'') != value
+    elsif obj.is_a?(DateTime)
+      raise ArgumentError if obj.to_s !~ /^#{Regexp.escape(value)}/
+    else
+      raise ArgumentError if obj.to_s != value      
     end
       
     obj.set_data_type(options[:data_type])

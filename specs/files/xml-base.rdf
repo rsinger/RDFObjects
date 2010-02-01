@@ -1,0 +1,55 @@
+<?xml version="1.0" ?> 
+<?xml-stylesheet type="text/xsl" href="/viaf/xsl/searchRetrieveResponse_en.xsl"?>
+<rdf:RDF xml:base="http://viaf.org/" xmlns:awol="http://bblfish.net/work/atom-owl/2006-06-06/#" xmlns:bio="http://purl.org/vocab/bio/0.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+<skos:Concept rdf:about="viaf/46946176.rwo">
+<skos:inScheme rdf:resource="viaf-scheme/#concept"/>
+<skos:inScheme rdf:resource="viaf-scheme/#personalNames"/>
+<skos:altLabel>Dylan, Bob, 1941-</skos:altLabel>
+<skos:altLabel>Dylan, Bob, pseud</skos:altLabel>
+<skos:altLabel>Zimmerman, Roberto Allen</skos:altLabel>
+<skos:altLabel>Zimmerman, Roberto Allen,</skos:altLabel>
+<skos:altLabel>Zimmerman, Robert</skos:altLabel>
+<skos:altLabel>Alias,</skos:altLabel>
+<skos:altLabel>Blind Boy Grunt,</skos:altLabel>
+<skos:altLabel>Zimmermann, Robert Allen</skos:altLabel>
+<skos:altLabel>Dylan, B.</skos:altLabel>
+<skos:altLabel>Gook, Roosevelt,</skos:altLabel>
+<skos:altLabel>Landy, Bob</skos:altLabel>
+<skos:altLabel>Landy, Bob,</skos:altLabel>
+<skos:altLabel>Porterhouse, Tedham,</skos:altLabel>
+<skos:altLabel>Thomas, Robert Milkwood</skos:altLabel>
+<skos:altLabel>Thomas, Robert Milkwood,</skos:altLabel>
+<skos:altLabel>Zimmerman, Robert Allen,</skos:altLabel>
+<skos:altLabel>Zimmerman, Robert Allen</skos:altLabel>
+<skos:altLabel>Zimmerman, Robert,</skos:altLabel>
+<skos:altLabel>Zimmerman, Robert,</skos:altLabel>
+<skos:altLabel>Zimmerman, Robert</skos:altLabel>
+<skos:altLabel>Petrov, Sergei</skos:altLabel>
+<skos:altLabel>Zimmerman, Robert</skos:altLabel>
+<skos:exactMatch rdf:resource="http://viaf.org/processed/NLIlat|000041704"/>
+<skos:exactMatch rdf:resource="http://libris.kb.se/auth/184248"/>
+<skos:exactMatch rdf:resource="http://viaf.org/processed/BNF|13893566"/>
+<skos:exactMatch rdf:resource="http://viaf.org/processed/NLA|000035052711"/>
+<skos:exactMatch rdf:resource="http://viaf.org/processed/PTBNP|1270067"/>
+<skos:exactMatch rdf:resource="http://d-nb.info/gnd/118528408"/>
+<skos:exactMatch rdf:resource="http://catalogo.bne.es/uhtbin/authoritybrowse.cgi?action=display&amp;authority_id=XX821701"/>
+<skos:exactMatch rdf:resource="http://viaf.org/processed/NKC|jn20000700458"/>
+<skos:exactMatch rdf:resource="http://id.loc.gov/authorities/n50030190#concept"/>
+<skos:exactMatch rdf:resource="viaf/46946176.m21"/>
+<skos:exactMatch rdf:resource="viaf/46946176.unimarc"/>
+<skos:exactMatch rdf:resource="viaf/46946176.viaf"/>
+<skos:exactMatch rdf:resource="http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Bob_Dylan"/>
+<skos:exactMatch rdf:resource="http://dbpedia.org/page/Wikipedia:WikiProject_Bob_Dylan"/>
+<skos:changeNote xml:lang="en">Transcribed by agency: OCoLC</skos:changeNote>
+<skos:changeNote xml:lang="en">Modified by agency: OCoLC</skos:changeNote>
+<dcterms:identitifer>46946176</dcterms:identitifer>
+<dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2009-03-03T12:03:19+00:00</dcterms:created>
+<dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2009-09-21T11:33:11+00:00</dcterms:modified>
+<dcterms:type xml:lang="en">person</dcterms:type>
+<foaf:page rdf:resource="http://www.worldcat.org/wcidentities/lccn-n50-030190"/>
+<foaf:page rdf:resource="http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Bob_Dylan"/>
+<foaf:page rdf:resource="http://dbpedia.org/page/Wikipedia:WikiProject_Bob_Dylan"/>
+<foaf:name>Dylan, Bob, 1941-</foaf:name>
+<foaf:name>Dylan, Bob, pseud</foaf:name>
+</skos:Concept>
+</rdf:RDF>

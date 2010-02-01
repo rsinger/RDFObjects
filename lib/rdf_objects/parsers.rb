@@ -60,15 +60,16 @@ class UTF8Parser < StringScanner
 end
 module RDFObject   
   class Parser
+    attr_reader :base_uri
     # Choose the best format parser from an admittedly small group of choices.
-    def self.parse(rdf, format=nil)
-      parser = init_parser(rdf, format)
+    def self.parse(rdf, options={})
+      parser = init_parser(rdf, options)
       parser.parse 
     end
     
-    def self.init_parser(rdf, format=nil)
-      if format
-        parser = case format
+    def self.init_parser(rdf, options={})
+      if options[:format]
+        parser = case options[:format]
         when 'rdfxml' then XMLParser.new(rdf)
         when 'rdfa' then RDFAParser.new(rdf)
         when 'ntriples' then NTriplesParser.new(rdf)
@@ -110,6 +111,9 @@ module RDFObject
           end
         end
       end
+      if options[:base_uri]
+        parser.base_uri = options[:base_uri]
+      end
       parser
     end 
          
@@ -121,6 +125,27 @@ module RDFObject
     def collection=(collection)
       raise ArgumentError unless collection.is_a?(RDFObject::Collection)
       @collection = collection
+    end
+    
+    def base_uri=(uri)
+      if uri.is_a?(URI)
+        @base_uri = uri
+      else
+        @base_uri = URI.parse(uri)
+      end
+    end
+    
+    def sanitize_uri(uri)
+      # Return if there's nothing to sanitize with
+      return uri unless self.base_uri
+      begin
+        u = URI.parse(uri)
+        return uri if u.host
+        fq_uri = self.base_uri+u
+        fq_uri.to_s
+      rescue URI::InvalidURIError
+        uri
+      end
     end
   end  
   class NTriplesParser < RDFObject::Parser
@@ -140,7 +165,7 @@ module RDFObject
         tmp_object = scanner.scan_until(/>\s?\.\s*\n?$/)
         tmp_object.sub!(/^</,'')
         tmp_object.sub!(/>\s?\.\s*\n?$/,'')
-        object = tmp_object
+        object = self.sanitize_uri(tmp_object)
         type = "uri"
       else
         language = nil
@@ -235,6 +260,8 @@ module RDFObject
       @uris = []
       @tags = {}
       @parser = Nokogiri::XML::SAX::Parser.new(self)
+      @hierarchy = []
+      @xml_base = nil
     end
     
     def data=(xml)
@@ -267,70 +294,113 @@ module RDFObject
       hash
     end
     
-    def add_layer(element_uri, resource_uri)
-      if @uris.length > 0 && @current_predicate
-        @collection[@uris.last].relate(@current_predicate, @collection.find_or_create(resource_uri))
-        @current_predicate = nil
-      end
-      @uris << resource_uri
-      @tags[resource_uri] = element_uri              
-    end
+    #def add_layer(element_uri, resource_uri)
+    #  if @uris.length > 0 && @current_predicate
+    #    @collection[@uris.last].relate(@current_predicate, @collection.find_or_create(resource_uri))
+    #    @current_predicate = nil
+    #  end
+    #  @uris << resource_uri
+    #  @tags[resource_uri] = element_uri              
+    #end
     
-    def remove_layer(element_uri)
-      uris = []
-      @tags.each do |uri, el|
-        uris << uri if el == element_uri
-      end
-      uris.each do | uri |  
-        if @uris.last == uri
-          @uris.pop
-          @tags.delete(uri)
-          break
+    #def remove_layer(element_uri)
+    #  uris = []
+    #  @tags.each do |uri, el|
+    #    uris << uri if el == element_uri
+    #  end
+    #  uris.each do | uri |  
+    #    if @uris.last == uri
+    #      @uris.pop
+    #      @tags.delete(uri)
+    #      break
+    #    end
+    #  end
+    #  @current_resource = @collection[@uris.last]
+    #end
+    
+    
+    def add_layer name, attributes, prefix, uri, ns
+      layer = {:name=>"#{uri}#{name}"}
+      if attributes['about']
+        layer[:resource] = @collection.find_or_create(sanitize_uri(attributes['about']))
+        unless "#{uri}#{name}" == "http://www.w3.org/1999/02/22-rdf-syntax-ns#Description"
+          layer[:resource].relate("http://www.w3.org/1999/02/22-rdf-syntax-ns#type", @collection.find_or_create("#{uri}#{name}"))
+        end 
+        if !@hierarchy.empty? && @hierarchy.last[:predicate]
+          self.current_resource.relate(self.current_predicate, layer[:resource])
+        end
+      elsif attributes["resource"] 
+        self.current_resource.assert("#{uri}#{name}", @collection.find_or_create(sanitize_uri(attributes['resource'])))    
+        layer[:predicate] = layer[:name]
+      else
+        unless layer[:name] == "http://www.w3.org/1999/02/22-rdf-syntax-ns#RDF"
+          layer[:predicate] = layer[:name]
         end
       end
-      @current_resource = @collection[@uris.last]
+      if attributes["datatype"] || attributes["lang"]
+        layer[:datatype] = attributes["datatype"] if attributes["datatype"]
+        layer[:language] = attributes["lang"] if attributes["lang"]        
+      end    
+      layer[:base_uri] = URI.parse(attributes["base"]) if attributes["base"]  
+      @hierarchy << layer  
+    end
+    
+    def remove_layer(name)
+      unless @hierarchy.last[:name] == name
+        throw ArgumentError, "Hierarchy out of sync."
+      end
+      layer = @hierarchy.pop
+      assert_literal(layer) if layer[:literal] && !layer[:literal].empty?
+    end
+    
+    def assert_literal(layer)
+      lit = RDFObject::Literal.new(layer[:literal], {:data_type=>layer[:datatype], :language=>layer[:language]})  
+      self.current_resource.assert(layer[:predicate], lit) if layer[:predicate]     
+    end
+    
+    def current_resource
+      @hierarchy.reverse.each do | layer |
+        return layer[:resource] if layer[:resource]
+      end
+    end
+    
+    def current_predicate
+      @hierarchy.reverse.each do | layer |
+        return layer[:predicate] if layer[:predicate]
+      end      
+    end
+    
+    def current_literal
+      unless @hierarchy.empty?
+        return @hierarchy.last[:literal] if @hierarchy.last[:literal]
+        unless @hierarchy.last[:resource]
+          @hierarchy.last[:literal] = ""
+          return @hierarchy.last[:literal]
+        end
+      end
+    end
+    
+    def base_uri
+      @hierarchy.reverse.each do | layer |
+        return layer[:base_uri] if layer[:base_uri]
+      end      
+      @base_uri
     end
     
     def start_element_namespace name, attributes = [], prefix = nil, uri = nil, ns = {}
        attributes = attributes_to_hash(attributes)
-       if attributes["about"]
-         @current_resource = @collection.find_or_create(attributes['about'])
-         add_layer("#{uri}#{name}", @current_resource.uri)
-         unless "#{uri}#{name}" == "http://www.w3.org/1999/02/22-rdf-syntax-ns#Description"
-           @current_resource.relate("http://www.w3.org/1999/02/22-rdf-syntax-ns#type", @collection.find_or_create("#{uri}#{name}"))
-         end
-       elsif attributes["resource"]
-         resource = @collection.find_or_create(attributes['resource'])
-         @current_resource.assert("#{uri}#{name}", resource)
-       else
-         @current_predicate = "#{uri}#{name}"
-       end
-       if attributes["datatype"] || attributes["lang"]
-         @literal = {}
-         @literal[:datatype] = attributes["datatype"] if attributes["datatype"]
-         @literal[:language] = attributes["lang"] if attributes["lang"]
-         @literal[:value] = ""
-       end
+       add_layer(name, attributes, prefix, uri, ns)
      end
 
 
     def characters text
-      if @current_predicate && !text.strip.empty?
-        @literal ||={:value=>""}
-        @literal[:value] << text.strip
+      if self.current_literal && !text.strip.empty?
+        self.current_literal << text.strip
       end
     end
 
     def end_element_namespace name, prefix = nil, uri = nil
-      if @literal
-        lit = RDFObject::Literal.new(@literal[:value], {:data_type=>@literal[:datatype], :language=>@literal[:language]})  
-        #puts "#{@current_resource.inspect} :: #{@current_predicate} == #{lit}"      
-        @current_resource.assert(@current_predicate, lit) if @current_predicate
-        @literal = nil
-        @current_predicate = nil
-      else
-        remove_layer("#{uri}#{name}")      
-      end
+      remove_layer("#{uri}#{name}")      
     end  
   end  
   

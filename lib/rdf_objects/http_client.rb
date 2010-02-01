@@ -18,9 +18,13 @@ module RDFObject
         http.request(request)
       end
       if response.code == "200"
-        return response.body
+        return {:uri=>u.to_s, :content=>response.body}
       elsif response.code =~ /^30[0-9]$/
-        return fetch(response.header['location'])
+        new_uri = URI.parse(response.header['location'])
+        unless new_uri.host
+          new_uri = u+new_uri
+        end
+        return fetch(new_uri.to_s)
       else
         raise response.message
       end

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf      = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs     = "http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl      = "http://www.w3.org/2002/07/owl#"
+         xmlns:bio      = "http://purl.org/vocab/bio/0.1/"
+         xmlns:dc       = "http://purl.org/dc/elements/1.1/"
+         xmlns:foaf     = "http://xmlns.com/foaf/0.1/"
+         xmlns:mo       = "http://purl.org/ontology/mo/"
+         xmlns:ov       = "http://open.vocab.org/terms/"
+         xmlns:rel      = "http://purl.org/vocab/relationship/"
+         xmlns:rev      = "http://purl.org/stuff/rev#"
+>
+
+<rdf:Description rdf:about="/music/artists/72c536dc-7137-4477-a521-567eeb840fa8.rdf">
+  <rdfs:label>Description of the artist Bob Dylan</rdfs:label>
+  <foaf:primaryTopic rdf:resource="/music/artists/72c536dc-7137-4477-a521-567eeb840fa8#artist"/>
+</rdf:Description>
+
+<mo:MusicArtist rdf:about="/music/artists/72c536dc-7137-4477-a521-567eeb840fa8#artist">
+  <rdf:type rdf:resource="http://purl.org/ontology/mo/SoloMusicArtist" />
+  <foaf:name>Bob Dylan</foaf:name>
+  <ov:sortLabel>Dylan, Bob</ov:sortLabel>
+  
+  <bio:event>
+    <bio:Birth>
+      <bio:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1941-05-24</bio:date>
+    </bio:Birth>
+  </bio:event>
+  <owl:sameAs rdf:resource="http://dbpedia.org/resource/Bob_Dylan" />
+  <mo:image rdf:resource="/music/images/artists/542x305/72c536dc-7137-4477-a521-567eeb840fa8.jpg" />
+
+  <foaf:page rdf:resource="/music/artists/72c536dc-7137-4477-a521-567eeb840fa8.html" />
+  <mo:musicbrainz rdf:resource="http://musicbrainz.org/artist/72c536dc-7137-4477-a521-567eeb840fa8.html" />
+  <foaf:homepage rdf:resource="http://www.bobdylan.com/" />
+  <mo:biography rdf:resource="http://www.wolfgangsvault.com/bob-dylan/" />
+  <mo:biography rdf:resource="http://www.wolfgangsvault.com/led-zeppelin/" />
+  <mo:wikipedia rdf:resource="http://en.wikipedia.org/wiki/Bob_Dylan" />
+  <mo:imdb rdf:resource="http://www.imdb.com/name/nm0001168/" />
+  <mo:myspace rdf:resource="http://www.myspace.com/bobdylan" />
+  <mo:online_community rdf:resource="http://www.facebook.com/bobdylan" />
+  <mo:online_community rdf:resource="http://twitter.com/bobdylan" />
+
+
+  <rel:parentOf rdf:resource="/music/artists/2f877714-727d-490b-94fb-a8d32ee4cea5#artist" />
+
+  <foaf:made>
+    <mo:Record>
+      <dc:title>Christmas in the Heart</dc:title>
+      
+      <mo:musicbrainz rdf:resource="http://musicbrainz.org/release/ad6c3af7-10c5-4d65-aab8-ceabdf549558.html" />
+      <rev:hasReview rdf:resource="/music/reviews/3jb6#review" />
+    </mo:Record>
+  </foaf:made>
+  <foaf:made>
+    <mo:Record>
+      <dc:title>Together Through Life</dc:title>
+      
+      <mo:musicbrainz rdf:resource="http://musicbrainz.org/release/ad9ec140-c5d0-4330-8f0f-5f3a6a34a57f.html" />
+      <rev:hasReview rdf:resource="/music/reviews/55mq#review" />
+    </mo:Record>
+  </foaf:made>
+  <foaf:made>
+    <mo:Record>
+      <dc:title>The Bootleg Series, Volume 8: Tell Tale Signs: Rare and Unreleased 1989~2006: Expanded Deluxe Edition (disc 1)</dc:title>
+      
+      <mo:musicbrainz rdf:resource="http://musicbrainz.org/release/87adf743-f8fc-4091-8b38-875d4fc13a41.html" />
+      <rev:hasReview rdf:resource="/music/reviews/wv25#review" />
+    </mo:Record>
+  </foaf:made>
+  <foaf:made>
+    <mo:Record>
+      <dc:title>Modern Times</dc:title>
+      
+      <mo:musicbrainz rdf:resource="http://musicbrainz.org/release/b3df2dae-8c9c-4883-8935-d302a058c8e8.html" />
+      <rev:hasReview rdf:resource="/music/reviews/xqbd#review" />
+    </mo:Record>
+  </foaf:made>
+  <foaf:made>
+    <mo:Record>
+      <dc:title>The Bootleg Series, Volume 7: No Direction Home: The Soundtrack (disc 1)</dc:title>
+      <owl:sameAs rdf:resource="http://dbpedia.org/resource/The_Bootleg_Series_Vol._7:_No_Direction_Home:_The_Soundtrack" />
+      <mo:musicbrainz rdf:resource="http://musicbrainz.org/release/c713c65e-4427-4f7c-8bb3-1d9b7eb6a495.html" />
+      <rev:hasReview rdf:resource="/music/reviews/vvw6#review" />
+    </mo:Record>
+  </foaf:made>
+  <foaf:made>
+    <mo:Record>
+      <dc:title>The Bootleg Series, Volume 5: Live 1975: The Rolling Thunder Revue (disc 1)</dc:title>
+      
+      <mo:musicbrainz rdf:resource="http://musicbrainz.org/release/1d9bcbaf-bbce-4e00-b999-b242ee5de256.html" />
+      <rev:hasReview rdf:resource="/music/reviews/9zw6#review" />
+    </mo:Record>
+  </foaf:made>
+  <foaf:made>
+    <mo:Record>
+      <dc:title>&quot;Love and Theft&quot;</dc:title>
+      
+      <mo:musicbrainz rdf:resource="http://musicbrainz.org/release/1edb9e12-e80c-40c5-a75a-bc6cb78b7b77.html" />
+      <rev:hasReview rdf:resource="/music/reviews/54hj#review" />
+    </mo:Record>
+  </foaf:made>
+  <foaf:made>
+    <mo:Record>
+      <dc:title>Blonde on Blonde</dc:title>
+      
+      <mo:musicbrainz rdf:resource="http://musicbrainz.org/release/538aff00-a009-4515-a064-11a6d5a502ee.html" />
+      <rev:hasReview rdf:resource="/music/reviews/hmjw#review" />
+    </mo:Record>
+  </foaf:made>
+  <foaf:made>
+    <mo:Record>
+      <dc:title>Blood on the Tracks</dc:title>
+      
+      <mo:musicbrainz rdf:resource="http://musicbrainz.org/release/ee7f79c0-f52b-45e5-800e-daa8e1d69144.html" />
+      <rev:hasReview rdf:resource="/music/reviews/659x#review" />
+    </mo:Record>
+  </foaf:made>
+  <foaf:made>
+    <mo:Record>
+      <dc:title>Highway 61 Revisited</dc:title>
+      <owl:sameAs rdf:resource="http://dbpedia.org/resource/Highway_61_Revisited" />
+      <mo:musicbrainz rdf:resource="http://musicbrainz.org/release/d61a2bd9-81ac-4023-bd22-1c884d4a176c.html" />
+      <rev:hasReview rdf:resource="/music/reviews/z2f9#review" />
+    </mo:Record>
+  </foaf:made>
+
+</mo:MusicArtist>
+
+
+
+
+</rdf:RDF>

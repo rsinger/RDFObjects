@@ -106,7 +106,29 @@ describe "An RDFObject Parser" do
     r2.should be_kind_of(RDFObject::Resource)
     r1.should == r2
   end  
-
+  
+  it "should detect and set the xml:base attribute in an RDF/XML document" do
+    rdf = open(File.dirname(__FILE__) + '/files/xml-base.rdf')
+    resources = Parser.parse(rdf)
+    resources.keys.should include("http://viaf.org/viaf/46946176.rwo")
+    schemes = []
+    
+    [*resources["http://viaf.org/viaf/46946176.rwo"]["http://www.w3.org/2004/02/skos/core#inScheme"]].each do | scheme |
+      schemes << scheme.uri
+    end
+    schemes.should include("http://viaf.org/viaf-scheme/#concept")
+  end
+  
+  it "should allow a base URI to be set explicitly" do
+    rdf = open(File.dirname(__FILE__) + '/files/no-uri-context.rdf')
+    resources = Parser.parse(rdf)
+    resources.should_not include('http://www.bbc.co.uk/music/artists/72c536dc-7137-4477-a521-567eeb840fa8#artist')
+    rdf.rewind
+    resources = Parser.parse(rdf, :base_uri=>"http://www.bbc.co.uk/")
+    resources.should include('http://www.bbc.co.uk/music/artists/72c536dc-7137-4477-a521-567eeb840fa8#artist')    
+    resources.should include('http://www.bbc.co.uk/music/reviews/55mq#review')
+  end
+  
   it "should throw errors from 'datatypes' test #2" do
     nt = open(File.dirname(__FILE__) + '/rdfxml_test_cases/datatypes/test002.nt')
     lambda {Parser.parse(nt)}.should raise_error(ArgumentError)

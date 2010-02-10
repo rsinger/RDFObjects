@@ -64,7 +64,7 @@ module RDFObject
     # Choose the best format parser from an admittedly small group of choices.
     def self.parse(rdf, options={})
       parser = init_parser(rdf, options)
-      parser.parse 
+      parser.parse if parser
     end
     
     def self.init_parser(rdf, options={})
@@ -76,7 +76,16 @@ module RDFObject
         when 'json' then JSONParser.new(rdf)
         end        
       else
-
+        # Check to see if it is a URI being passed
+        begin
+          uri = URI.parse(rdf)
+          if uri.is_a?(URI::HTTP)
+            response =  HTTPClient.fetch(rdf)
+            rdf = response[:content]
+            options[:base_uri] = response[:uri]
+          end
+        rescue URI::InvalidURIError
+        end
         # Check if the format is XML or RDFa
         doc = XMLTestDocument.new
         p = Nokogiri::XML::SAX::Parser.new(doc)
@@ -90,8 +99,9 @@ module RDFObject
             rdf.rewind
           end
           if doc.is_html?
+
             parser = RDFAParser.new(rdf)
-          else              
+          elsif doc.is_rdf?              
             parser = XMLParser.new(rdf)
           end
         else
@@ -111,7 +121,7 @@ module RDFObject
           end
         end
       end
-      if options[:base_uri]
+      if options[:base_uri] && parser
         parser.base_uri = options[:base_uri]
       end
       parser
@@ -155,9 +165,14 @@ module RDFObject
         ntriple.force_encoding("ASCII-8BIT")
       end      
       scanner = StringScanner.new(ntriple)
-      subject = scanner.scan_until(/> /)
-      subject.sub!(/^</,'')
-      subject.sub!(/> $/,'')
+      if ntriple[0,1] == "<"
+        subject = scanner.scan_until(/> /)
+        subject.sub!(/^</,'')
+        subject.sub!(/> $/,'')
+      else
+        subject = scanner.scan_until(/\w /)
+        subject.strip!
+      end
       predicate = scanner.scan_until(/> /)
       predicate.sub!(/^</,'')
       predicate.sub!(/> $/,'')
@@ -167,6 +182,10 @@ module RDFObject
         tmp_object.sub!(/>\s?\.\s*\n?$/,'')
         object = self.sanitize_uri(tmp_object)
         type = "uri"
+      elsif scanner.match?(/_:/)
+        object = scanner.scan_until(/\w\s?\.\s*\n?$/)
+        object.sub!(/\s?\.\s*\n?$/,'')
+        type = "bnode"
       else
         language = nil
         data_type = nil
@@ -213,6 +232,7 @@ module RDFObject
         object = case triple[:type]
         when "literal" then triple[:object]
         when "uri" then @collection.find_or_create(triple[:object])
+        when "bnode" then @collection.find_or_create(triple[:object])
         end
         resource.assert(triple[:predicate],object)
       end
@@ -248,8 +268,14 @@ module RDFObject
       return false
     end
     
+    def is_rdf?
+      return true if @namespaces.index("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+      return false
+    end
+    
     def is_html?
       return true if @namespaces.index("http://www.w3.org/1999/xhtml")
+      return true if @xml_start =~ /html/i
       return false
     end
   end
@@ -294,35 +320,12 @@ module RDFObject
       hash
     end
     
-    #def add_layer(element_uri, resource_uri)
-    #  if @uris.length > 0 && @current_predicate
-    #    @collection[@uris.last].relate(@current_predicate, @collection.find_or_create(resource_uri))
-    #    @current_predicate = nil
-    #  end
-    #  @uris << resource_uri
-    #  @tags[resource_uri] = element_uri              
-    #end
-    
-    #def remove_layer(element_uri)
-    #  uris = []
-    #  @tags.each do |uri, el|
-    #    uris << uri if el == element_uri
-    #  end
-    #  uris.each do | uri |  
-    #    if @uris.last == uri
-    #      @uris.pop
-    #      @tags.delete(uri)
-    #      break
-    #    end
-    #  end
-    #  @current_resource = @collection[@uris.last]
-    #end
-    
-    
     def add_layer name, attributes, prefix, uri, ns
       layer = {:name=>"#{uri}#{name}"}
-      if attributes['about']
-        layer[:resource] = @collection.find_or_create(sanitize_uri(attributes['about']))
+      if attributes['about'] or attributes['nodeID']
+        id = attributes['about'] || attributes['nodeID']
+        id = sanitize_uri(id) if attributes['about']
+        layer[:resource] = @collection.find_or_create(id)
         unless "#{uri}#{name}" == "http://www.w3.org/1999/02/22-rdf-syntax-ns#Description"
           layer[:resource].relate("http://www.w3.org/1999/02/22-rdf-syntax-ns#type", @collection.find_or_create("#{uri}#{name}"))
         end 

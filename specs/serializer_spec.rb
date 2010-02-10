@@ -63,5 +63,19 @@ describe "RDFObjects should" do
     lambda { REXML::Document.new(resources.to_xml)}.should_not raise_error    
     collection = Parser.parse(resources.to_xml)
     collection.should ==(resources)
-  end  
+  end 
+  
+  it "should serialize a blank node to ntriples" do
+    bnode = BlankNode.new("blankNode")
+    bnode.relate("[rdf:type]", "http://www.w3.org/2002/07/owl#Thing")
+    bnode.to_ntriples.should == "_:blankNode <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Thing>.\n"
+  end
+  it "should serialize a blank node to rdf/xml" do
+    bnode = BlankNode.new("blankNode")
+    bnode.relate("[rdf:type]", "http://www.w3.org/2002/07/owl#Thing")
+    xml =<<XML
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:nodeID="blankNode"><rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing" /></rdf:Description></rdf:RDF>
+XML
+    bnode.to_xml.should ==(xml.strip)
+  end
 end

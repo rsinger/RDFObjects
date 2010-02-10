@@ -3,15 +3,7 @@ require 'date'
 require 'curies'
 
 module RDFObject
-  class Resource < OpenStruct
-    attr_reader :table
-    def initialize(uri)        
-      if uri.could_be_a_safe_curie?
-        uri = Curie.parse uri
-      end
-      super(:uri=>uri)
-    end
-  
+  module Node
     def assert(predicate, object)
       curied_predicate = case
       when predicate.could_be_a_safe_curie? then Curie.new_from_curie(predicate)
@@ -68,8 +60,12 @@ module RDFObject
     end
   
     def relate(predicate, resource)
-      unless resource.is_a?(self.class)
-        resource = self.class.new(resource)
+      unless resource.is_a?(Resource) or resource.is_a?(BlankNode) or resource.is_a?(ResourceReference)
+        if BlankNode.is_bnode_id?(resource)
+          resource = BlankNode.new(resource)
+        else
+          resource = Resource.new(resource)
+        end
       end
       self.assert(predicate, resource)
     end
@@ -77,7 +73,7 @@ module RDFObject
     def describe
       response = HTTPClient.fetch(self.uri)
       local_collection = Parser.parse(response[:content], {:base_uri=>response[:uri]})
-      return unless local_collection[self.uri]
+      return unless local_collection && local_collection[self.uri]
       local_collection[self.uri].assertions.each do | predicate, object |
         [*object].each do | obj |
           self.assert(predicate, obj) unless self.assertion_exists?(predicate, obj)
@@ -115,9 +111,9 @@ module RDFObject
               objects = [self[uri][pred]]
             end
             objects.each do | object |           
-              line = "<#{self.uri}> <#{uri}#{pred}> "
-              if (object.is_a?(Resource) or object.is_a?(ResourceReference))
-                line << "<#{object.uri}>"
+              line = "#{ntriples_format} <#{uri}#{pred}> "
+              if object.is_a?(ResourceReference)
+                line << object.ntriples_format
               else
                 line << "#{object.to_json}"
                 if (object.respond_to?(:data_type) || object.respond_to?(:language))
@@ -155,8 +151,8 @@ module RDFObject
       rdf      
     end
     
-    def rdf_description_block(depth)
-      rdf = "<rdf:Description rdf:about=\"#{CGI.escapeHTML(self.uri)}\">"
+    def rdf_description_block(depth=0)
+      rdf = "<rdf:Description #{xml_subject_attribute}>"
       namespaces = {}
       Curie.get_mappings.each_pair do |key, value|
         if self.respond_to?(key.to_sym)
@@ -165,11 +161,11 @@ module RDFObject
               rdf << "<#{key}:#{predicate}"
               namespaces["xmlns:#{key}"] = "#{Curie.parse("[#{key}:]")}"
               if object.is_a?(RDFObject::ResourceReference)
-                if depth > 0
-                  rdf << " rdf:resource=\"#{CGI.escapeHTML(object.uri)}\" />"
+                if depth == 0
+                  rdf << " #{object.xml_object_attribute} />"
                 else
                   rdf << ">"
-                  ns, rdf_data = object.resource.rdf_description_block(depth+1)
+                  ns, rdf_data = object.resource.rdf_description_block(depth-1)
                   namespaces.merge!(ns)
                   rdf << rdf_data
                   rdf << "</#{key}:#{predicate}>"
@@ -192,7 +188,7 @@ module RDFObject
     end    
     
     def ==(other)
-      return false unless other.is_a?(Resource) or other.is_a?(ResourceReference)
+      return false unless other.is_a?(self.class) or other.is_a?(ResourceReference)
       return false unless self.uri == other.uri
       Curie.get_mappings.each do | prefix, uri |
         next unless self[uri] or other[uri]
@@ -212,8 +208,8 @@ module RDFObject
                   return false unless self[uri][pred].index(idx)
                 end
               else
-                if self[uri][pred].is_a?(Resource) or self[uri][pred].is_a?(ResourceReference)
-                  return false unless other[uri][pred].is_a?(Resource) or other[uri][pred].is_a?(ResourceReference)
+                if self[uri][pred].is_a?(Resource) or self[uri][pred].is_a?(BlankNode) or self[uri][pred].is_a?(ResourceReference)
+                  return false unless other[uri][pred].is_a?(Resource) or self[uri][pred].is_a?(BlankNode) or other[uri][pred].is_a?(ResourceReference)
                   return false unless self[uri][pred].uri == other[uri][pred].uri
                 else
                   return false unless self[uri][pred] == other[uri][pred]
@@ -227,6 +223,73 @@ module RDFObject
       end
       true
     end
+  end    
+  
+  class Resource < OpenStruct
+    include RDFObject::Node
+    attr_reader :table
+    def initialize(uri)        
+      if uri.could_be_a_safe_curie?
+        uri = Curie.parse uri
+      end
+      super(:uri=>uri)
+    end
+
+    def xml_subject_attribute
+      "rdf:about=\"#{CGI.escapeHTML(self.uri)}\""
+    end
+    
+    def xml_object_attribute
+      "rdf:resource=\"#{CGI.escapeHTML(self.uri)}\""
+    end   
+    
+    def ntriples_format
+      "<#{uri}>" 
+    end  
+  end
+  
+  class BlankNode < OpenStruct
+    include RDFObject::Node
+    require 'md5'
+    def initialize(node_id = nil)        
+      super(:node_id=>sanitize_bnode_id(node_id||MD5.md5(self.object_id.to_s + "/" + DateTime.now.to_s).to_s))
+    end    
+    
+    def describe; end
+    
+    def uri
+      "_:#{self.node_id}"
+    end
+    
+    def xml_subject_attribute
+      "rdf:nodeID=\"#{self.node_id}\""
+    end
+    
+    def xml_object_attribute
+      xml_subject_attribute
+    end
+    
+    def ntriples_format
+      uri
+    end
+    
+    def self.is_bnode_id?(str)
+      return true if str =~ /^_\:/
+      if str.could_be_a_safe_curie?
+        str = Curie.parse str
+      end
+      begin
+        uri = URI.parse(str)
+        return true unless uri.scheme
+      rescue URI::InvalidURIError
+        return true
+      end
+      return false  
+    end
+    
+    def sanitize_bnode_id(str)
+      str.sub(/^_\:/,"")
+    end    
   end
   
   class ResourceReference

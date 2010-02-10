@@ -40,7 +40,13 @@ module RDFObject
       if uri.could_be_a_safe_curie?
         uri = Curie.parse uri
       end
-      self[uri] = Resource.new(uri) unless self[uri]
+      if BlankNode.is_bnode_id?(uri)
+        bnode = BlankNode.new(uri)
+        self[bnode.uri] = bnode unless self[bnode.uri]
+        return self[bnode.uri]
+      else
+        self[uri] = Resource.new(uri) unless self[uri]        
+      end
       self[uri]
     end  
     

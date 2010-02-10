@@ -89,5 +89,14 @@ describe "An RDFObject Resource" do
     r1.object_id.should_not equal(r2.object_id)
     r1.should_not == r2
   end  
+  
+  it "should create blank nodes" do
+    bnode = BlankNode.new
+    bnode.node_id.should_not be_nil
+    bnode.uri.should_not be_nil
+    bnode = BlankNode.new("blankNode")
+    bnode.node_id.should ==("blankNode")
+    bnode.uri.should ==("_:blankNode")
+  end
 
 end

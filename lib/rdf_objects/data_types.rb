@@ -55,7 +55,11 @@ class RDFObject::Literal
       value
     end
     if obj.is_a?(Float)
-      raise ArgumentError if obj.to_s.sub(/\.0/,'') != value
+      if obj.to_s == value
+      elsif obj.to_s.sub(/\.0*/,'') == value
+      else
+        raise ArgumentError
+      end
     elsif obj.is_a?(DateTime)
       raise ArgumentError if obj.to_s !~ /^#{Regexp.escape(value)}/
     else

@@ -136,4 +136,25 @@ describe "An RDFObject Parser" do
     rdf = open(File.dirname(__FILE__) + '/rdfxml_test_cases/datatypes/test002.rdf')
     lambda {Parser.parse(rdf)}.should raise_error(ArgumentError)
   end  
+  
+  it "should recognize a URI and retrieve the RDF from it" do
+    lambda{Parser.parse("http://dbpedia.org/resource/Semantic_Web")}.should_not raise_exception()
+  end
+  
+  it "should identify and parse blank nodes from RDF/XML" do
+    collection = Parser.parse("http://rdf.freebase.com/rdf/en.dashiell_hammett")
+    i = 0
+    collection.values.each {|v| i+=1 if v.is_a?(BlankNode)}
+    i.should >=(1)
+  end
+
+  it "should identify and parse blank nodes from n-triples" do
+    nt = open(File.dirname(__FILE__) + '/files/bnodes.nt')
+    collection = Parser.parse(nt)
+    i = 0
+    collection.values.each {|v| i+=1 if v.is_a?(BlankNode)}
+    i.should >=(1)
+    collection.keys.should include("_:genid18")
+    collection["_:genid18"].should be_kind_of(BlankNode)
+  end
 end

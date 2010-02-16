@@ -146,6 +146,8 @@ module RDFObject
     end
     
     def sanitize_uri(uri)
+      # Fix some weirdness surrounding escaped ampersands in URIs.
+      uri.gsub!(/&#38;/,"&")
       # Return if there's nothing to sanitize with
       return uri unless self.base_uri
       begin

@@ -54,8 +54,8 @@ module RDFObject
       self.delete(resource.uri)
     end
     
-    def parse(data, format=nil)
-      parser = Parser.init_parser(data, format)
+    def parse(data, options={})
+      parser = Parser.init_parser(data, options)
       parser.collection = self
       parser.parse
       nil

@@ -40,4 +40,13 @@ describe "An RDFObject Collection" do
     collection.uris.should_not include('http://example.org/5678')
   end  
   
+  it "should call the parser properly" do
+    collection = Collection.new
+    rdf = open(File.dirname(__FILE__) + '/files/xml-base.rdf')
+    lambda{collection.parse(rdf, {:format=>"rdfxml"})}.should_not raise_exception()
+    rdf.rewind
+    collection2 = Parser.parse(rdf)
+    collection.should ==(collection2)
+  end
+  
 end

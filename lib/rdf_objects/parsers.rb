@@ -290,6 +290,7 @@ module RDFObject
       @parser = Nokogiri::XML::SAX::Parser.new(self)
       @hierarchy = []
       @xml_base = nil
+      @default_namespace = nil
     end
     
     def data=(xml)
@@ -314,19 +315,37 @@ module RDFObject
       end
     end
     
-    def attributes_to_hash(attributes)
+    def attributes_to_hash(attributes, namespaces, name, prefix)
       hash = {}
       attributes.each do | att |
-        hash[att.localname] = att.value
+        ns = att.uri || @default_namespace
+        unless ns =~ /[#\/]$/
+          ns << "/"
+        end
+        hash["#{ns}#{att.localname}"] = att.value
       end
       hash
     end
     
+    def attributes_as_assertions(attributes)
+      skip = ["http://www.w3.org/XML/1998/namespace/lang", "http://www.w3.org/XML/1998/namespace/base", 
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#resource", "http://www.w3.org/1999/02/22-rdf-syntax-ns#about",
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID", "http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"]
+      attributes.each_pair do | uri, value |
+        next if skip.index(uri)
+        lit = Literal.new(value, {:data_type=>attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"],
+          :language=>attributes["http://www.w3.org/XML/1998/namespace/lang"]})
+        self.current_resource.assert(uri, lit)
+      end
+    end
+    
     def add_layer name, attributes, prefix, uri, ns
       layer = {:name=>"#{uri}#{name}"}
-      if attributes['about'] or attributes['nodeID']
-        id = attributes['about'] || attributes['nodeID']
-        id = sanitize_uri(id) if attributes['about']
+      if attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#about'] or 
+        attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID']
+        id = attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#about'] || 
+          attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID']
+        id = sanitize_uri(id) if attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#about']
         layer[:resource] = @collection.find_or_create(id)
         unless "#{uri}#{name}" == "http://www.w3.org/1999/02/22-rdf-syntax-ns#Description"
           layer[:resource].relate("http://www.w3.org/1999/02/22-rdf-syntax-ns#type", @collection.find_or_create("#{uri}#{name}"))
@@ -334,20 +353,21 @@ module RDFObject
         if !@hierarchy.empty? && @hierarchy.last[:predicate]
           self.current_resource.relate(self.current_predicate, layer[:resource])
         end
-      elsif attributes["resource"] 
-        self.current_resource.assert("#{uri}#{name}", @collection.find_or_create(sanitize_uri(attributes['resource'])))    
+      elsif attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#resource"] 
+        self.current_resource.assert("#{uri}#{name}", @collection.find_or_create(sanitize_uri(attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#resource'])))    
         layer[:predicate] = layer[:name]
       else
         unless layer[:name] == "http://www.w3.org/1999/02/22-rdf-syntax-ns#RDF"
           layer[:predicate] = layer[:name]
         end
       end
-      if attributes["datatype"] || attributes["lang"]
-        layer[:datatype] = attributes["datatype"] if attributes["datatype"]
-        layer[:language] = attributes["lang"] if attributes["lang"]        
+      if attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"] || attributes["http://www.w3.org/XML/1998/namespace/lang"]
+        layer[:datatype] = attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"] if attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"]
+        layer[:language] = attributes["http://www.w3.org/XML/1998/namespace/lang"] if attributes["http://www.w3.org/XML/1998/namespace/lang"]        
       end    
-      layer[:base_uri] = URI.parse(attributes["base"]) if attributes["base"]  
+      layer[:base_uri] = URI.parse(attributes["http://www.w3.org/XML/1998/namespace/base"]) if attributes["http://www.w3.org/XML/1998/namespace/base"]  
       @hierarchy << layer  
+      attributes_as_assertions(attributes)
     end
     
     def remove_layer(name)
@@ -393,11 +413,20 @@ module RDFObject
     end
     
     def start_element_namespace name, attributes = [], prefix = nil, uri = nil, ns = {}
-       attributes = attributes_to_hash(attributes)
-       add_layer(name, attributes, prefix, uri, ns)
-     end
+      check_for_default_ns(ns)
+      attributes = attributes_to_hash(attributes, ns, name, prefix)
+      add_layer(name, attributes, prefix, uri, ns)
+    end
 
-
+    def check_for_default_ns(ns)
+      return unless self.current_resource.empty?
+      ns.each do | n |
+        if n.first.nil?
+          @default_namespace = n.last
+        end
+      end
+    end
+    
     def characters text
       if self.current_literal && !text.strip.empty?
         self.current_literal << text.strip

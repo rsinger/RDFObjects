@@ -250,9 +250,9 @@ module RDFObject
   
   class BlankNode < OpenStruct
     include RDFObject::Node
-    require 'md5'
+    require 'digest/md5'
     def initialize(node_id = nil)        
-      super(:node_id=>sanitize_bnode_id(node_id||MD5.md5(self.object_id.to_s + "/" + DateTime.now.to_s).to_s))
+      super(:node_id=>sanitize_bnode_id(node_id||Digest::MD5.hexdigest(self.object_id.to_s + "/" + DateTime.now.to_s).to_s))
     end    
     
     def describe; end

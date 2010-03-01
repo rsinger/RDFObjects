@@ -157,4 +157,14 @@ describe "An RDFObject Parser" do
     collection.keys.should include("_:genid18")
     collection["_:genid18"].should be_kind_of(BlankNode)
   end
+  
+  it "should identify and parse assertions in attributes in RDF/XML" do
+    rdf = open(File.dirname(__FILE__) + '/files/assertions-as-attributes.rdf')
+    collection = Parser.parse(rdf)
+    collection.keys.should include('http://example.org/ex/1234')
+    resource = collection['http://example.org/ex/1234']
+    resource.rdf['type'].uri.should ==('http://xmlns.com/foaf/0.1/Person')
+    resource.foaf['name'].should ==('John Doe')
+    resource.foaf['pastProject'].uri.should ==('http://dbtune.org/musicbrainz/resource/artist/ddd553d4-977e-416c-8f57-e4b72c0fc746')
+  end
 end

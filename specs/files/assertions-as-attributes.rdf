@@ -1,0 +1,6 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:foaf="http://xmlns.com/foaf/0.1/">
+  <foaf:Person rdf:about="http://example.org/ex/1234" foaf:name="John Doe">
+    <foaf:pastProject rdf:resource="http://dbtune.org/musicbrainz/resource/artist/ddd553d4-977e-416c-8f57-e4b72c0fc746" />
+    <foaf:homepage rdf:resource="http://www.theejohndoe.com/" />
+  </foaf:Person>
+</rdf:RDF>

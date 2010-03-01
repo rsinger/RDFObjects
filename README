@@ -1,7 +1,9 @@
 RDFObjects are intended to simplify working with RDF data by providing a (more) Ruby-like interface to resources (thanks to OpenStruct).
 
+There is a Google Group at http://groups.google.com/group/rdfobjects to discuss problems, enhancements, changes, announcements, etc.
+
 Installation:
-  The gem is currently hosted at http://gemcutter.org/gems/rdfobjects so you'll either need the gemcutter gem (and run "gem tumble") or add gemcutter.org to your sources manually (gem sources -a http://gemcutter.org)
+  The gem is currently hosted at http://gemcutter.org/gems/rdfobjects so you'll either need the gemcutter gem (and run "gem tumble") or add gemcutter.org to your sources manually (gem sources -a http://gemcutter.org).
   
   $ sudo gem install rdfobjects
 

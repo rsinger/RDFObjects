@@ -194,7 +194,7 @@ module RDFObject
         scanner.getch
         tmp_object = scanner.scan_until(/("\s?\.\s*\n?$)|("@[A-z])|("\^\^)/)
         scanner.pos=(scanner.pos-2)
-        tmp_object.sub!(/"..$/,'')
+        tmp_object.sub!(/"..?$/,'')
         if tmp_object.respond_to?(:force_encoding)
           tmp_object.force_encoding('utf-8').chomp!
         else

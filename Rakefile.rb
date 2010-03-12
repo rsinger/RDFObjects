@@ -23,6 +23,7 @@ begin
     gemspec.authors = ["Ross Singer"]
     gemspec.add_dependency('nokogiri')
     gemspec.add_dependency('curies')  
+    gemspec.add_dependency('addressable')      
     gemspec.requirements << 'json, json_pure or json-ruby required for parsing RDF/JSON'
     gemspec.files = Dir.glob("{lib,spec}/**/*") + ["README", "LICENSE"]
     gemspec.require_path = 'lib'    

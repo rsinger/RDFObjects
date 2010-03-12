@@ -77,14 +77,16 @@ module RDFObject
         end        
       else
         # Check to see if it is a URI being passed
-        begin
-          uri = URI.parse(rdf)
-          if uri.is_a?(URI::HTTP)
-            response =  HTTPClient.fetch(rdf)
-            rdf = response[:content]
-            options[:base_uri] = response[:uri]
+        if rdf.is_a?(String)
+          begin
+            uri = Addressable::URI.parse(rdf)
+            if uri.ip_based?
+              response =  HTTPClient.fetch(rdf)
+              rdf = response[:content]
+              options[:base_uri] = response[:uri]
+            end
+          rescue URI::InvalidURIError
           end
-        rescue URI::InvalidURIError
         end
         # Check if the format is XML or RDFa
         doc = XMLTestDocument.new
@@ -141,7 +143,7 @@ module RDFObject
       if uri.is_a?(URI)
         @base_uri = uri
       else
-        @base_uri = URI.parse(uri)
+        @base_uri = Addressable::URI.parse(uri).normalize
       end
     end
     
@@ -151,7 +153,7 @@ module RDFObject
       # Return if there's nothing to sanitize with
       return uri unless self.base_uri
       begin
-        u = URI.parse(uri)
+        u = Addressable::URI.parse(uri).normalize
         return uri if u.host
         fq_uri = self.base_uri+u
         fq_uri.to_s
@@ -365,7 +367,7 @@ module RDFObject
         layer[:datatype] = attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"] if attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"]
         layer[:language] = attributes["http://www.w3.org/XML/1998/namespace/lang"] if attributes["http://www.w3.org/XML/1998/namespace/lang"]        
       end    
-      layer[:base_uri] = URI.parse(attributes["http://www.w3.org/XML/1998/namespace/base"]) if attributes["http://www.w3.org/XML/1998/namespace/base"]  
+      layer[:base_uri] = Addressable::URI.parse(attributes["http://www.w3.org/XML/1998/namespace/base"]).normalize if attributes["http://www.w3.org/XML/1998/namespace/base"]  
       @hierarchy << layer  
       attributes_as_assertions(attributes)
     end

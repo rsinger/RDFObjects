@@ -2,6 +2,7 @@ module RDFObject
   require 'rubygems'
   require 'ostruct'
   require 'curies'
+  require 'addressable/uri'
   require File.dirname(__FILE__) + '/rdf_objects/parsers'
   require File.dirname(__FILE__) + '/rdf_objects/rdf_resource'
   require File.dirname(__FILE__) + '/rdf_objects/curies'

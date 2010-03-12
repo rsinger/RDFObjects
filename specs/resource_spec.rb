@@ -98,5 +98,11 @@ describe "An RDFObject Resource" do
     bnode.node_id.should ==("blankNode")
     bnode.uri.should ==("_:blankNode")
   end
+  
+  it "should not create blank nodes from valid IRIs" do
+    BlankNode.is_bnode_id?("urn:ISBN:0195174623").should ==(false)
+    BlankNode.is_bnode_id?("info:lccn/2003069776").should ==(false)    
+    BlankNode.is_bnode_id?("_:foobar").should ==(true)
+  end
 
 end

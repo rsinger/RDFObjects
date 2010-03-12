@@ -279,8 +279,8 @@ module RDFObject
         str = Curie.parse str
       end
       begin
-        uri = URI.parse(str)
-        return true unless uri.scheme
+        uri = Addressable::URI.parse(str).normalize
+        return true if uri.scheme.nil? or !uri.scheme =~ /[A-z]/
       rescue URI::InvalidURIError
         return true
       end

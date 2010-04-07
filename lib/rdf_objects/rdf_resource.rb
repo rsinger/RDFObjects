@@ -160,7 +160,7 @@ module RDFObject
             [*objects].each do | object |
               rdf << "<#{key}:#{predicate}"
               namespaces["xmlns:#{key}"] = "#{Curie.parse("[#{key}:]")}"
-              if object.is_a?(RDFObject::ResourceReference)
+              if object.is_a?(RDFObject::ResourceReference) || object.is_a?(RDFObject::BlankNode)
                 if depth == 0
                   rdf << " #{object.xml_object_attribute} />"
                 else

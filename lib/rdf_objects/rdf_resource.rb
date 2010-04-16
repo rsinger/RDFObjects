@@ -112,7 +112,7 @@ module RDFObject
             end
             objects.each do | object |           
               line = "#{ntriples_format} <#{uri}#{pred}> "
-              if object.is_a?(ResourceReference)
+              if object.is_a?(ResourceReference) || object.is_a?(BlankNode)
                 line << object.ntriples_format
               else
                 line << "#{object.to_json}"
@@ -125,7 +125,7 @@ module RDFObject
                   end
                 end
               end
-              line << ".\n"
+              line << " .\n"
               ntriples << line              
             end
           end

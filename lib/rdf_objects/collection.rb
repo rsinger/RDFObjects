@@ -90,6 +90,14 @@ module RDFObject
       rdf << rdf_data
       rdf << "</rdf:RDF>"
       rdf      
-    end    
+    end 
+    
+    def to_json
+      j_hash = {}
+      self.values.each do |resource|
+        j_hash.merge!(resource.to_json_hash)
+      end
+      JSON.generate(j_hash)
+    end
   end
 end

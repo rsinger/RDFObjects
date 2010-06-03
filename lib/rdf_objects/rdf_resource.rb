@@ -14,6 +14,8 @@ module RDFObject
       pred_attr = self.send(curied_predicate.prefix.to_sym)
       if object.is_a?(Resource)
         object = ResourceReference.new(object)
+      elsif !object.is_a?(ResourceReference) && !object.is_a?(BlankNode)
+        object = RDF::Literal.new(object) unless object.is_a?(RDF::Literal)
       end
       return if assertion_exists?(predicate, object)
       if pred_attr[curied_predicate.reference]
@@ -24,7 +26,8 @@ module RDFObject
       else
         pred_attr[curied_predicate.reference] = object
       end
-    end
+    end    
+
     
     def assertion_exists?(predicate, object)
       return false unless self[predicate]
@@ -115,15 +118,10 @@ module RDFObject
               if object.is_a?(ResourceReference) || object.is_a?(BlankNode)
                 line << object.ntriples_format
               else
-                line << "#{object.to_json}"
-                if (object.respond_to?(:data_type) || object.respond_to?(:language))
-                  if object.data_type
-                    line << "^^<#{object.data_type}>"
-                  end
-                  if object.language
-                    line << "@#{object.language}"
-                  end
-                end
+                object = RDF::Literal.new(object) unless object.is_a?(RDF::Literal)
+                line << "#{object.value.to_json}"
+                line << "^^<#{object.datatype}>" if object.has_datatype?
+                line << "@#{object.language}" if object.has_language?
               end
               line << " .\n"
               ntriples << line              
@@ -151,6 +149,40 @@ module RDFObject
       rdf      
     end
     
+    def to_json_hash
+      j_hash = {self.uri=>{}}
+      self.assertions.each_pair do |pred,objects|
+        j_hash[self.uri][pred] = []
+        if objects.is_a?(Array)
+          objects.each do |object|
+            j_hash[self.uri][pred] << object_to_json_hash(object)              
+          end
+        else
+          j_hash[self.uri][pred] << object_to_json_hash(objects)   
+        end
+      end
+      j_hash
+    end
+    
+    def object_to_json_hash(object)
+      if object.is_a?(Resource) or object.is_a?(ResourceReference)
+        o = {:type=>"uri", :value=>object.uri}
+      elsif object.is_a?(BlankNode)
+        o = {:type=>"bnode", :value=>object.uri}
+      else
+        object = RDF::Literal.new(object) unless object.is_a?(RDF::Literal)
+        o = {:type=>"literal", :value=>object.value}
+        o[:lang] = object.language.to_s if object.has_language?
+        o[:datatype] = object.datatype.to_s if object.has_datatype?        
+      end
+      o
+    end
+      
+    
+    def to_json
+      JSON.generate(to_json_hash)
+    end
+    
     def rdf_description_block(depth=0)
       rdf = "<rdf:Description #{xml_subject_attribute}>"
       namespaces = {}
@@ -171,13 +203,14 @@ module RDFObject
                   rdf << "</#{key}:#{predicate}>"
                 end
               else
+                object = RDF::Literal.new(object) unless object.is_a?(RDF::Literal)
                 if object.language
                   rdf << " xml:lang=\"#{object.language}\""
                 end
-                if object.data_type
-                  rdf << " rdf:datatype=\"#{object.data_type}\""
+                if object.datatype
+                  rdf << " rdf:datatype=\"#{object.datatype}\""
                 end
-                rdf << ">#{CGI.escapeHTML(object.to_s)}</#{key}:#{predicate}>"
+                rdf << ">#{CGI.escapeHTML(object.value)}</#{key}:#{predicate}>"
               end
             end
           end
@@ -190,39 +223,29 @@ module RDFObject
     def ==(other)
       return false unless other.is_a?(self.class) or other.is_a?(ResourceReference)
       return false unless self.uri == other.uri
-      Curie.get_mappings.each do | prefix, uri |
-        next unless self[uri] or other[uri]
-        return false if self[uri] && !other[uri]
-        return false if !self[uri] && other[uri]     
-        return false if self[uri].class != other[uri].class  
-        if self[uri] != other[uri]
-          if self[uri].is_a?(Hash)            
-            return false unless self[uri].keys.eql?(other[uri].keys)
-            self[uri].keys.each do | pred |
-              if self[uri][pred].is_a?(Array)
-                return false unless self[uri][pred].length == other[uri][pred].length
-                self[uri][pred].each do | idx |
-                  return false unless other[uri][pred].index(idx)
-                end
-                other[uri][pred].each do | idx |
-                  return false unless self[uri][pred].index(idx)
-                end
-              else
-                if self[uri][pred].is_a?(Resource) or self[uri][pred].is_a?(BlankNode) or self[uri][pred].is_a?(ResourceReference)
-                  return false unless other[uri][pred].is_a?(Resource) or self[uri][pred].is_a?(BlankNode) or other[uri][pred].is_a?(ResourceReference)
-                  return false unless self[uri][pred].uri == other[uri][pred].uri
-                else
-                  return false unless self[uri][pred] == other[uri][pred]
-                end
-              end
+      return false unless self.assertions.keys.sort == other.assertions.keys.sort
+      self.assertions.each_pair do |pred, objects|
+        return false if objects.class != other[pred].class
+        objects = [objects] unless objects.is_a?(Array)
+        objects.each do | o |
+          match = false
+          [*other[pred]].each do |oo|
+            next unless oo
+            next unless o.class == oo.class
+            if oo.is_a?(RDF::Literal)
+              match = o == oo
+            else
+              match = o.uri == oo.uri
             end
-          else
-            return false 
+            break if match
           end
+          return false unless match
         end
+
       end
-      true
+      return true      
     end
+    
   end    
   
   class Resource < OpenStruct

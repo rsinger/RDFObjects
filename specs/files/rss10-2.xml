@@ -60,7 +60,6 @@
       </skos:Concept>
     </skos:narrower>
     <skos:prefLabel xml:lang="en">Italy--History--To 476</skos:prefLabel>
-    <skos:prefLabel>Italy--History--To 476</skos:prefLabel>
     <dcterms:created>1986-02-11T00:00:00-04:00</dcterms:created>
     <skos:inScheme>
       <rdf:Description rdf:about="http://id.loc.gov/authorities#conceptScheme"/>
@@ -213,7 +212,6 @@
       </skos:Concept>
     </skos:narrower>
     <skos:prefLabel xml:lang="en">Italy--History--To 476</skos:prefLabel>
-    <skos:prefLabel>Italy--History--To 476</skos:prefLabel>
     <dcterms:created>1986-02-11T00:00:00-04:00</dcterms:created>
     <skos:inScheme>
       <rdf:Description rdf:about="http://id.loc.gov/authorities#conceptScheme"/>

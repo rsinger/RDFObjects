@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <rdf:type rdf:resource="http://rdf.freebase.com/ns/user.narphorium.people.nndb_person"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:common.topic.article xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/guid.9202a8c04000641f8000000000112eb9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.ross_macdonald"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.sara_paretsky"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.mickey_spillane"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.paul_auster"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.chester_himes"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.richard_morgan"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.jason_smilovic"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.william_s_burroughs"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.william_gibson"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.walter_mosley"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.james_ellroy"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.robert_crais"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.john_d_macdonald"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.raymond_chandler"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.sue_grafton"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.robert_b_parker"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:influence.influence_node.influenced xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.lawrence_block"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:sameAs xmlns:ns0="http://www.w3.org/2002/07/owl#" rdf:resource="http://dbpedia.org/resource/Dasheill_Hammet"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:sameAs xmlns:ns0="http://www.w3.org/2002/07/owl#" rdf:resource="http://dbpedia.org/resource/Dashiell_hammet"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:sameAs xmlns:ns0="http://www.w3.org/2002/07/owl#" rdf:resource="http://dbpedia.org/resource/Samuel_hammett"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:sameAs xmlns:ns0="http://www.w3.org/2002/07/owl#" rdf:resource="http://dbpedia.org/resource/Dashiel_Hammett"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:sameAs xmlns:ns0="http://www.w3.org/2002/07/owl#" rdf:resource="http://dbpedia.org/resource/Samuel_Hammett"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:sameAs xmlns:ns0="http://www.w3.org/2002/07/owl#" rdf:resource="http://dbpedia.org/resource/Daschiell_Hammet"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:sameAs xmlns:ns0="http://www.w3.org/2002/07/owl#" rdf:resource="http://dbpedia.org/resource/Dashiell_Hammet"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:sameAs xmlns:ns0="http://www.w3.org/2002/07/owl#" rdf:resource="http://dbpedia.org/resource/Samuel_Dashiell_Hammett"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:sameAs xmlns:ns0="http://www.w3.org/2002/07/owl#" rdf:resource="http://dbpedia.org/resource/Dashiel_Hammet"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:sameAs xmlns:ns0="http://www.w3.org/2002/07/owl#" rdf:resource="http://dbpedia.org/resource/Dashiel_hammet"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:sameAs xmlns:ns0="http://www.w3.org/2002/07/owl#" rdf:resource="http://dbpedia.org/resource/Dashiell_Hammett"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:people.person.profession xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.novelist"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:people.person.profession xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.writer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:attributionName xmlns:ns0="http://creativecommons.org/ns#">Source: Freebase - The World's database</ns0:attributionName>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <rdf:type rdf:resource="http://rdf.freebase.com/ns/freebase.apps.hosts.com.acre.juggle.juggle"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <rdf:type rdf:resource="http://rdf.freebase.com/ns/user.narphorium.people.topic"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <rdf:type rdf:resource="http://rdf.freebase.com/ns/book.author"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <rdf:type rdf:resource="http://rdf.freebase.com/ns/people.person"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <rdf:type rdf:resource="http://rdf.freebase.com/ns/award.award_nominee"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <rdf:type rdf:resource="http://rdf.freebase.com/ns/influence.influence_node"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <rdf:type rdf:resource="http://rdf.freebase.com/ns/film.film_story_contributor"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <rdf:type rdf:resource="http://rdf.freebase.com/ns/common.topic"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <rdf:type rdf:resource="http://rdf.freebase.com/ns/people.deceased_person"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <rdf:type rdf:resource="http://rdf.freebase.com/ns/fictional_universe.fictional_character_creator"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <rdf:type rdf:resource="http://rdf.freebase.com/ns/film.writer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:attributionURL xmlns:ns0="http://creativecommons.org/ns#" rdf:resource="http://www.freebase.com/view/en/dashiell_hammett"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:film.writer.film xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_glass_key"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:film.writer.film xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_thin_man_1934"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:film.writer.film xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.watch_on_the_rhine"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:film.writer.film xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.shadow_of_the_thin_man"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:film.writer.film xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.city_streets"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:film.writer.film xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_glass_key_1935"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:film.writer.film xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_maltese_falcon_1941"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:film.writer.film xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.no_good_deed"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:film.writer.film xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.after_the_thin_man"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:fictional_universe.fictional_character_creator.fictional_characters_created xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.sam_spade"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:people.deceased_person.place_of_burial xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.arlington_national_cemetery"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:people.person.date_of_birth xmlns:ns0="http://rdf.freebase.com/ns/">1894-05-27</ns0:people.person.date_of_birth>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:people.person.gender xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.male"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:people.deceased_person.place_of_death xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.new_york"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780850468120.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/guid.9202a8c04000641f80000000099fbbbd"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780893406080.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_maltese_falcon_everyman_39_s_library_classics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780890640449.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_dain_curse_crime_masterworks"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780304293155.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9785557117807.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780140088762.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/guid.9202a8c04000641f8000000009a13db3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780394717746.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780394726243.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.dain_curse"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780752847641.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.red_harvest_isis_series"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.red_harvest_otto_penzler_39_s_first_edition_library"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780679722632.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780330242622.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780736640398.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780865471573.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780893406066.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_thin_man_classic_crime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/guid.9202a8c04000641f8000000009a270a1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_dain_curse_isis_series"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780304293162.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9781856957960.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_maltese_falcon_bbc_radio_collection"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780141027241.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780753107058.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780893403294.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780792735908.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_maltese_falcon_read_a_great_movie"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.red_harvest_crime_masterworks"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780394717739.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780899661155.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780140285574.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_thin_man_mystery_masters"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780671030742.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780140024357.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.glass_key"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780394717722.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_maltese_falcon_mystery_masters_series"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9781850180289.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9781572703636.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/guid.9202a8c04000641f8000000009a134dd"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780679722625.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_maltese_falcon_crime_masterworks"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780783894591.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780304293148.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_glass_key_isis"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_glass_key_isis_series"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780679722601.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780893403317.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780893403300.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780679722618.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780679722649.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780910457019.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9781572704435.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780679740940.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780394718286.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780898455915.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780783894607.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780330242615.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780762188673.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_glass_key_crime_masterworks"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.book_editions_published xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/soft.isbn.9780394718279.best"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:fictional_universe.person_in_fiction.representations_in_fiction xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/guid.9202a8c04000641f8000000010c471f6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:common.topic.image xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/wikipedia.images.commons_id.3348905"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:common.topic.image xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/wikipedia.images.ru_id.750353"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:people.person.place_of_birth xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.st_marys_county"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:people.deceased_person.date_of_death xmlns:ns0="http://rdf.freebase.com/ns/">1961-01-10</ns0:people.deceased_person.date_of_death>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.name xmlns:ns0="http://rdf.freebase.com/ns/" xml:lang="ko">대실 해미트</ns0:type.object.name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.name xmlns:ns0="http://rdf.freebase.com/ns/" xml:lang="he">דשייל האמט</ns0:type.object.name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.name xmlns:ns0="http://rdf.freebase.com/ns/" xml:lang="ru">Хэммет, Дэшил</ns0:type.object.name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.name xmlns:ns0="http://rdf.freebase.com/ns/" xml:lang="en">Dashiell Hammett</ns0:type.object.name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.name xmlns:ns0="http://rdf.freebase.com/ns/" xml:lang="es">Dashiell Hammett</ns0:type.object.name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.name xmlns:ns0="http://rdf.freebase.com/ns/" xml:lang="zh">達許·漢密特</ns0:type.object.name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.name xmlns:ns0="http://rdf.freebase.com/ns/" xml:lang="de">Dashiell Hammett</ns0:type.object.name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.name xmlns:ns0="http://rdf.freebase.com/ns/" xml:lang="ja">ダシール・ハメット</ns0:type.object.name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.name xmlns:ns0="http://rdf.freebase.com/ns/" xml:lang="fr">Dashiell Hammett</ns0:type.object.name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.name xmlns:ns0="http://rdf.freebase.com/ns/" xml:lang="it">Dashiell Hammett</ns0:type.object.name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.book_subject.works xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/guid.9202a8c04000641f800000000c0a23cd"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.book_subject.works xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/guid.9202a8c04000641f800000000d5f13e1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.book_subject.works xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/guid.9202a8c04000641f800000000be02613"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.book_subject.works xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.locked_rooms"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:people.person.nationality xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.united_states"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:film.film_subject.films xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.hammett"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.works_written xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_maltese_falcon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.works_written xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_glass_key"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.works_written xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_19th_murder"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.works_written xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/guid.9202a8c04000641f8000000009f40dec"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.works_written xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_dain_curse"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.works_written xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_thin_man"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.works_written xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/guid.9202a8c04000641f800000000bf208c2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.works_written xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_cleansing_of_poisonville"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.works_written xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.red_harvest"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:book.author.works_written xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.crime_wanted_male_or_female"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid1">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">09eR1jd8XJ4j0</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid1">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/authority.daylife.topic"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid1"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid2">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">Dasheill_Hammet</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid2">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/wikipedia.en"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid2"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid3">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">Dashiel_Hammett</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid3">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/wikipedia.en"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid3"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid4">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">194785</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid4">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/authority.tvrage.person"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid4"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid5">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">OL28314A</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid5">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/authority.openlibrary.author"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid5"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid6">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">009a-97e7</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid6">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/user.avh.ellerdale"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid6"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid7">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">Samuel_Hammett</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid7">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/wikipedia.en"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid7"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid8">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">144853</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid8">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/wikipedia.en_id"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid8"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid9">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">Dashiell_Hammet</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid9">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/wikipedia.en"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid9"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid10">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">dashiell_hammett</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid10">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid10"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid11">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">Dashiel_hammet</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid11">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/wikipedia.en"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid11"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid12">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">Daschiell_Hammet</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid12">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/wikipedia.en"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid12"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid13">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">top$002Freference$002Ftimestopics$002Fpeople$002Fh$002Fdashiell_hammett</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid13">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/source.nytimes"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid13"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid14">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">Samuel_Dashiell_Hammett</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid14">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/wikipedia.en"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid14"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid15">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">Dashiell_hammet</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid15">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/wikipedia.en"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid15"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid16">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">Samuel_hammett</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid16">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/wikipedia.en"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid16"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid17">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">Dashiell_Hammett</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid17">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/wikipedia.en"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid17"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid18">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">Dashiel_Hammet</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid18">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/wikipedia.en"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid18"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid19">
+    <ns0:type.value.value xmlns:ns0="http://rdf.freebase.com/ns/">174$002F000025099</ns0:type.value.value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid19">
+    <ns0:type.key.namespace xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/guid.9202a8c04000641f8000000008e5719d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:type.object.key xmlns:ns0="http://rdf.freebase.com/ns/" rdf:nodeID="genid19"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:people.deceased_person.cause_of_death xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.lung_cancer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:license xmlns:ns0="http://www.w3.org/1999/xhtml/vocab#" rdf:resource="http://creativecommons.org/licenses/by/3.0/"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:freebase.apps.hosts.com.freebaseapps.juggle.juggle.juggleid xmlns:ns0="http://rdf.freebase.com/ns/" xml:lang="en">Dashiell-Hammett</ns0:freebase.apps.hosts.com.freebaseapps.juggle.juggle.juggleid>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:film.film_story_contributor.film_story_credits xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.the_maltese_falcon_1931"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:film.film_story_contributor.film_story_credits xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.satan_met_a_lady"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/guid.9202a8c04000641f800000000abaa777">
+    <rdf:type rdf:resource="http://rdf.freebase.com/ns/award.award_nomination"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/guid.9202a8c04000641f800000000abaa777">
+    <ns0:award.award_nomination.nominated_for xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.watch_on_the_rhine"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/guid.9202a8c04000641f800000000abaa777">
+    <ns0:award.award_nomination.award xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.academy_award_for_writing_adapted_screenplay"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/guid.9202a8c04000641f800000000abaa777">
+    <ns0:award.award_nomination.year xmlns:ns0="http://rdf.freebase.com/ns/">1943</ns0:award.award_nomination.year>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/guid.9202a8c04000641f800000000abaa777">
+    <ns0:award.award_nomination.award_nominee xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/en.dashiell_hammett"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdf.freebase.com/ns/en.dashiell_hammett">
+    <ns0:award.award_nominee.award_nominations xmlns:ns0="http://rdf.freebase.com/ns/" rdf:resource="http://rdf.freebase.com/ns/guid.9202a8c04000641f800000000abaa777"/>
+  </rdf:Description>
+</rdf:RDF>

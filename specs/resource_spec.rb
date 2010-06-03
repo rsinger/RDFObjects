@@ -21,17 +21,17 @@ describe "An RDFObject Resource" do
   it "should let us assert a literal with a full URI" do
     r1 = Resource.new('http://example.org/1234')
     r1.assert('http://purl.org/dc/terms/title', 'Foobar')
-    r1['http://purl.org/dc/terms/title'].should match('Foobar')
+    r1['http://purl.org/dc/terms/title'].value.should match('Foobar')
   end
   it "should let us assert a literal with a safe curie" do
     r1 = Resource.new('http://example.org/1234')
     r1.assert('[dc:creator]', 'William Shakespeare')
-    r1['http://purl.org/dc/elements/1.1/creator'].should match('William Shakespeare')
+    r1['http://purl.org/dc/elements/1.1/creator'].value.should match('William Shakespeare')
   end  
   it "should let us access an object by using a safe curie of the predicate as a hash key" do
     r1 = Resource.new('http://example.org/1234')
     r1.assert('http://purl.org/dc/elements/1.1/creator', 'William Shakespeare')
-    r1['[dc:creator]'].should match('William Shakespeare')
+    r1['[dc:creator]'].value.should match('William Shakespeare')
   end  
   it "should return all assertions within a namespace by passing the namespace URI as a hash key" do
     r1 = Resource.new('http://example.org/1234')
@@ -42,19 +42,19 @@ describe "An RDFObject Resource" do
     dct.has_key?('title').should be_true
     dct.has_key?('dateCopyrighted').should be_true    
     dct.has_key?('subject').should be_false
-    dct['title'].should match('Foobar')
+    dct['title'].value.should match('Foobar')
   end  
   it "should return all assertions within a namespace by passing the safe curie prefix as a hash key" do
     r1 = Resource.new('http://example.org/1234')
     r1.assert('[dc:creator]', 'William Shakespeare')
     r1['[dc:]'].should be_kind_of(Hash)
     dc = r1["[dc:]"]
-    dc['creator'].should match("William Shakespeare")
+    dc['creator'].value.should match("William Shakespeare")
   end
   it "should turn an already set predicate into an array if there are multiple assertions" do
     r1 = Resource.new('http://example.org/1234')
     r1.assert('[dc:creator]', 'William Shakespeare')
-    r1["[dc:creator]"].should be_kind_of(String)
+    r1["[dc:creator]"].should be_kind_of(RDF::Literal)
     r1.assert("http://purl.org/dc/elements/1.1/creator", "Silliam Whakespeare")
     r1["[dc:creator]"].should be_kind_of(Array)
   end
@@ -87,7 +87,7 @@ describe "An RDFObject Resource" do
     r2.relate("[rdf:type]", "[foaf:Person]")
     r2.relate("http://www.w3.org/2002/07/owl#sameAs","http://viaf.org/viaf/96994048.rwo")
     r1.object_id.should_not equal(r2.object_id)
-    r1.should_not == r2
+    r1.should_not ==(r2)
   end  
   
   it "should create blank nodes" do

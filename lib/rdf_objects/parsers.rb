@@ -207,12 +207,13 @@ module RDFObject
           scanner.getch
           language = scanner.scan_until(/\s?\.\n?$/)
           language.sub!(/\s?\.\n?$/,'')
+          language = language.to_sym
         elsif scanner.match?(/\^\^/)
           scanner.skip_until(/</)
           data_type = scanner.scan_until(/>/)
           data_type.sub!(/>$/,'')
         end
-        object = Literal.new(tmp_object,{:data_type=>data_type,:language=>language})
+        object = RDF::Literal.new(tmp_object,{:datatype=>data_type,:language=>language})
         type = "literal"      
       end
       {:subject=>subject, :predicate=>predicate, :object=>object, :type=>type}
@@ -335,8 +336,10 @@ module RDFObject
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID", "http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"]
       attributes.each_pair do | uri, value |
         next if skip.index(uri)
-        lit = Literal.new(value, {:data_type=>attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"],
-          :language=>attributes["http://www.w3.org/XML/1998/namespace/lang"]})
+        lit = RDF::Literal.new(value, {:datatype=>attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"]})
+        if attributes["http://www.w3.org/XML/1998/namespace/lang"]
+          lit.language = attributes["http://www.w3.org/XML/1998/namespace/lang"].to_sym
+        end
         self.current_resource.assert(uri, lit)
       end
     end
@@ -365,7 +368,7 @@ module RDFObject
       end
       if attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"] || attributes["http://www.w3.org/XML/1998/namespace/lang"]
         layer[:datatype] = attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"] if attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"]
-        layer[:language] = attributes["http://www.w3.org/XML/1998/namespace/lang"] if attributes["http://www.w3.org/XML/1998/namespace/lang"]        
+        layer[:language] = attributes["http://www.w3.org/XML/1998/namespace/lang"].to_sym if attributes["http://www.w3.org/XML/1998/namespace/lang"]        
       end    
       layer[:base_uri] = Addressable::URI.parse(attributes["http://www.w3.org/XML/1998/namespace/base"]).normalize if attributes["http://www.w3.org/XML/1998/namespace/base"]  
       @hierarchy << layer  
@@ -381,7 +384,7 @@ module RDFObject
     end
     
     def assert_literal(layer)
-      lit = RDFObject::Literal.new(layer[:literal], {:data_type=>layer[:datatype], :language=>layer[:language]})  
+      lit = RDF::Literal.new(layer[:literal], {:datatype=>layer[:datatype], :language=>layer[:language]})  
       self.current_resource.assert(layer[:predicate], lit) if layer[:predicate]     
     end
     
@@ -440,16 +443,20 @@ module RDFObject
     end  
   end  
   
-  class RDFAParser < XMLParser
+  class RDFAParser < Parser
     def data=(xhtml)
-      if xhtml.is_a?(Nokogiri::XML::Document)
-        doc = xhtml
-      else
-        doc = Nokogiri::XML.parse(xhtml)
-      end
-      xslt = Nokogiri::XSLT(open(File.dirname(__FILE__) + '/../xsl/RDFa2RDFXML.xsl'))
-      @rdfxml = xslt.apply_to(doc)      
+      @rdfa = xhtml  
     end    
+    
+    def parse
+      rdfa_parser = RdfaParser::RdfaParser.new()
+      html = open(uri)
+      ntriples = ""
+      rdfa_parser.parse(@rdfa, base_uri).each do | triple |
+        ntriples << triple.to_ntriples + "\n"
+      end
+      RDFObject::Parser.parse(ntriples)
+    end      
   end
 
   class JSONParser < RDFObject::Parser
@@ -472,12 +479,12 @@ module RDFObject
             if object['type'] == 'literal'
               opts = {}
               if object['lang']
-                opts[:language] = object['lang']
+                opts[:language] = object['lang'].to_sym
               end
               if object['datatype']
-                opts[:data_type] = object['datatype']
+                opts[:datatype] = object['datatype']
               end
-              literal = Literal.new(object['value'],opts)
+              literal = RDF::Literal.new(object['value'],opts)
               resource.assert(predicate, literal)
             elsif object['type'] == 'uri'
               o = @collection.find_or_create(object['value'])

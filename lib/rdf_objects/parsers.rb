@@ -347,7 +347,7 @@ module RDFObject
     def add_layer name, attributes, prefix, uri, ns
       layer = {:name=>"#{uri}#{name}"}
       if attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#about'] or 
-        attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID']
+        (attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID'] && (@hierarchy.length == 1 || @hierarchy.last[:predicate]))
         id = attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#about'] || 
           attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID']
         id = sanitize_uri(id) if attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#about']
@@ -358,8 +358,10 @@ module RDFObject
         if !@hierarchy.empty? && @hierarchy.last[:predicate]
           self.current_resource.relate(self.current_predicate, layer[:resource])
         end
-      elsif attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#resource"] 
-        self.current_resource.assert("#{uri}#{name}", @collection.find_or_create(sanitize_uri(attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#resource'])))    
+      elsif attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#resource"] or 
+          (attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID'] && @hierarchy.length > 1 && @hierarchy.last[:predicate].nil?)
+          res = attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#resource'] || attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID']
+        self.current_resource.assert("#{uri}#{name}", @collection.find_or_create(sanitize_uri(res)))    
         layer[:predicate] = layer[:name]
       else
         unless layer[:name] == "http://www.w3.org/1999/02/22-rdf-syntax-ns#RDF"
@@ -371,7 +373,7 @@ module RDFObject
         layer[:language] = attributes["http://www.w3.org/XML/1998/namespace/lang"].to_sym if attributes["http://www.w3.org/XML/1998/namespace/lang"]        
       end    
       layer[:base_uri] = Addressable::URI.parse(attributes["http://www.w3.org/XML/1998/namespace/base"]).normalize if attributes["http://www.w3.org/XML/1998/namespace/base"]  
-      @hierarchy << layer  
+      @hierarchy << layer
       attributes_as_assertions(attributes)
     end
     
@@ -420,6 +422,7 @@ module RDFObject
     def start_element_namespace name, attributes = [], prefix = nil, uri = nil, ns = {}
       check_for_default_ns(ns)
       attributes = attributes_to_hash(attributes, ns, name, prefix)
+      
       add_layer(name, attributes, prefix, uri, ns)
     end
 
@@ -439,7 +442,7 @@ module RDFObject
     end
 
     def end_element_namespace name, prefix = nil, uri = nil
-      remove_layer("#{uri}#{name}")      
+      remove_layer("#{uri}#{name}")
     end  
   end  
   

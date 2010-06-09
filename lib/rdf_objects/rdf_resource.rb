@@ -196,8 +196,8 @@ module RDFObject
                 if depth == 0
                   rdf << " #{object.xml_object_attribute} />"
                 else
-                  rdf << ">"
-                  ns, rdf_data = object.resource.rdf_description_block(depth-1)
+                  rdf << ">"                  
+                  ns, rdf_data = object.rdf_description_block(depth-1)
                   namespaces.merge!(ns)
                   rdf << rdf_data
                   rdf << "</#{key}:#{predicate}>"

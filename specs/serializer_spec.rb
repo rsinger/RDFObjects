@@ -104,4 +104,24 @@ XML
     parsed_collection = Parser.parse(collection.to_json)
     parsed_collection.should ==(collection)
   end
+  
+  it "should properly serialize an RDF/XML with nested graphs" do
+    resource = Resource.new('http://example.org/ex/1234')
+    resource.assert("[dc:title]", "Resource #1")
+    bnode = BlankNode.new
+    bnode.assert("[dc:title]", "Resource #2")
+    resource.relate("http://purl.org/dc/terms/hasPart", bnode)
+    bnode.relate("http://purl.org/dc/terms/isPartOf", resource)
+    bnode2 = BlankNode.new
+    bnode2.assert("[dc:title]", "Resource #3")
+    resource.relate("http://purl.org/dc/terms/hasPart", bnode2)
+    bnode2.relate("http://purl.org/dc/terms/isPartOf", resource)    
+    bnode2.relate("[rdfs:seeAlso]",bnode)
+    bnode.relate("[rdfs:seeAlso]",bnode2)    
+    resource.to_xml(3).should be_kind_of(String)
+    collection = Parser.parse(resource.to_xml(3))
+    collection[resource.uri].should ==(resource)
+    collection[bnode.uri].should ==(bnode)
+    collection[bnode2.uri].should ==(bnode2)    
+  end
 end

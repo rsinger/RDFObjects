@@ -119,7 +119,7 @@ module RDFObject
                 line << object.ntriples_format
               else
                 object = RDF::Literal.new(object) unless object.is_a?(RDF::Literal)
-                line << "#{object.value.to_json}"
+                line << "#{object.value.to_json(:ascii_only=>true)}"
                 line << "^^<#{object.datatype}>" if object.has_datatype?
                 line << "@#{object.language}" if object.has_language?
               end

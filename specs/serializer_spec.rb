@@ -124,4 +124,11 @@ XML
     collection[bnode.uri].should ==(bnode)
     collection[bnode2.uri].should ==(bnode2)    
   end
+  
+  it "should properly escape a Unicode string for ntriples" do
+    str = "ЗИНГЕР, ИСААК БАШЕВИС, 1904-1992"
+    resource = Resource.new('http://example.org/1')
+    resource.assert("[foaf:name]", str)
+    resource.to_ntriples.should eql("<http://example.org/1> <http://xmlns.com/foaf/0.1/name> \"\\u0417\\u0418\\u041d\\u0413\\u0415\\u0420, \\u0418\\u0421\\u0410\\u0410\\u041a \\u0411\\u0410\\u0428\\u0415\\u0412\\u0418\\u0421, 1904-1992\" .\n")
+  end
 end

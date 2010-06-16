@@ -333,7 +333,8 @@ module RDFObject
     def attributes_as_assertions(attributes)
       skip = ["http://www.w3.org/XML/1998/namespace/lang", "http://www.w3.org/XML/1998/namespace/base", 
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#resource", "http://www.w3.org/1999/02/22-rdf-syntax-ns#about",
-        "http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID", "http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"]
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID", "http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype",
+        "http://purl.org/rss/1.0/resource"]
       attributes.each_pair do | uri, value |
         next if skip.index(uri)
         lit = RDF::Literal.new(value, {:datatype=>attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#datatype"]})
@@ -360,7 +361,7 @@ module RDFObject
         end
       elsif attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#resource"] or attributes["http://purl.org/rss/1.0/resource"] or 
           (attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID'] && @hierarchy.length > 1 && @hierarchy.last[:predicate].nil?)
-          res = attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#resource'] || attributes["http://purl.org/rss/1.0/resource"] || attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID']
+        res = attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#resource'] || attributes["http://purl.org/rss/1.0/resource"] || attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID']
         self.current_resource.assert("#{uri}#{name}", @collection.find_or_create(sanitize_uri(res)))    
         layer[:predicate] = layer[:name]
       else

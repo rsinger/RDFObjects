@@ -358,9 +358,9 @@ module RDFObject
         if !@hierarchy.empty? && @hierarchy.last[:predicate]
           self.current_resource.relate(self.current_predicate, layer[:resource])
         end
-      elsif attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#resource"] or 
+      elsif attributes["http://www.w3.org/1999/02/22-rdf-syntax-ns#resource"] or attributes["http://purl.org/rss/1.0/resource"] or 
           (attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID'] && @hierarchy.length > 1 && @hierarchy.last[:predicate].nil?)
-          res = attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#resource'] || attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID']
+          res = attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#resource'] || attributes["http://purl.org/rss/1.0/resource"] || attributes['http://www.w3.org/1999/02/22-rdf-syntax-ns#nodeID']
         self.current_resource.assert("#{uri}#{name}", @collection.find_or_create(sanitize_uri(res)))    
         layer[:predicate] = layer[:name]
       else
